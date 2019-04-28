@@ -1,0 +1,25 @@
+{
+  "name": "shop",
+  "version": "1.0.0",
+  "description": "shop-template",
+  "main": "none",
+  "dependencies": {
+    "concurrently": "^4.1.0",
+    "prettier": "^1.15.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "see ./backend or ./frontend",
+    "app": "concurrently \"cd frontend && npm run dev\" \"cd backend && npm run dev\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/turisap/shop-template.git"
+  },
+  "author": "Kirill Shakirov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/turisap/shop-template/issues"
+  },
+  "homepage": "https://github.com/turisap/shop-template#readme"
+}

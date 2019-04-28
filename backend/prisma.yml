@@ -1,0 +1,10 @@
+#endpoint: ${env:PRISMA_ENDPOINT}
+#endpoint: https://eu1.prisma.sh/kirill-shakirov-5f22b4/shop-template/dev
+endpoint: https://shop-template-prod-ef22bb65a9.herokuapp.com
+#endpoint: https://shop-template-dev-4663c2addf.herokuapp.com/shop-template-test/dev
+
+secret: ${env:PRISMA_SECRET}
+datamodel: datamodel.prisma
+hooks:
+  post-deploy:
+    - graphql get-schema -p prisma
