@@ -67,7 +67,7 @@ const Header = () => (
         <div className="bar">
             <Logo>
                 <Link href="/">
-                    <a>{CONFIG.SHOP_NAME}</a>
+                    <a>{CONFIG.APP_NAME}</a>
                 </Link>
             </Logo>
             <Nav/>

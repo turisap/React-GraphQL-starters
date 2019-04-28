@@ -1,12 +1,37 @@
 // This is client side config only - don't put anything in here that shouldn't be public!
 const CONFIG = {
-    SHOP_NAME : 'TurShop',
+    APP_NAME : 'BOILERPLATE',
+
+    /**
+     * Value for pagination
+   */
     ITEMS_PER_PAGE : 4,
+
+    /**
+    * End point for GraphQl server for development (look at backend/.env
+    */
     END_POINT_DEV : 'http://localhost:4444',
-    END_POINT_PROD : 'https://shop-yoga-hui.herokuapp.com/',
-    CLOUDINARY_PRESET : 'shop_improvements',
-    CLOUDINARY_ENDPOINT : 'https://api.cloudinary.com/v1_1/dyqwnbgpw/image/upload',
-    STRIPE_PUBLISHABLE_KEY : 'pk_test_ytLlKjz9U0X0SSqy8swdzAX600QBo7AsYA',
+
+    /**
+     * End point for GraphQl server for production
+    */
+    END_POINT_PROD : 'PRODUCTION ENDPOINT',
+
+    /**
+     * Preset at cloudinary project (pictures uploading)
+   */
+    CLOUDINARY_PRESET : 'YOUR CLOUDINARY PRESET',
+
+   /**
+    * End point for cloudinary application
+   */
+    CLOUDINARY_ENDPOINT : 'YOUR CLOUDINARY PRESET',
+
+    /**
+     * Stripe key for charging credit cards
+   */
+    STRIPE_PUBLISHABLE_KEY : 'YOUR KEY',
+
     CURRENCY : 'NZD',
 
 };

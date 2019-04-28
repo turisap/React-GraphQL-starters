@@ -5,7 +5,6 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { CONFIG } from '../config';
 import PropTypes from 'prop-types';
-import PaginationStyles from './styles/PaginationStyles';
 
 const PAGINATION_QUERY = gql`
     query PAGINATION_QUERY {
@@ -28,7 +27,7 @@ const Pagination = props => (
             return (
                 <PaginationStyles data-test="pagination">
                     <Head>
-                        <title>{CONFIG.SHOP_NAME} - Page {page} of {pages}
+                        <title>{CONFIG.APP_NAME} - Page {page} of {pages}
 
                         </title>
                     </Head>
