@@ -4,7 +4,6 @@ import NProgress from 'nprogress';
 import styled from 'styled-components';
 import Nav from './Nav';
 import { CONFIG } from '../config';
-import Cart from './Cart';
 import Search from './Search';
 
 
@@ -75,7 +74,6 @@ const Header = () => (
         <div className="sub-bar">
             <Search/>
         </div>
-        <Cart/>
     </StyledHeader>
 );
 

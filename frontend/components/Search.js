@@ -53,46 +53,44 @@ class AutoComplete  extends React.Component {
 
     render() {
         return (
-            <SearchStyles>
-                <Downshift onChange={this.routeToItem} itemToString={item => (item === null ? '' : item.title)}>
-                    {({ getInputProps, getItemProps, isOpen, inputValue, highlightedIndex }) => (
-                        <div>
-                            <ApolloConsumer>
-                                {client => (
-                                    <input
-                                        {...getInputProps({
-                                            type: 'search',
-                                            placeholder: 'Search For An Item',
-                                            id: 'search',
-                                            className: this.state.loading ? 'loading' : '',
-                                            onChange: e => {
-                                                e.persist();
-                                                this.onChange(e, client);
-                                            },
-                                        })}
-                                    />
-                                )}
-                            </ApolloConsumer>
-                            {isOpen && (
-                                <DropDown>
-                                    {this.state.items.map((item, index) => (
-                                        <DropDownItem
-                                            {...getItemProps({ item })}
-                                            key={item.id}
-                                            highlighted={index === highlightedIndex}
-                                        >
-                                            <img width="50" src={item.image} alt={item.title} />
-                                            {item.title}
-                                        </DropDownItem>
-                                    ))}
-                                    {!this.state.items.length &&
-                                    !this.state.loading && <DropDownItem> Nothing Found {inputValue}</DropDownItem>}
-                                </DropDown>
-                            )}
-                        </div>
-                    )}
-                </Downshift>
-            </SearchStyles>
+          <Downshift onChange={this.routeToItem} itemToString={item => (item === null ? '' : item.title)}>
+            {({ getInputProps, getItemProps, isOpen, inputValue, highlightedIndex }) => (
+              <div>
+                <ApolloConsumer>
+                  {client => (
+                    <input
+                      {...getInputProps({
+                        type: 'search',
+                        placeholder: 'Search For An Item',
+                        id: 'search',
+                        className: this.state.loading ? 'loading' : '',
+                        onChange: e => {
+                          e.persist();
+                          this.onChange(e, client);
+                        },
+                      })}
+                    />
+                  )}
+                </ApolloConsumer>
+                {isOpen && (
+                  <DropDown>
+                    {this.state.items.map((item, index) => (
+                      <DropDownItem
+                        {...getItemProps({ item })}
+                        key={item.id}
+                        highlighted={index === highlightedIndex}
+                      >
+                        <img width="50" src={item.image} alt={item.title} />
+                        {item.title}
+                      </DropDownItem>
+                    ))}
+                    {!this.state.items.length &&
+                    !this.state.loading && <DropDownItem> Nothing Found {inputValue}</DropDownItem>}
+                  </DropDown>
+                )}
+              </div>
+            )}
+          </Downshift>
         )
     }
 }

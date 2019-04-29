@@ -1,9 +1,9 @@
-import Items from '../components/Items';
+import Home from '../components/Home';
 
-const Home = props => (
+const HomePage = props => (
     <div>
-        <Items/>
+        <Home/>
     </div>
 );
 
-export default Home;
+export default HomePage;

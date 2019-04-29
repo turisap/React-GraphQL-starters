@@ -7,13 +7,13 @@ import Meta from './Meta';
 class Page extends Component {
     render() {
         return (
-            <ThemeProvider theme={theme}>
-                <StyledPage>
-                    <Meta/>
-                    <Header/>
-                    <Inner>{this.props.children}</Inner>
-                </StyledPage>
-            </ThemeProvider>
+            <>
+              <Meta/>
+              <Header/>
+              <div className="page__contents">
+                {this.props.children}
+              </div>
+            </>
         );
     }
 }
