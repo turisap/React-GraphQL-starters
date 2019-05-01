@@ -2,7 +2,7 @@ const { forwardTo } = require("prisma-binding");
 const { hasPermission } = require("../utils");
 const { PERMISSIONS } = require("../PermissionTypes");
 const { transport } = require('../mail');
-const mjml2html = require('mjml');
+const  HelloWorldEmail  = require('../emails/HelloWorld');
 
 
 const Query = {
@@ -24,34 +24,28 @@ const Query = {
             );
         },
 
+      /**
+       * Sending emails method example with mjml templates
+       * @param parent
+       * @param args
+       * @param ctx
+       * @param info
+       * @returns {Promise<*>}
+       */
         async sendEmail(parent, args, ctx, info) {
-            // console.log('HUI');
-            // return {text : 'HUEVO'}
+            const { html, error } = HelloWorldEmail;
+            if(error) throw new Error(error.message);
 
-            const htmlOutput = mjml2html(
-              `
-                      <mjml>
-                        <mj-body>
-                          <mj-section>
-                            <mj-column>
-                              <mj-text>
-                                Hello World!
-                              </mj-text>
-                            </mj-column>
-                          </mj-section>
-                        </mj-body>
-                      </mjml>
-                    `
-            );
-
-            console.log(Object.keys(htmlOutput))
 
             const resRequest = await transport.sendMail({
                 from : process.env.MAIL_OWNER_ADDRESS,
                 to : 'lol@mail.ru',
-                subject : 'Your password reset link',
-                html : htmlOutput.html
+                subject : 'Hello world',
+                html
             });
+
+            if(!resRequest.rejected.length) return { message : 'Your email has been sent'};
+            return { message : "There was a problem sending your email"}
         }
 
 }

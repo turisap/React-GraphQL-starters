@@ -5,5 +5,5 @@ type User {
 
 type SuccessMessage {
    id: ID! @id
-   text : String!
+   message : String!
 }

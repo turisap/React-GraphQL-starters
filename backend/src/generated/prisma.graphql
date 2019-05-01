@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/kirill-shakirov-5f22b4/boilerplate/dev
-# timestamp: Tue Apr 30 2019 21:40:53 GMT+1200 (New Zealand Standard Time)
+# timestamp: Wed May 01 2019 17:13:09 GMT+1200 (New Zealand Standard Time)
 
 type AggregateSuccessMessage {
   count: Int!
@@ -84,7 +84,7 @@ type Subscription {
 
 type SuccessMessage implements Node {
   id: ID!
-  text: String!
+  message: String!
 }
 
 """A connection to a list of items."""
@@ -99,7 +99,7 @@ type SuccessMessageConnection {
 
 input SuccessMessageCreateInput {
   id: ID
-  text: String!
+  message: String!
 }
 
 """An edge in a connection."""
@@ -114,13 +114,13 @@ type SuccessMessageEdge {
 enum SuccessMessageOrderByInput {
   id_ASC
   id_DESC
-  text_ASC
-  text_DESC
+  message_ASC
+  message_DESC
 }
 
 type SuccessMessagePreviousValues {
   id: ID!
-  text: String!
+  message: String!
 }
 
 type SuccessMessageSubscriptionPayload {
@@ -163,11 +163,11 @@ input SuccessMessageSubscriptionWhereInput {
 }
 
 input SuccessMessageUpdateInput {
-  text: String
+  message: String
 }
 
 input SuccessMessageUpdateManyMutationInput {
-  text: String
+  message: String
 }
 
 input SuccessMessageWhereInput {
@@ -219,46 +219,46 @@ input SuccessMessageWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  text: String
+  message: String
 
   """All values that are not equal to given value."""
-  text_not: String
+  message_not: String
 
   """All values that are contained in given list."""
-  text_in: [String!]
+  message_in: [String!]
 
   """All values that are not contained in given list."""
-  text_not_in: [String!]
+  message_not_in: [String!]
 
   """All values less than the given value."""
-  text_lt: String
+  message_lt: String
 
   """All values less than or equal the given value."""
-  text_lte: String
+  message_lte: String
 
   """All values greater than the given value."""
-  text_gt: String
+  message_gt: String
 
   """All values greater than or equal the given value."""
-  text_gte: String
+  message_gte: String
 
   """All values containing the given string."""
-  text_contains: String
+  message_contains: String
 
   """All values not containing the given string."""
-  text_not_contains: String
+  message_not_contains: String
 
   """All values starting with the given string."""
-  text_starts_with: String
+  message_starts_with: String
 
   """All values not starting with the given string."""
-  text_not_starts_with: String
+  message_not_starts_with: String
 
   """All values ending with the given string."""
-  text_ends_with: String
+  message_ends_with: String
 
   """All values not ending with the given string."""
-  text_not_ends_with: String
+  message_not_ends_with: String
 }
 
 input SuccessMessageWhereUniqueInput {
