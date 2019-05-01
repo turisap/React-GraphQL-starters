@@ -10,6 +10,7 @@ const { PERMISSIONS, ALLOWED_DELETE_ITEMS } = require('../PermissionTypes');
 
 const Mutations = {
 
+
     async signup(parent, args, ctx, info) {
         args.email = args.email.toLowerCase();
         const password = await bcrypt.hash(args.password, 10);

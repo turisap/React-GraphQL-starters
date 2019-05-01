@@ -11,6 +11,7 @@ type Mutation {
 
 type Query {
     me : User
+    sendEmail (type : String!, text : String!) : SuccessMessage
 }
 
 
