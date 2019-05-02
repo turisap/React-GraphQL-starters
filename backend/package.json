@@ -10,7 +10,6 @@
     "lint": "eslint --fix src/**/*.js",
     "precommit-msg": "echo 'Pre-commit checks...' && exit 0"
   },
-  "pre-commit": [ "lint" ],
   "dependencies": {
     "babel-preset-env": "^1.7.0",
     "bcryptjs": "2.4.3",
