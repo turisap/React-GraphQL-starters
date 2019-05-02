@@ -1,8 +1,11 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import App, { Container } from "next/app";
 import Page from "../components/Page";
 import { ApolloProvider } from "react-apollo";
 import WithData from "../lib/withData";
+import css from "../styles/styles.scss";
+/* eslint-enable no-unused-vars */
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
