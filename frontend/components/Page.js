@@ -5,7 +5,7 @@ import Meta from "./Meta";
 
 class Page extends Component {
   static propTypes = {
-    children: PropTypes.isRequired.object
+    children: PropTypes.object.isRequired
   };
 
   render() {

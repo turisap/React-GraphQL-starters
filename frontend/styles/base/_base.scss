@@ -1,0 +1,43 @@
+@import "./mixins";
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: $m-size;
+  overflow-x: hidden;
+}
+
+// prevents accidental overflow
+img, embed, video, object {
+  max-width: 100%;
+}
+
+// animation for page changes
+.mount-animation-appear {
+  opacity: 0.01;
+}
+
+// animation for page changes
+.mount-animation-appear.mount-animation-appear-active {
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+}
+
+.error {
+  color : #b20000;
+  font-weight: bold;
+}
+
+// loading animation
+.loading-icon {
+  @include display-flex(center, false);
+  align-items: center;
+  min-height: 80vh;
+}
+
+.divider {
+  margin-top: 5rem;
+}

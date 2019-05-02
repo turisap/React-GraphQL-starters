@@ -1,0 +1,30 @@
+// COLORS
+$text-on-black: #cccccc;
+$text-on-white: rgba(0, 0, 0, 0.65);
+$link-on-white: #656565;
+$black-background: #000000;
+$offwhite-background: rgba(249, 249, 249, 0.67);
+$grey: #ddd;
+$off-black : #45494E;
+$error : #d40f00;
+
+//SPACING AND SIZING
+$xs-size: 0.6rem;
+$s-size: 1.2rem;
+$m-size: 1.6rem;
+$l-size: 2.0rem;
+$xl-size: 2.5rem;
+$section_padding : .5rem;
+$section_margin  : 1rem 0;
+$big_section_margin : 5rem 0;
+
+// BORDERS
+$grey-border: 1px solid #ddd;
+$dark-border: 1px solid darken(#ddd, 3%);
+
+// BREAKPOINTS
+$desktop_breakpoint : 1025;
+$laptop_breakpoint : 991px;
+$tablet_breakpoint : 768px;
+$mobiles_breakpoint : 340px;
+$mobiles_breakpoint : 340px;
