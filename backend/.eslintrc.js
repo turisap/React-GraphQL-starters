@@ -11,30 +11,30 @@ module.exports = {
     },
     "rules": {
         "indent": [
-            "warn",
+            "error",
             4
         ],
         "linebreak-style": [
-            "warn",
+            "error",
             "windows"
         ],
         "quotes": [
-            "warn",
+            "error",
             "double"
         ],
         "semi": [
-            "warn",
+            "error",
             "always"
         ],
         "no-undef": [
-          "warn"
+          "error"
         ],
         "no-unused-vars": [
           "error",
             { "args" : "none" }
         ],
         "no-console": [
-          "warn"
+          "error"
         ]
     }
 };

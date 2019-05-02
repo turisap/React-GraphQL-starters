@@ -1,7 +1,6 @@
 import React from "react";
-import SampleEmail from "../emails/SampleEmail";
 
-const Test = props => (
+const Test = () => (
   <div>
     <p>test</p>
   </div>
