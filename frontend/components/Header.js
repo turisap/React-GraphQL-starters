@@ -1,27 +1,26 @@
-import Link from 'next/link';
-import Router from 'next/router';
-import NProgress from 'nprogress';
-import styled from 'styled-components';
-import Nav from './Nav';
-import { CONFIG } from '../config';
-import Search from './Search';
-
+import React from "react";
+import Link from "next/link";
+import Router from "next/router";
+import NProgress from "nprogress";
+import styled from "styled-components";
+import Nav from "./Nav";
+import { CONFIG } from "../config";
+import Search from "./Search";
 
 /**
  * Listening for Router events to trigger nprogress bar
  */
 Router.onRouteChangeStart = () => {
-    NProgress.start();
+  NProgress.start();
 };
 
 Router.onRouteChangeComplete = () => {
-    NProgress.done();
+  NProgress.done();
 };
 
 Router.onRouteChangeError = () => {
-    NProgress.done();
+  NProgress.done();
 };
-
 
 const Logo = styled.h1`
   font-size: 4rem;
@@ -62,20 +61,19 @@ const StyledHeader = styled.header`
 `;
 
 const Header = () => (
-    <StyledHeader>
-        <div className="bar">
-            <Logo>
-                <Link href="/">
-                    <a>{CONFIG.APP_NAME}</a>
-                </Link>
-            </Logo>
-            <Nav/>
-        </div>
-        <div className="sub-bar">
-            <Search/>
-        </div>
-    </StyledHeader>
+  <StyledHeader>
+    <div className="bar">
+      <Logo>
+        <Link href="/">
+          <a>{CONFIG.APP_NAME}</a>
+        </Link>
+      </Logo>
+      <Nav />
+    </div>
+    <div className="sub-bar">
+      <Search />
+    </div>
+  </StyledHeader>
 );
 
 export default Header;
-

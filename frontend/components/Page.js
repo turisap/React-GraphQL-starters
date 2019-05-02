@@ -1,23 +1,22 @@
-import React, {Component} from 'react';
-import styled, { ThemeProvider, injectGlobal} from 'styled-components';
-import Header from './Header';
-import Meta from './Meta';
-
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import Header from "./Header";
+import Meta from "./Meta";
 
 class Page extends Component {
-    render() {
-        return (
-            <>
-              <Meta/>
-              <Header/>
-              <div className="page__contents">
-                {this.props.children}
-              </div>
-            </>
-        );
-    }
-}
+  static propTypes = {
+    children: PropTypes.isRequired.object
+  };
 
-Page.propTypes = {};
+  render() {
+    return (
+      <>
+        <Meta />
+        <Header />
+        <div className="page__contents">{this.props.children}</div>
+      </>
+    );
+  }
+}
 
 export default Page;

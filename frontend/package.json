@@ -9,12 +9,14 @@
   },
   "scripts": {
     "globals": "npm i -g cross-env",
-    "dev": "next -p 7777",
+    "dev": "npm run server && npm run lint",
+    "server": "next -p 7777",
     "build": "cross-env NODE_ENV=production next build",
     "start": "next start -p $PORT",
     "test": "cross-env NODE_ENV=test jest --watch",
     "test-win": "SET NODE_ENV=test & jest --watch",
-    "heroku-postbuild": "cross-env NODE_ENV=production  next build"
+    "heroku-postbuild": "cross-env NODE_ENV=production  next build",
+    "lint": "esw --fix components/**/*.js lib/**/*.js pages/**/*js"
   },
   "author": "turisap",
   "license": "ISC",
@@ -47,13 +49,20 @@
     "waait": "^1.0.2"
   },
   "devDependencies": {
+    "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
     "babel-plugin-module-resolver": "^3.1.1",
     "casual": "^1.5.19",
     "enzyme-to-json": "^3.3.4",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.2.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.12.4",
+    "eslint-watch": "^5.1.2",
     "graphql-tools": "^4.0.0",
     "jest": "^23.6.0",
-    "jest-transform-graphql": "^2.1.0"
+    "jest-transform-graphql": "^2.1.0",
+    "prettier": "1.17.0"
   },
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>/jest.setup.js",

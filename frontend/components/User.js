@@ -1,6 +1,7 @@
-import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
-import propTypes from 'prop-types';
+import React from "react";
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
+import propTypes from "prop-types";
 
 /**here we grab an item in this query based on relationship between CartItem and Item**/
 const CURRENT_USER_QUERY = gql`
@@ -11,31 +12,31 @@ const CURRENT_USER_QUERY = gql`
       name
       permissions
       orders {
-          id
+        id
       }
       cart {
+        id
+        quantity
+        item {
           id
-          quantity
-          item {
-              id
-              title
-              price
-              image
-              description
-          }
-      }  
+          title
+          price
+          image
+          description
+        }
+      }
     }
   }
 `;
 
 const User = props => (
-    <Query {...props} query={CURRENT_USER_QUERY}>
-        {payload =>  props.children(payload)}
-    </Query>
+  <Query {...props} query={CURRENT_USER_QUERY}>
+    {payload => props.children(payload)}
+  </Query>
 );
 
 User.propTypes = {
-    children: propTypes.func.isRequired,
+  children: propTypes.func.isRequired
 };
 
 export default User;

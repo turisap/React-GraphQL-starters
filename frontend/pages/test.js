@@ -1,4 +1,5 @@
-import SampleEmail from '../emails/SampleEmail';
+import React from "react";
+import SampleEmail from "../emails/SampleEmail";
 
 const Test = props => (
   <div>
