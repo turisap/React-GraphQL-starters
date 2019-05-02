@@ -1,8 +1,8 @@
-require('dotenv').config({path : '.env'});
-const cookieParser = require('cookie-parser');
-const jwt = require('jsonwebtoken');
-const createServer = require('./createServer');
-const DB = require('./db');
+require("dotenv").config({path : ".env"});
+const cookieParser = require("cookie-parser");
+const jwt = require("jsonwebtoken");
+const createServer = require("./createServer");
+const DB = require("./db");
 
 const server = createServer();
 
@@ -33,7 +33,7 @@ server.express.use((req, res, next) => {
  */
 server.express.use(async (req, res, next) => {
     if (!req.userId) return next();
-    const user = await DB.query.user({ where : { id : req.userId }}, '{id, permissions, email, name}');
+    const user = await DB.query.user({ where : { id : req.userId }}, "{id, permissions, email, name}");
     req.user = user;
     next();
 });
@@ -46,5 +46,7 @@ server.start({
         origin : process.env.FRONTEND_URL
     }
 }, deets => {
-    console.log(`Server is now running on port http://localhost${deets.port}`)
+    /* eslint-disable no-console */
+    console.log(`Server is now running on port http://localhost${deets.port}`);
+    /*eslint-enable no-console */
 });

@@ -1,10 +1,8 @@
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const { randomBytes } = require('crypto');
-const { promisify } = require('util');
-const { transport, makeANiceEmail } = require('../mail');
-const { hasPermission } = require('../utils');
-const { PERMISSIONS, ALLOWED_DELETE_ITEMS } = require('../PermissionTypes');
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const { randomBytes } = require("crypto");
+const { promisify } = require("util");
+const { transport, makeANiceEmail } = require("../mail");
 
 
 
@@ -18,7 +16,7 @@ const Mutations = {
             data: {
                 ...args,
                 password,
-                permissions: {set: ['USER']}
+                permissions: {set: ["USER"]}
             }
         }, info);
 
@@ -35,7 +33,7 @@ const Mutations = {
 
 
         const validUser = await bcrypt.compare(password, user.password);
-        if (!validUser) throw new Error('Wrong password');
+        if (!validUser) throw new Error("Wrong password");
 
         _signInWithToken(ctx, user, 14);
         return user;
@@ -45,8 +43,8 @@ const Mutations = {
 
 
     signout (parent, args, ctx, info) {
-        ctx.response.clearCookie('token');
-        return {message: 'GoodBuy'}
+        ctx.response.clearCookie("token");
+        return {message: "GoodBuy"};
     },
 
 
@@ -56,10 +54,10 @@ const Mutations = {
         if (!user) throw new Error(`There is no such a user for this ${args.email}`);
 
         const randomBytesPromisified = promisify(randomBytes);
-        const resetToken = (await randomBytesPromisified(20)).toString('hex');
+        const resetToken = (await randomBytesPromisified(20)).toString("hex");
         const resetTokenExpiry = Date.now() + 3600000;
 
-        const res = await ctx.db.mutation.updateUser({
+        await ctx.db.mutation.updateUser({
             where : { email : args.email },
             data  : {
                 resetToken,
@@ -67,15 +65,15 @@ const Mutations = {
             }
         });
 
-        const resRequest = await transport.sendMail({
+        await transport.sendMail({
             from : process.env.MAIL_OWNER_ADDRESS,
             to : args.email,
-            subject : 'Your password reset link',
+            subject : "Your password reset link",
             html : makeANiceEmail(`Your password reset token is here!
             <a href="${process.env.FRONTEND_URL}/reset?resetToken=${resetToken}">Click here to reset your Password</a>`)
         });
 
-        return {message : "Goodbuy"}
+        return {message : "Goodbuy"};
     },
 
 
@@ -119,7 +117,7 @@ const Mutations = {
  */
 const _signInWithToken = (ctx, user, days) => {
     const token = jwt.sign({userId : user.id}, process.env.APP_SECRET);
-    ctx.response.cookie('token', token, {
+    ctx.response.cookie("token", token, {
         httpOnly : true,
         maxAge : 1000 * 60 * 60 * 24 * days
     });

@@ -6,8 +6,11 @@
     "start": "nodemon -e js,graphql -x node src/index.js",
     "dev": "nodemon -e js,graphql -x node --inspect src/index.js",
     "test": "jest",
-    "deploy": "prisma deploy --env-file .env"
+    "deploy": "prisma deploy --env-file .env",
+    "lint": "eslint --fix src/**/*.js",
+    "precommit-msg": "echo 'Pre-commit checks...' && exit 0"
   },
+  "pre-commit": [ "lint" ],
   "dependencies": {
     "babel-preset-env": "^1.7.0",
     "bcryptjs": "2.4.3",
@@ -34,5 +37,9 @@
     "presets": [
       "env"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "pre-commit": "^1.2.2"
   }
 }

@@ -1,4 +1,4 @@
-const mjml = require('mjml');
+const mjml = require("mjml");
 
 const HelloWorldEmail = mjml(`
   <mjml>

@@ -1,5 +1,4 @@
-const nodeMailer = require('nodemailer');
-const mjml2html = require('mjml');
+const nodeMailer = require("nodemailer");
 
 const transport = nodeMailer.createTransport({
     host : process.env.MAIL_HOST,
