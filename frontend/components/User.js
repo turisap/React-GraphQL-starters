@@ -29,11 +29,13 @@ const CURRENT_USER_QUERY = gql`
   }
 `;
 
-const User = props => (
-  <Query {...props} query={CURRENT_USER_QUERY}>
-    {payload => props.children(payload)}
-  </Query>
-);
+const User = props => {
+  return (
+    <Query {...props} query={CURRENT_USER_QUERY}>
+      {payload => props.children(payload)}
+    </Query>
+  );
+};
 
 User.propTypes = {
   children: propTypes.func.isRequired

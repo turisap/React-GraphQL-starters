@@ -21,6 +21,7 @@
   "author": "turisap",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/core": "^3.9.3",
     "@zeit/next-sass": "^1.0.1",
     "apollo-boost": "^0.1.16",
     "apollo-client": "^2.4.2",
@@ -33,6 +34,7 @@
     "fs": "0.0.1-security",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.9.2",
+    "hover.css": "^2.3.2",
     "lodash.debounce": "^4.0.8",
     "mjml": "^4.4.0-beta.1",
     "mjml-react": "^1.0.52",

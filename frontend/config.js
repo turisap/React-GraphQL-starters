@@ -1,5 +1,7 @@
 // This is client side config only - don't put anything in here that shouldn't be public!
 const CONFIG = {
+    DEVELOPMENT_MODE : false,
+
     APP_NAME : 'BOILERPLATE',
 
     /**
