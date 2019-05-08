@@ -1,13 +1,53 @@
 @import "./mixins";
+@import "./_settings.scss";
 
 html {
   font-size: 62.5%;
+  box-sizing: border-box;
+  font-family: "Lato", "Lucida Grande", "Lucida Sans Unicode", Tahoma,
+  Sans-Serif;
+  font-weight: normal;
+  color: $text-on-white;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.07);
 }
 
 body {
-  font-family: Helvetica, Arial, sans-serif;
+  margin: 0;
   font-size: $m-size;
   overflow-x: hidden;
+}
+
+#__next {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  grid-template-rows: 1fr 12fr 1fr;
+  grid-template-areas:
+    "nav nav"
+    "sidebar content"
+    "footer footer"
+;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+  margin: 0;
+  font-size: 1.5rem;
 }
 
 // prevents accidental overflow

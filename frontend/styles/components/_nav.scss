@@ -1,0 +1,44 @@
+@import "../base/settings";
+
+nav {
+  display: grid;
+  grid-area: nav;
+  grid-template-columns: 1fr auto;
+  border-bottom: 1px solid $grey;
+  border-top: 1px solid $grey;
+  padding: 1rem;
+  background: $grey;
+}
+
+.nav__left {
+  display: grid;
+  justify-content: left;
+}
+
+.nav__right {
+  min-width: 150rem;
+  display: grid;
+  grid-gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(5rem, 7rem));
+  justify-items: center;
+  align-items: center;
+  justify-content: right;
+}
+
+.nav__link {
+  display: block;
+  background: $offwhite-background;
+  margin: 0;
+  padding: 1rem;
+  text-decoration: none;
+  text-align: center;
+  border: 1px solid $grey;
+  border-radius: 0.5rem;
+  color: $link-on-white;
+
+  //&:hover {
+  //  background: darken($offwhite-background, 10);
+  //  transition: all 0.5s;
+  //}
+}
+

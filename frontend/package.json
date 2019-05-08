@@ -9,7 +9,7 @@
   },
   "scripts": {
     "globals": "npm i -g cross-env",
-    "dev": "npm run server && npm run lint",
+    "dev": "npm run server",
     "server": "next -p 7777",
     "build": "cross-env NODE_ENV=production next build",
     "start": "next start -p $PORT",

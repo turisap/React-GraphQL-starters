@@ -3,7 +3,6 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import propTypes from "prop-types";
 
-/**here we grab an item in this query based on relationship between CartItem and Item**/
 const CURRENT_USER_QUERY = gql`
   query {
     me {
@@ -11,20 +10,6 @@ const CURRENT_USER_QUERY = gql`
       email
       name
       permissions
-      orders {
-        id
-      }
-      cart {
-        id
-        quantity
-        item {
-          id
-          title
-          price
-          image
-          description
-        }
-      }
     }
   }
 `;
