@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Query } from "react-apollo";
+import Link from 'next/link';
 import { CURRENT_USER_QUERY } from "./User";
 import SignIn from "./SignIn";
 
@@ -10,9 +11,14 @@ const Authentication = props => (
       if (loading) return <p>Loading...</p>;
       if (!data.me) {
         return (
-          <div>
-            <p>Please sigin in before continuing</p>
+          <div className="auth">
+            <p>We need to recognize you first..</p>
             <SignIn />
+              <p>Or sign up if you are new to us
+                  <Link href={"/signup"}>
+                    <a>SIGNUP</a>
+                  </Link>
+              </p>
           </div>
         );
       }
@@ -22,7 +28,7 @@ const Authentication = props => (
 );
 
 Authentication.propTypes = {
-  children: PropTypes.isRequired.object()
+  children: PropTypes.object.isRequired
 };
 
 export { Authentication };

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
-import Form from "./styles/Form";
 import Error from "./ErrorMessage";
 import { CURRENT_USER_QUERY } from "./User";
 
@@ -41,7 +40,7 @@ class SignUp extends Component {
       >
         {(signUpFunction, { error, loading }) => {
           return (
-            <Form
+            <form
               method="post"
               onSubmit={async e => {
                 e.preventDefault();
@@ -84,7 +83,7 @@ class SignUp extends Component {
                 </label>
                 <button type="submit">Sign Up</button>
               </fieldset>
-            </Form>
+            </form>
           );
         }}
       </Mutation>

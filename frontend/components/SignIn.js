@@ -34,44 +34,44 @@ class SignIn extends Component {
         variables={this.state}
         refetchQueries={[{ query: CURRENT_USER_QUERY }]}
       >
-        {(signInFunction, { error, loading }) => {
-          return (
-            <form
-              method="post"
-              onSubmit={async e => {
-                e.preventDefault();
-                await signInFunction();
-                this.setState({ name: "", email: "", password: "" });
-              }}
-            >
-              <fieldset disabled={loading} aria-busy={loading}>
-                <h2>Sign into your account</h2>
-                <Error error={error} />
-                <label>
-                  Email
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={this.state.email}
-                    onChange={this.saveToState}
-                  />
-                </label>
-                <label>
-                  Password
-                  <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={this.state.password}
-                    onChange={this.saveToState}
-                  />
-                </label>
-                <button type="submit">Sign Up</button>
-              </fieldset>
-            </form>
-          );
-        }}
+          {(signInFunction, { error, loading }) => {
+              return (
+                <form
+                  method="post"
+                  onSubmit={async e => {
+                      e.preventDefault();
+                      await signInFunction();
+                      this.setState({ name: "", email: "", password: "" });
+                  }}
+                >
+                    <fieldset disabled={loading} aria-busy={loading} className="signin__form">
+                        <h2>Sign into your account</h2>
+                        <Error error={error} />
+                        <label>
+                            Email
+                            <input
+                              type="email"
+                              name="email"
+                              placeholder="Email"
+                              value={this.state.email}
+                              onChange={this.saveToState}
+                            />
+                        </label>
+                        <label>
+                            Password
+                            <input
+                              type="password"
+                              name="password"
+                              placeholder="Password"
+                              value={this.state.password}
+                              onChange={this.saveToState}
+                            />
+                        </label>
+                        <button type="submit">Sign In</button>
+                    </fieldset>
+                </form>
+              );
+          }}
       </Mutation>
     );
   }
