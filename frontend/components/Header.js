@@ -20,17 +20,16 @@ Router.onRouteChangeError = () => {
   NProgress.done();
 };
 
-
 const Header = () => (
   <>
-      <nav>
-          <div className="nav__left">
-              <Link href="/">
-                  <a className="nav__link nav__logo hvr-shadow">{CONFIG.APP_NAME}</a>
-              </Link>
-          </div>
-          <Nav />
-      </nav>
+    <nav>
+      <div className="nav__left">
+        <Link href="/">
+          <a className="nav__link nav__logo hvr-shadow">{CONFIG.APP_NAME}</a>
+        </Link>
+      </div>
+      <Nav />
+    </nav>
   </>
 );
 

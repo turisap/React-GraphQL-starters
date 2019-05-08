@@ -17,27 +17,6 @@ body {
   overflow-x: hidden;
 }
 
-#__next {
-  margin: 0;
-  padding: 0;
-  width: 100vw;
-  height: 100vh;
-  display: grid;
-  grid-template-columns: 1fr 5fr;
-  grid-template-rows: 1fr 12fr 1fr;
-  grid-template-areas:
-    "nav nav"
-    "sidebar content"
-    "footer footer"
-;
-}
-
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-}
-
 
 h1,
 h2,
@@ -50,34 +29,37 @@ h6 {
   font-size: 1.5rem;
 }
 
-// prevents accidental overflow
-img, embed, video, object {
-  max-width: 100%;
+
+#__next {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  grid-template-rows: 1fr 12fr 1fr;
+  grid-template-areas:
+    "sidebar nav"
+    "sidebar content"
+    "footer footer"
+;
 }
 
-// animation for page changes
-.mount-animation-appear {
-  opacity: 0.01;
+.page__contents {
+  grid-area: content;
 }
 
-// animation for page changes
-.mount-animation-appear.mount-animation-appear-active {
-  opacity: 1;
-  transition: opacity 1s ease-in-out;
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 
-.error {
-  color : #b20000;
-  font-weight: bold;
-}
-
-// loading animation
-.loading-icon {
-  @include display-flex(center, false);
-  align-items: center;
-  min-height: 80vh;
-}
-
-.divider {
-  margin-top: 5rem;
+.nav__link, .sidebar__link, .footer__link {
+  display: block;
+  margin: 0;
+  padding: 1rem;
+  text-decoration: none;
+  text-align: center;
+  color: $text_on_white;
 }

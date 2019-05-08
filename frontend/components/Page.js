@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Header from './Header';
+import Header from "./Header";
 import Meta from "./Meta";
+import SideBar from "./Sidebar";
+import Footer from "./Footer";
 
 class Page extends Component {
   static propTypes = {
@@ -11,9 +13,11 @@ class Page extends Component {
   render() {
     return (
       <>
-          <Meta />
-          <Header/>
-          <div className="page__contents">{this.props.children}</div>
+        <Meta />
+        <Header />
+        <SideBar />
+        <div className="page__contents">{this.props.children}</div>
+        <Footer />
       </>
     );
   }

@@ -2,7 +2,7 @@
 const CONFIG = {
     DEVELOPMENT_MODE : true,
 
-    APP_NAME : 'BOILERPLATE',
+    APP_NAME : 'Dashboard',
 
     /**
      * Value for pagination

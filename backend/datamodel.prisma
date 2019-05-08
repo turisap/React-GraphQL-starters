@@ -13,6 +13,7 @@ type User {
   email: String!
   password: String!
   permissions: [Permission] @scalarList(strategy: RELATION)
+  avatar: String!
 }
 
 type SuccessMessage {

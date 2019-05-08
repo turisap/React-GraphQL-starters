@@ -4,10 +4,10 @@ nav {
   display: grid;
   grid-area: nav;
   grid-template-columns: 1fr auto;
-  border-bottom: 1px solid $grey;
-  border-top: 1px solid $grey;
+  border-bottom: 0.5px solid $border;
+  border-top: 0.5px solid $border;
   padding: 1rem;
-  background: $grey;
+  background: $background_1;
 }
 
 .nav__left {
@@ -16,7 +16,7 @@ nav {
 }
 
 .nav__right {
-  min-width: 150rem;
+  min-width: 80rem;
   display: grid;
   grid-gap: 2rem;
   grid-template-columns: repeat(auto-fit, minmax(5rem, 7rem));
@@ -26,19 +26,32 @@ nav {
 }
 
 .nav__link {
-  display: block;
-  background: $offwhite-background;
-  margin: 0;
-  padding: 1rem;
-  text-decoration: none;
-  text-align: center;
-  border: 1px solid $grey;
-  border-radius: 0.5rem;
-  color: $link-on-white;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  position: relative;
+  overflow: hidden;
+}
 
-  //&:hover {
-  //  background: darken($offwhite-background, 10);
-  //  transition: all 0.5s;
-  //}
+.nav__link:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  background: $border;
+  height: 4px;
+  -webkit-transition-property: right;
+  transition-property: right;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+
+.nav__link:hover:before, .nav__link:focus:before, .nav__link:active:before {
+  right: 0;
 }
 
