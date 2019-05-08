@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Query } from "react-apollo";
-import Link from 'next/link';
+import Link from "next/link";
 import { CURRENT_USER_QUERY } from "./User";
 import SignIn from "./SignIn";
 
@@ -14,11 +14,12 @@ const Authentication = props => (
           <div className="auth">
             <p>We need to recognize you first..</p>
             <SignIn />
-              <p>Or sign up if you are new to us
-                  <Link href={"/signup"}>
-                    <a>SIGNUP</a>
-                  </Link>
-              </p>
+            <p>
+              Or sign up if you are new to us
+              <Link href={"/signup"}>
+                <a>SIGNUP</a>
+              </Link>
+            </p>
           </div>
         );
       }
