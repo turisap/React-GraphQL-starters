@@ -19,6 +19,7 @@ type User {
   phone: String!,
   resetToken: String,
   resetTokenExpiry: Float
+  verificationEmailToken: String!
 }
 
 type SuccessMessage {

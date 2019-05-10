@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const { randomBytes } = require("crypto");
 const { promisify } = require("util");
 const { transport, makeANiceEmail } = require("../mail");
+const EmailController = require("../controllers/EmailController");
 
 
 
@@ -11,15 +12,34 @@ const Mutations = {
 
     async signup(parent, args, ctx, info) {
         args.email = args.email.toLowerCase();
+        const email = args.email;
+        const existingUser = await ctx.db.query.user({ where : {email} });
+        if(existingUser) throw new Error('This email is already in use');
+
+        const randomBytesPromisified = promisify(randomBytes);
+        const verificationEmailToken = (await randomBytesPromisified(20)).toString("hex");
+        console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++')
+        console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++')
+        console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++')
+        console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++')
+        console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++')
+        console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++')
+        console.log('TOKENNNNN', verificationEmailToken)
         const password = await bcrypt.hash(args.password, 10);
         const user = await ctx.db.mutation.createUser({
             data: {
                 ...args,
                 password,
-                permissions: {set: ["USER"]},
+                verificationEmailToken,
+                permissions: {set: ["USER"]}
             }
         }, info);
 
+        EmailController.sendEmailVerificationEmail({
+          ...user,
+          appName : process.env.APP_NAME,
+          frontendURL: process.env.FRONTEND_URL
+        });
         _signInWithToken(ctx, user, 14);
         return user;
     },

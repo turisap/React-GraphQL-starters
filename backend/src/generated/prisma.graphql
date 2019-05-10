@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/kirill-shakirov-5f22b4/boilerplate/dev
-# timestamp: Fri May 10 2019 20:51:59 GMT+1200 (New Zealand Standard Time)
+# timestamp: Sat May 11 2019 00:41:16 GMT+1200 (New Zealand Standard Time)
 
 type AggregateSuccessMessage {
   count: Int!
@@ -286,6 +286,7 @@ type User implements Node {
   phone: String!
   resetToken: String
   resetTokenExpiry: Float
+  verificationEmailToken: String!
 }
 
 """A connection to a list of items."""
@@ -309,6 +310,7 @@ input UserCreateInput {
   phone: String!
   resetToken: String
   resetTokenExpiry: Float
+  verificationEmailToken: String!
   permissions: UserCreatepermissionsInput
 }
 
@@ -346,6 +348,8 @@ enum UserOrderByInput {
   resetToken_DESC
   resetTokenExpiry_ASC
   resetTokenExpiry_DESC
+  verificationEmailToken_ASC
+  verificationEmailToken_DESC
 }
 
 type UserPreviousValues {
@@ -360,6 +364,7 @@ type UserPreviousValues {
   phone: String!
   resetToken: String
   resetTokenExpiry: Float
+  verificationEmailToken: String!
 }
 
 type UserSubscriptionPayload {
@@ -411,6 +416,7 @@ input UserUpdateInput {
   phone: String
   resetToken: String
   resetTokenExpiry: Float
+  verificationEmailToken: String
   permissions: UserUpdatepermissionsInput
 }
 
@@ -424,6 +430,7 @@ input UserUpdateManyMutationInput {
   phone: String
   resetToken: String
   resetTokenExpiry: Float
+  verificationEmailToken: String
   permissions: UserUpdatepermissionsInput
 }
 
@@ -822,6 +829,46 @@ input UserWhereInput {
 
   """All values greater than or equal the given value."""
   resetTokenExpiry_gte: Float
+  verificationEmailToken: String
+
+  """All values that are not equal to given value."""
+  verificationEmailToken_not: String
+
+  """All values that are contained in given list."""
+  verificationEmailToken_in: [String!]
+
+  """All values that are not contained in given list."""
+  verificationEmailToken_not_in: [String!]
+
+  """All values less than the given value."""
+  verificationEmailToken_lt: String
+
+  """All values less than or equal the given value."""
+  verificationEmailToken_lte: String
+
+  """All values greater than the given value."""
+  verificationEmailToken_gt: String
+
+  """All values greater than or equal the given value."""
+  verificationEmailToken_gte: String
+
+  """All values containing the given string."""
+  verificationEmailToken_contains: String
+
+  """All values not containing the given string."""
+  verificationEmailToken_not_contains: String
+
+  """All values starting with the given string."""
+  verificationEmailToken_starts_with: String
+
+  """All values not starting with the given string."""
+  verificationEmailToken_not_starts_with: String
+
+  """All values ending with the given string."""
+  verificationEmailToken_ends_with: String
+
+  """All values not ending with the given string."""
+  verificationEmailToken_not_ends_with: String
 }
 
 input UserWhereUniqueInput {
