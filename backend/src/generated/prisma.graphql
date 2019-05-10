@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/kirill-shakirov-5f22b4/boilerplate/dev
-# timestamp: Wed May 08 2019 22:20:21 GMT+1200 (New Zealand Standard Time)
+# timestamp: Fri May 10 2019 20:51:59 GMT+1200 (New Zealand Standard Time)
 
 type AggregateSuccessMessage {
   count: Int!
@@ -280,7 +280,12 @@ type User implements Node {
   email: String!
   password: String!
   permissions: [Permission!]!
-  avatar: String!
+  image: String!
+  largeImage: String!
+  organisation: String!
+  phone: String!
+  resetToken: String
+  resetTokenExpiry: Float
 }
 
 """A connection to a list of items."""
@@ -298,7 +303,12 @@ input UserCreateInput {
   name: String!
   email: String!
   password: String!
-  avatar: String!
+  image: String!
+  largeImage: String!
+  organisation: String!
+  phone: String!
+  resetToken: String
+  resetTokenExpiry: Float
   permissions: UserCreatepermissionsInput
 }
 
@@ -324,8 +334,18 @@ enum UserOrderByInput {
   email_DESC
   password_ASC
   password_DESC
-  avatar_ASC
-  avatar_DESC
+  image_ASC
+  image_DESC
+  largeImage_ASC
+  largeImage_DESC
+  organisation_ASC
+  organisation_DESC
+  phone_ASC
+  phone_DESC
+  resetToken_ASC
+  resetToken_DESC
+  resetTokenExpiry_ASC
+  resetTokenExpiry_DESC
 }
 
 type UserPreviousValues {
@@ -334,7 +354,12 @@ type UserPreviousValues {
   email: String!
   password: String!
   permissions: [Permission!]!
-  avatar: String!
+  image: String!
+  largeImage: String!
+  organisation: String!
+  phone: String!
+  resetToken: String
+  resetTokenExpiry: Float
 }
 
 type UserSubscriptionPayload {
@@ -380,7 +405,12 @@ input UserUpdateInput {
   name: String
   email: String
   password: String
-  avatar: String
+  image: String
+  largeImage: String
+  organisation: String
+  phone: String
+  resetToken: String
+  resetTokenExpiry: Float
   permissions: UserUpdatepermissionsInput
 }
 
@@ -388,7 +418,12 @@ input UserUpdateManyMutationInput {
   name: String
   email: String
   password: String
-  avatar: String
+  image: String
+  largeImage: String
+  organisation: String
+  phone: String
+  resetToken: String
+  resetTokenExpiry: Float
   permissions: UserUpdatepermissionsInput
 }
 
@@ -565,48 +600,231 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   password_not_ends_with: String
-  avatar: String
+  image: String
 
   """All values that are not equal to given value."""
-  avatar_not: String
+  image_not: String
 
   """All values that are contained in given list."""
-  avatar_in: [String!]
+  image_in: [String!]
 
   """All values that are not contained in given list."""
-  avatar_not_in: [String!]
+  image_not_in: [String!]
 
   """All values less than the given value."""
-  avatar_lt: String
+  image_lt: String
 
   """All values less than or equal the given value."""
-  avatar_lte: String
+  image_lte: String
 
   """All values greater than the given value."""
-  avatar_gt: String
+  image_gt: String
 
   """All values greater than or equal the given value."""
-  avatar_gte: String
+  image_gte: String
 
   """All values containing the given string."""
-  avatar_contains: String
+  image_contains: String
 
   """All values not containing the given string."""
-  avatar_not_contains: String
+  image_not_contains: String
 
   """All values starting with the given string."""
-  avatar_starts_with: String
+  image_starts_with: String
 
   """All values not starting with the given string."""
-  avatar_not_starts_with: String
+  image_not_starts_with: String
 
   """All values ending with the given string."""
-  avatar_ends_with: String
+  image_ends_with: String
 
   """All values not ending with the given string."""
-  avatar_not_ends_with: String
+  image_not_ends_with: String
+  largeImage: String
+
+  """All values that are not equal to given value."""
+  largeImage_not: String
+
+  """All values that are contained in given list."""
+  largeImage_in: [String!]
+
+  """All values that are not contained in given list."""
+  largeImage_not_in: [String!]
+
+  """All values less than the given value."""
+  largeImage_lt: String
+
+  """All values less than or equal the given value."""
+  largeImage_lte: String
+
+  """All values greater than the given value."""
+  largeImage_gt: String
+
+  """All values greater than or equal the given value."""
+  largeImage_gte: String
+
+  """All values containing the given string."""
+  largeImage_contains: String
+
+  """All values not containing the given string."""
+  largeImage_not_contains: String
+
+  """All values starting with the given string."""
+  largeImage_starts_with: String
+
+  """All values not starting with the given string."""
+  largeImage_not_starts_with: String
+
+  """All values ending with the given string."""
+  largeImage_ends_with: String
+
+  """All values not ending with the given string."""
+  largeImage_not_ends_with: String
+  organisation: String
+
+  """All values that are not equal to given value."""
+  organisation_not: String
+
+  """All values that are contained in given list."""
+  organisation_in: [String!]
+
+  """All values that are not contained in given list."""
+  organisation_not_in: [String!]
+
+  """All values less than the given value."""
+  organisation_lt: String
+
+  """All values less than or equal the given value."""
+  organisation_lte: String
+
+  """All values greater than the given value."""
+  organisation_gt: String
+
+  """All values greater than or equal the given value."""
+  organisation_gte: String
+
+  """All values containing the given string."""
+  organisation_contains: String
+
+  """All values not containing the given string."""
+  organisation_not_contains: String
+
+  """All values starting with the given string."""
+  organisation_starts_with: String
+
+  """All values not starting with the given string."""
+  organisation_not_starts_with: String
+
+  """All values ending with the given string."""
+  organisation_ends_with: String
+
+  """All values not ending with the given string."""
+  organisation_not_ends_with: String
+  phone: String
+
+  """All values that are not equal to given value."""
+  phone_not: String
+
+  """All values that are contained in given list."""
+  phone_in: [String!]
+
+  """All values that are not contained in given list."""
+  phone_not_in: [String!]
+
+  """All values less than the given value."""
+  phone_lt: String
+
+  """All values less than or equal the given value."""
+  phone_lte: String
+
+  """All values greater than the given value."""
+  phone_gt: String
+
+  """All values greater than or equal the given value."""
+  phone_gte: String
+
+  """All values containing the given string."""
+  phone_contains: String
+
+  """All values not containing the given string."""
+  phone_not_contains: String
+
+  """All values starting with the given string."""
+  phone_starts_with: String
+
+  """All values not starting with the given string."""
+  phone_not_starts_with: String
+
+  """All values ending with the given string."""
+  phone_ends_with: String
+
+  """All values not ending with the given string."""
+  phone_not_ends_with: String
+  resetToken: String
+
+  """All values that are not equal to given value."""
+  resetToken_not: String
+
+  """All values that are contained in given list."""
+  resetToken_in: [String!]
+
+  """All values that are not contained in given list."""
+  resetToken_not_in: [String!]
+
+  """All values less than the given value."""
+  resetToken_lt: String
+
+  """All values less than or equal the given value."""
+  resetToken_lte: String
+
+  """All values greater than the given value."""
+  resetToken_gt: String
+
+  """All values greater than or equal the given value."""
+  resetToken_gte: String
+
+  """All values containing the given string."""
+  resetToken_contains: String
+
+  """All values not containing the given string."""
+  resetToken_not_contains: String
+
+  """All values starting with the given string."""
+  resetToken_starts_with: String
+
+  """All values not starting with the given string."""
+  resetToken_not_starts_with: String
+
+  """All values ending with the given string."""
+  resetToken_ends_with: String
+
+  """All values not ending with the given string."""
+  resetToken_not_ends_with: String
+  resetTokenExpiry: Float
+
+  """All values that are not equal to given value."""
+  resetTokenExpiry_not: Float
+
+  """All values that are contained in given list."""
+  resetTokenExpiry_in: [Float!]
+
+  """All values that are not contained in given list."""
+  resetTokenExpiry_not_in: [Float!]
+
+  """All values less than the given value."""
+  resetTokenExpiry_lt: Float
+
+  """All values less than or equal the given value."""
+  resetTokenExpiry_lte: Float
+
+  """All values greater than the given value."""
+  resetTokenExpiry_gt: Float
+
+  """All values greater than or equal the given value."""
+  resetTokenExpiry_gte: Float
 }
 
 input UserWhereUniqueInput {
   id: ID
+  email: String
 }

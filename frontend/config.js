@@ -22,12 +22,12 @@ const CONFIG = {
     /**
      * Preset at cloudinary project (pictures uploading)
    */
-    CLOUDINARY_PRESET : 'YOUR CLOUDINARY PRESET',
+    CLOUDINARY_PRESET : 'toolbox',
 
    /**
     * End point for cloudinary application
    */
-    CLOUDINARY_ENDPOINT : 'YOUR CLOUDINARY PRESET',
+    CLOUDINARY_ENDPOINT : 'https://api.cloudinary.com/v1_1/dyqwnbgpw/image/upload',
 
     /**
      * Stripe key for charging credit cards

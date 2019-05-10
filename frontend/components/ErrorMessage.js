@@ -48,7 +48,9 @@ DisplayError.defaultProps = {
 };
 
 DisplayError.propTypes = {
-  error: PropTypes.object
+  error: PropTypes.shape({
+    message: PropTypes.string.isRequired
+  })
 };
 
 export default DisplayError;

@@ -11,8 +11,16 @@ class Page extends Component {
     children: PropTypes.object.isRequired
   };
 
-  noAuthentication = ["SignUp", "SignIn"];
+  /**
+   * Pages which do not require authentication
+   * @type {string[]}
+   */
+  noAuthentication = ["SignUpPage", "SignIn"];
 
+  /**
+   * This method checks if the child page requires authentication
+   * @returns {boolean}
+   */
   requiresAuth = () => {
     return !this.noAuthentication.includes(this.props.children.type.name);
   };
@@ -31,10 +39,7 @@ class Page extends Component {
         ) : (
           <>
             <Meta />
-            <Header />
-            <SideBar />
-            <div className="page__contents">{this.props.children}</div>
-            <Footer />
+            <div className="service__page">{this.props.children}</div>
           </>
         )}
       </>
