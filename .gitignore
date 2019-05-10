@@ -8,3 +8,4 @@ layout.md
 .env
 .idea/**
 testPage.js
+frontend/grids/**

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
+import Router from 'next/router';
 import Error from "./ErrorMessage";
 import { CURRENT_USER_QUERY } from "./User";
 import { CONFIG } from "../config";
@@ -81,6 +82,7 @@ class SignUp extends Component {
         mutation={SIGNUP_MUTATION}
         variables={this.state}
         refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+        onCompleted={() => Router.push('/signupSuccess')}
       >
         {(signUpFunction, { error, loading }) => {
           return (
