@@ -1,9 +1,10 @@
-import Items from '../components/Items';
+import React from "react";
+import Home from "../components/Home";
 
-const Home = props => (
-    <div>
-        <Items/>
-    </div>
+const HomePage = () => (
+  <div>
+    <Home />
+  </div>
 );
 
-export default Home;
+export default HomePage;

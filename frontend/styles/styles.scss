@@ -1,0 +1,13 @@
+@import './base/settings';
+@import './base/base';
+@import './base/layout';
+@import './base/mixins';
+@import './base/hover';
+
+//components styles
+@import "./components/nav";
+@import "./components/sidebar";
+@import "./components/footer";
+@import "./components/userWidget";
+@import "./components/signin";
+@import "./components/signup";

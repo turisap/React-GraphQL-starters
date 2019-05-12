@@ -1,0 +1,73 @@
+@import "./mixins";
+@import "./_settings.scss";
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+  font-family: "Lato", "Lucida Grande", "Lucida Sans Unicode", Tahoma,
+  Sans-Serif;
+  font-weight: normal;
+  color: $text-on-white;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.07);
+}
+
+body {
+  margin: 0;
+  font-size: $m-size;
+  overflow-x: hidden;
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+
+#__next {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  grid-template-rows: 1fr 12fr 1fr;
+  grid-template-areas:
+    "sidebar nav"
+    "sidebar content"
+    "footer footer"
+;
+}
+
+.page__contents {
+  grid-area: content;
+}
+
+.service__page {
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
+  display: grid;
+  align-content: center;
+  justify-content: center;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+.nav__link, .sidebar__link, .footer__link {
+  display: block;
+  margin: 0;
+  padding: 1rem;
+  text-decoration: none;
+  text-align: center;
+  color: $text_on_white;
+}

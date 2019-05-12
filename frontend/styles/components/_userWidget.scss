@@ -1,0 +1,13 @@
+@import '../base/settings';
+
+.user__widget {
+  border-bottom: 1px solid $border;
+  display: grid;
+  justify-content: center;
+  align-content:center;
+  justify-items: center;
+}
+
+.user__avatar {
+  border-radius: 50%;
+}

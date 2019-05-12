@@ -1,0 +1,21 @@
+@import "../base/settings";
+
+.sidebar {
+  background: $background_3;
+  border-right: 1px solid $border;
+  grid-area: sidebar;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 25rem repeat(auto-fit, minmax(3rem, 5rem));
+}
+
+.sidebar__link {
+  border-bottom: 0.5px solid $border;
+  text-align: left;
+  padding-left: 2rem;
+  text-transform: uppercase;
+
+  &:hover {
+    background: darken($background_3, 1%);
+  }
+}
