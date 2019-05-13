@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/kirill-shakirov-5f22b4/boilerplate/dev
-# timestamp: Sat May 11 2019 00:41:16 GMT+1200 (New Zealand Standard Time)
+# timestamp: Mon May 13 2019 21:05:48 GMT+1200 (New Zealand Standard Time)
 
 type AggregateSuccessMessage {
   count: Int!
@@ -287,6 +287,7 @@ type User implements Node {
   resetToken: String
   resetTokenExpiry: Float
   verificationEmailToken: String!
+  emailVerified: Boolean!
 }
 
 """A connection to a list of items."""
@@ -311,6 +312,7 @@ input UserCreateInput {
   resetToken: String
   resetTokenExpiry: Float
   verificationEmailToken: String!
+  emailVerified: Boolean
   permissions: UserCreatepermissionsInput
 }
 
@@ -350,6 +352,8 @@ enum UserOrderByInput {
   resetTokenExpiry_DESC
   verificationEmailToken_ASC
   verificationEmailToken_DESC
+  emailVerified_ASC
+  emailVerified_DESC
 }
 
 type UserPreviousValues {
@@ -365,6 +369,7 @@ type UserPreviousValues {
   resetToken: String
   resetTokenExpiry: Float
   verificationEmailToken: String!
+  emailVerified: Boolean!
 }
 
 type UserSubscriptionPayload {
@@ -417,6 +422,7 @@ input UserUpdateInput {
   resetToken: String
   resetTokenExpiry: Float
   verificationEmailToken: String
+  emailVerified: Boolean
   permissions: UserUpdatepermissionsInput
 }
 
@@ -431,6 +437,7 @@ input UserUpdateManyMutationInput {
   resetToken: String
   resetTokenExpiry: Float
   verificationEmailToken: String
+  emailVerified: Boolean
   permissions: UserUpdatepermissionsInput
 }
 
@@ -869,9 +876,14 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   verificationEmailToken_not_ends_with: String
+  emailVerified: Boolean
+
+  """All values that are not equal to given value."""
+  emailVerified_not: Boolean
 }
 
 input UserWhereUniqueInput {
   id: ID
   email: String
+  verificationEmailToken: String
 }

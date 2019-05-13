@@ -1,6 +1,7 @@
 const mjml = require("mjml");
 
-const EmailVerificationEmail = data =>  mjml(`
+const EmailVerificationEmail = data =>  (
+  mjml(`
   <mjml>
   <mj-body>
 
@@ -27,13 +28,14 @@ const EmailVerificationEmail = data =>  mjml(`
           </mj-text>
 
             <mj-button background-color="#F45E43"
-                     href="${data.frontendURL}/verifyEmail&token=${data.verificationEmailToken}">Verify
+                     href="${data.frontendURL}/verifyEmail?token=${data.verificationEmailToken}&id=${data.id}">Verify
                      </mj-button>
     </mj-column>
   </mj-section>
 
   </mj-body>
 </mjml>
-`);
+`)
+);
 
 module.exports = EmailVerificationEmail;

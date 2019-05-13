@@ -19,7 +19,8 @@ type User {
   phone: String!,
   resetToken: String,
   resetTokenExpiry: Float
-  verificationEmailToken: String!
+  verificationEmailToken: String! @unique
+  emailVerified : Boolean! @default(value : false)
 }
 
 type SuccessMessage {
