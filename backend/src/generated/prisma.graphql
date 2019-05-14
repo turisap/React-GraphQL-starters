@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/kirill-shakirov-5f22b4/boilerplate/dev
-# timestamp: Mon May 13 2019 21:05:48 GMT+1200 (New Zealand Standard Time)
+# timestamp: Tue May 14 2019 20:36:19 GMT+1200 (New Zealand Standard Time)
 
 type AggregateSuccessMessage {
   count: Int!
@@ -286,7 +286,7 @@ type User implements Node {
   phone: String!
   resetToken: String
   resetTokenExpiry: Float
-  verificationEmailToken: String!
+  verificationEmailToken: String
   emailVerified: Boolean!
 }
 
@@ -311,7 +311,7 @@ input UserCreateInput {
   phone: String!
   resetToken: String
   resetTokenExpiry: Float
-  verificationEmailToken: String!
+  verificationEmailToken: String
   emailVerified: Boolean
   permissions: UserCreatepermissionsInput
 }
@@ -368,7 +368,7 @@ type UserPreviousValues {
   phone: String!
   resetToken: String
   resetTokenExpiry: Float
-  verificationEmailToken: String!
+  verificationEmailToken: String
   emailVerified: Boolean!
 }
 

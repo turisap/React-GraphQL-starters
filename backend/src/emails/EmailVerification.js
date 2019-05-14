@@ -1,7 +1,7 @@
 const mjml = require("mjml");
 
 const EmailVerificationEmail = data =>  (
-  mjml(`
+    mjml(`
   <mjml>
   <mj-body>
 

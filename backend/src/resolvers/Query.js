@@ -2,7 +2,7 @@
 // const { hasPermission } = require("../utils");
 // const { PERMISSIONS } = require("../PermissionTypes");
 const { transport } = require("../mail");
-const { forwardTo } = require('prisma-binding');
+const { forwardTo } = require("prisma-binding");
 const  HelloWorldEmail  = require("../emails/HelloWorld");
 
 
@@ -10,7 +10,7 @@ const Query = {
     // items : forwardTo('db'),
     // item : forwardTo('db'),
     // itemsConnection : forwardTo('db'),
-    user: forwardTo('db'),
+    user: forwardTo("db"),
 
     /**
          * Gets a current user
