@@ -8,7 +8,7 @@ import ErrorMessage from "./ErrorMessage";
 
 const VERIFIED_USER_QUERY = gql`
   query VERIFIED_USER_QUERY($id: ID!) {
-    user(where: { id : $id }) {
+    user(where: { id: $id }) {
       name
       email
       emailVerified
@@ -35,8 +35,8 @@ class VerifyEmail extends Component {
   };
 
   state = {
-    userVerified : false
-  }
+    userVerified: false
+  };
 
   render() {
     const { id, verificationEmailToken } = this.props;
@@ -46,7 +46,6 @@ class VerifyEmail extends Component {
         query={VERIFIED_USER_QUERY}
       >
         {({ data, loading, error }) => {
-          console.log(data.user);
           if (loading) return <Loading />;
           if (error) return <ErrorMessage error={error} />;
           if (!data) return <div>This user has not been found</div>;
@@ -57,22 +56,21 @@ class VerifyEmail extends Component {
             <Mutation
               mutation={VERIFY_EMAIL_MUTATION}
               variables={{ id }}
-              onCompleted={() => this.setState({ userVerified : true})}
+              onCompleted={() => this.setState({ userVerified: true })}
             >
-              {(verifyEmail, { success, loading, error }) => {
+              {(verifyEmail, { loading, error }) => {
                 if (error) return <ErrorMessage error={error} />;
                 return (
                   <>
-                    {
-                      this.state.userVerified
-                        ?
-                        <p>You successfully verified your email</p>
-                        :
-                        <button onClick={verifyEmail}>Confirm{loading ? 'ation..' : ` ${data.user.email}`}</button>
-                    }
+                    {this.state.userVerified ? (
+                      <p>You successfully verified your email</p>
+                    ) : (
+                      <button onClick={verifyEmail}>
+                        Confirm{loading ? "ation.." : ` ${data.user.email}`}
+                      </button>
+                    )}
                   </>
-                )
-
+                );
               }}
             </Mutation>
           );

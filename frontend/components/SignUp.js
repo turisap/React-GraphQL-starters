@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import Router from "next/router";
+import PasswordValidator from "password-validator";
 import Error from "./ErrorMessage";
 import { CURRENT_USER_QUERY } from "./User";
 import { CONFIG } from "../config";
@@ -42,12 +43,37 @@ class SignUp extends Component {
     phone: "",
     image: "",
     largeImage: "",
-    uploadError: ""
+    uploadError: "",
+    validPassword: false,
+    touchedPassword: false
   };
 
   saveToState = e => {
     this.setState({
       [e.target.name]: e.target.value
+    });
+  };
+
+  validatePassword = e => {
+    const schema = new PasswordValidator();
+    schema
+      .is()
+      .min(8)
+      .is()
+      .max(100)
+      .has()
+      .lowercase()
+      .has()
+      .uppercase()
+      .has()
+      .digits()
+      .has()
+      .not()
+      .spaces();
+
+    this.setState({
+      validPassword: schema.validate(e.target.value),
+      touchedPassword: true
     });
   };
 
@@ -132,8 +158,15 @@ class SignUp extends Component {
                     name="password"
                     placeholder="Password"
                     value={this.state.password}
+                    onBlur={this.validatePassword}
                     onChange={this.saveToState}
                   />
+                  {(!this.state.validPassword && this.state.touchedPassword)
+                    ?
+                    "Password should contain at least one letter, digit, uppercase, lowercase and to be at least 8 characters long"
+                    :
+                    ""
+                  }
                 </label>
                 <label>
                   Organisation
