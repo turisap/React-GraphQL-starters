@@ -23,6 +23,8 @@ const Authentication = props => (
           </div>
         );
       }
+      if (!data.me.emailVerified) return <p>Please verify your email</p>;
+
       return props.children;
     }}
   </Query>

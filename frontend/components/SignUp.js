@@ -161,12 +161,9 @@ class SignUp extends Component {
                     onBlur={this.validatePassword}
                     onChange={this.saveToState}
                   />
-                  {(!this.state.validPassword && this.state.touchedPassword)
-                    ?
-                    "Password should contain at least one letter, digit, uppercase, lowercase and to be at least 8 characters long"
-                    :
-                    ""
-                  }
+                  {!this.state.validPassword && this.state.touchedPassword
+                    ? "Password should contain at least one letter, digit, uppercase, lowercase and to be at least 8 characters long"
+                    : ""}
                 </label>
                 <label>
                   Organisation
@@ -200,7 +197,12 @@ class SignUp extends Component {
                     onChange={this.uploadFile}
                   />
                 </label>
-                <button type="submit" disabled={!!this.state.uploadError}>
+                <button
+                  type="submit"
+                  disabled={
+                    !!this.state.uploadError || !this.state.validPassword
+                  }
+                >
                   Sign Up
                 </button>
               </fieldset>

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
-//import { adopt } from 'react-adopt';
+import Link from "next/router";
 import Loading from "./Loading";
 import ErrorMessage from "./ErrorMessage";
 
@@ -50,7 +50,12 @@ class VerifyEmail extends Component {
           if (error) return <ErrorMessage error={error} />;
           if (!data) return <div>This user has not been found</div>;
           if (data.user.emailVerified || !data.user.verificationEmailToken)
-            return <div>This email has already been verified</div>;
+            return (
+              <div>
+                This email has already been verified{" "}
+                <Link href={"/"}>HOME</Link>
+              </div>
+            );
 
           return (
             <Mutation
@@ -63,7 +68,10 @@ class VerifyEmail extends Component {
                 return (
                   <>
                     {this.state.userVerified ? (
-                      <p>You successfully verified your email</p>
+                      <p>
+                        You successfully verified your email{" "}
+                        <Link href={"/"}>HOME</Link>
+                      </p>
                     ) : (
                       <button onClick={verifyEmail}>
                         Confirm{loading ? "ation.." : ` ${data.user.email}`}
