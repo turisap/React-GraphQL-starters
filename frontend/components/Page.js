@@ -19,7 +19,9 @@ class Page extends Component {
     "SignUpPage",
     "SignIn",
     "VerifyEmailPage",
-    "SignUpPageSucces"
+    "SignUpPageSucces",
+    "RequestResetPage",
+    "ResetPasswordPage"
   ];
 
   /**

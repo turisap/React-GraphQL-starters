@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
-import Link from "next/router";
+import Link from "next/link";
 import Loading from "./Loading";
 import ErrorMessage from "./ErrorMessage";
 

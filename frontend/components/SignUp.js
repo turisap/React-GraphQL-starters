@@ -54,6 +54,7 @@ class SignUp extends Component {
     });
   };
 
+  // TODO extract this method to ../lib/validatePassword
   validatePassword = e => {
     const schema = new PasswordValidator();
     schema
