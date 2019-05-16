@@ -31,7 +31,7 @@ const Authentication = props => (
 );
 
 Authentication.propTypes = {
-  children: PropTypes.object.isRequired
+  children: PropTypes.array.isRequired
 };
 
 export { Authentication };

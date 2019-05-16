@@ -7,8 +7,8 @@ class SideBar extends Component {
     return (
       <div className="sidebar">
         <UserWidget />
-        <Link href="/link1">
-          <a className="sidebar__link">Feature 1</a>
+        <Link href="/todos">
+          <a className="sidebar__link">TODOs</a>
         </Link>
         <Link href="/link1">
           <a className="sidebar__link">Feature 2</a>

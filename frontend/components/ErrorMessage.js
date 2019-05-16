@@ -49,7 +49,7 @@ DisplayError.defaultProps = {
 
 DisplayError.propTypes = {
   error: PropTypes.shape({
-    message: PropTypes.string.isRequired
+    message: PropTypes.string
   })
 };
 

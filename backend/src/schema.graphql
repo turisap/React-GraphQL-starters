@@ -8,6 +8,8 @@ type Mutation {
     signout : SuccessMessage
     requestReset (email : String!) : SuccessMessage
     resetPassword (resetToken : String!, password : String!, confirmPassword : String!) : User!
+    createProject (title : String!, address : String!, levels_number : Float,
+    image : String!, largeImage : String!) : Project!
 }
 
 
@@ -15,6 +17,7 @@ type Query {
     me : User
     sendEmail (type : String!, text : String!) : SuccessMessage
     user(where : UserWhereUniqueInput): User!
+    myProjects : [Project]!
 }
 
 

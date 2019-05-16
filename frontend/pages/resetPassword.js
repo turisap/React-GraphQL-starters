@@ -8,7 +8,7 @@ const ResetPasswordPage = props => (
 
 ResetPasswordPage.propTypes = {
   query: PropTypes.object.isRequired,
-  token: PropTypes.string.isRequired
+  token: PropTypes.string
 };
 
 export default ResetPasswordPage;

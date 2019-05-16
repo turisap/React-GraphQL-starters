@@ -48,7 +48,25 @@ const Query = {
 
         if(!resRequest.rejected.length) return { message : "Your email has been sent"};
         return { message : "There was a problem sending your email"};
-    }
+    },
+
+
+    /**
+     * returns a logged in user's own projects
+     * @param parent
+     * @param args
+     * @param ctx
+     * @param info
+     * @returns {Promise<*|{}>}
+     */
+    async myProjects(parent, args, ctx, info) {
+        const { userId } = ctx.request;
+        if(!userId) throw new Error("You must be logged in..");
+
+        return ctx.db.query.projects({
+          where : { owner : { id : userId }}
+        })
+    },
 
 }
 
