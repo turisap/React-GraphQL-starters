@@ -1,9 +1,7 @@
 // const { forwardTo } = require("prisma-binding");
 // const { hasPermission } = require("../utils");
 // const { PERMISSIONS } = require("../PermissionTypes");
-const { transport } = require("../mail");
 const { forwardTo } = require("prisma-binding");
-const  HelloWorldEmail  = require("../emails/HelloWorld");
 
 
 const Query = {
@@ -26,30 +24,6 @@ const Query = {
         );
     },
 
-    /**
-       * Sending emails method example with mjml templates
-       * @param parent
-       * @param args
-       * @param ctx
-       * @param info
-       * @returns {Promise<*>}
-       */
-    async sendEmail(parent, args, ctx, info) {
-        const { html, error } = HelloWorldEmail;
-        if(error) throw new Error(error.message);
-
-
-        const resRequest = await transport.sendMail({
-            from : process.env.MAIL_OWNER_ADDRESS,
-            to : "lol@mail.ru",
-            subject : "Hello world",
-            html
-        });
-
-        if(!resRequest.rejected.length) return { message : "Your email has been sent"};
-        return { message : "There was a problem sending your email"};
-    },
-
 
     /**
      * returns a logged in user's own projects
@@ -63,9 +37,9 @@ const Query = {
         const { userId } = ctx.request;
         if(!userId) throw new Error("You must be logged in..");
 
-        return ctx.db.query.projects({
-          where : { owner : { id : userId }}
-        })
+        return await ctx.db.query.projects({
+            where : { owner : { id : userId }}
+        }, info);
     },
 
 }

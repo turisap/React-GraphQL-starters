@@ -4,6 +4,7 @@ import { Query } from "react-apollo";
 import Link from "next/link";
 import DisplayError from "../../ErrorMessage";
 import Loading from "../../Loading";
+import ProjectWidget from "./Project";
 
 const USERS_PROJECTS_QUERY = gql`
   query USERS_PROJECTS_QUERY {
@@ -13,7 +14,6 @@ const USERS_PROJECTS_QUERY = gql`
       address
       image
       owner {
-        id
         name
       }
     }
@@ -27,7 +27,7 @@ const PROJECTS = () => (
       if (loading) return <Loading />;
       if (!data.myProjects.length)
         return (
-          <>
+          <div>
             <p>
               You don&apos;t have any projects yet. You can
               <Link href="/createProject">
@@ -35,8 +35,15 @@ const PROJECTS = () => (
               </Link>
               one
             </p>
-          </>
+          </div>
         );
+      return (
+        <div className="projects__layout">
+          {data.myProjects.map(project => (
+            <ProjectWidget project={project} key={project.id} />
+          ))}
+        </div>
+      );
     }}
   </Query>
 );

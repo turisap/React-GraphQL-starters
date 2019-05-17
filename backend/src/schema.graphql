@@ -17,7 +17,7 @@ type Query {
     me : User
     sendEmail (type : String!, text : String!) : SuccessMessage
     user(where : UserWhereUniqueInput): User!
-    myProjects : [Project]!
+    myProjects(where: ProjectWhereInput) : [Project]!
 }
 
 

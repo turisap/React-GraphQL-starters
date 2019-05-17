@@ -1,11 +1,11 @@
-const { forwardTo } = require('prisma-binding');
-const { hasPermission } = require('../utils');
-const { PERMISSIONS } = require('../PermissionTypes');
+const { forwardTo } = require("prisma-binding");
+const { hasPermission } = require("../utils");
+const { PERMISSIONS } = require("../PermissionTypes");
 
 const QueryExamples = {
-    items : forwardTo('db'),
-    item : forwardTo('db'),
-    itemsConnection : forwardTo('db'),
+    items : forwardTo("db"),
+    item : forwardTo("db"),
+    itemsConnection : forwardTo("db"),
 
     /**
      * Gets a current user
@@ -18,11 +18,11 @@ const QueryExamples = {
                 where : { id : userId }
             },
             info
-        )
+        );
     },
 
     async users(parent, arg, ctx, info) {
-        if(!ctx.request.userId) throw new Error('You must be logged in');
+        if(!ctx.request.userId) throw new Error("You must be logged in");
 
         hasPermission(ctx.request.user, [PERMISSIONS.ADMIN, PERMISSIONS.PERMISSION_UPDATE]);
 
@@ -31,7 +31,7 @@ const QueryExamples = {
 
     async order(parent, arg, ctx, info) {
         // make sure the user is logged in
-        if(!ctx.request.userId) throw new Error('you must be logged in');
+        if(!ctx.request.userId) throw new Error("you must be logged in");
         // query th current user
         const order = await ctx.db.query.order({
             where : { id : arg.id }
@@ -46,12 +46,12 @@ const QueryExamples = {
 
     async orders(parent, arg, ctx, info) {
         const { userId } = ctx.request;
-        if(!userId) throw new Error('You must be logged in');
+        if(!userId) throw new Error("You must be logged in");
         return  ctx.db.query.orders({
             where : {
                 user : { id : userId }
             }
-        }, info)
+        }, info);
     }
 };
 

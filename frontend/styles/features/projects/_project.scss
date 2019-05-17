@@ -1,0 +1,12 @@
+@import "../../base/settings";
+
+.projectWidget {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows:6fr auto auto auto;
+  border: 1px solid $border;
+}
+
+.projectWidget__image {
+  width: 100%;
+}
