@@ -5,7 +5,7 @@ import Router from "next/router";
 import PasswordValidator from "password-validator";
 import Error from "./ErrorMessage";
 import { CURRENT_USER_QUERY } from "./User";
-import { CONFIG } from "../config";
+import { CreateWithFilesUpload } from './abstractions/CreateWithFilesUpload';
 
 const SIGNUP_MUTATION = gql`
   mutation SIGNUP_MUTATION(
@@ -34,7 +34,7 @@ const SIGNUP_MUTATION = gql`
   }
 `;
 
-class SignUp extends Component {
+class SignUp extends CreateWithFilesUpload {
   state = {
     name: "",
     email: "",
@@ -45,13 +45,16 @@ class SignUp extends Component {
     largeImage: "",
     uploadError: "",
     validPassword: false,
-    touchedPassword: false
+    touchedPassword: false,
+    readyToSubmit : false
   };
 
-  saveToState = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
+  readyToSubmit = () => {
+    const { name, email, organisation, phone, validPassword, uploadError } = this.state;
+    let readyToSubmit = true;
+    if ( !name || !email || !organisation || !phone || !validPassword) readyToSubmit = false;
+    if (uploadError) readyToSubmit = false;
+    this.setState({ readyToSubmit })
   };
 
   // TODO extract this method to ../lib/validatePassword
@@ -78,31 +81,6 @@ class SignUp extends Component {
     });
   };
 
-  uploadFile = async e => {
-    if (!e.target.files) return;
-    const files = e.target.files;
-    if (files[0].type !== "image/jpeg") {
-      this.setState({ uploadError: "Please upload an image file" });
-      return;
-    } else {
-      this.setState({ uploadError: "" });
-    }
-
-    const data = new FormData();
-    data.append("file", files[0]);
-    data.append("upload_preset", CONFIG.CLOUDINARY_PRESET);
-
-    const res = await fetch(CONFIG.CLOUDINARY_ENDPOINT, {
-      method: "POST",
-      body: data
-    });
-
-    const file = await res.json();
-    this.setState({
-      image: file.secure_url,
-      largeImage: file.eager[0].secure_url
-    });
-  };
 
   render() {
     return (
@@ -116,6 +94,7 @@ class SignUp extends Component {
           return (
             <form
               method="post"
+              onChange={this.readyToSubmit}
               onSubmit={async e => {
                 e.preventDefault();
                 await signUpFunction();
@@ -194,15 +173,12 @@ class SignUp extends Component {
                     required
                     type="file"
                     name="avatar"
-                    value={this.state.avatar}
                     onChange={this.uploadFile}
                   />
                 </label>
                 <button
                   type="submit"
-                  disabled={
-                    !!this.state.uploadError || !this.state.validPassword
-                  }
+                  disabled={!this.state.readyToSubmit && !this.state.image }
                 >
                   Sign Up
                 </button>
