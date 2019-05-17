@@ -22,7 +22,7 @@ function createClient({ headers }) {
         Mutation: {}
       },
       defaults: {
-        cartOpen: false
+
       }
     }
   });

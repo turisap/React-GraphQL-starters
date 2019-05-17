@@ -4,7 +4,7 @@ import { Query } from "react-apollo";
 import Link from "next/link";
 import DisplayError from "../../ErrorMessage";
 import Loading from "../../Loading";
-import ProjectWidget from "./Project";
+import ProjectWidget from "./ProjectWidget";
 
 const USERS_PROJECTS_QUERY = gql`
   query USERS_PROJECTS_QUERY {

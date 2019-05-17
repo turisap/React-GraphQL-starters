@@ -1,11 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
+import Cookies from 'universal-cookie';
 
 const ProjectWidget = ({ project }) => {
+
   const { title, address, image, owner, id } = project;
   return (
-    <div className="projectWidget">
+    <div className="projectWidget"
+         onClick={() => {
+           const cookies = new Cookies();
+           cookies.set('projectId', id, { path : '/'});
+         }}
+    >
       <Link
         href={{
           pathname: "/project",
