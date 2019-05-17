@@ -1,13 +1,6 @@
-import SignUp from '../components/SignUp';
-import SignIn from '../components/SignIn';
-import RequestReset from '../components/RequestReset';
+import React from "react";
+import SignUp from "../components/SignUp";
 
-const SignUpPage = props => (
-    <div>
-        <SignUp/>
-        <SignIn/>
-        <RequestReset/>
-    </div>
-);
+const SignUpPage = () => <SignUp />;
 
 export default SignUpPage;

@@ -9,16 +9,20 @@
   },
   "scripts": {
     "globals": "npm i -g cross-env",
-    "dev": "next -p 7777",
+    "dev": "npm run server",
+    "server": "next -p 7777",
     "build": "cross-env NODE_ENV=production next build",
     "start": "next start -p $PORT",
     "test": "cross-env NODE_ENV=test jest --watch",
     "test-win": "SET NODE_ENV=test & jest --watch",
-    "heroku-postbuild": "cross-env NODE_ENV=production  next build"
+    "heroku-postbuild": "cross-env NODE_ENV=production  next build",
+    "lint": "esw --fix components/**/*.js lib/**/*.js pages/**/*js"
   },
   "author": "turisap",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/core": "^3.9.3",
+    "@zeit/next-sass": "^1.0.1",
     "apollo-boost": "^0.1.16",
     "apollo-client": "^2.4.2",
     "babel-core": "^7.0.0-bridge.0",
@@ -27,30 +31,45 @@
     "downshift": "^2.2.3",
     "enzyme": "^3.6.0",
     "enzyme-adapter-react-16": "^1.5.0",
+    "fs": "0.0.1-security",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.9.2",
+    "hover.css": "^2.3.2",
     "lodash.debounce": "^4.0.8",
+    "mjml": "^4.4.0-beta.1",
+    "mjml-react": "^1.0.52",
+    "moment": "^2.24.0",
     "next": "^7.0.0",
     "next-with-apollo": "^3.1.3",
+    "node-sass": "^4.12.0",
     "nprogress": "^0.2.0",
+    "password-validator": "^4.1.1",
     "prop-types": "^15.6.2",
-    "react": "^16.5.2",
+    "react": "^16.8.6",
     "react-adopt": "^0.6.0",
     "react-apollo": "^2.2.1",
-    "react-dom": "^16.5.2",
+    "react-dom": "^16.8.6",
     "react-stripe-checkout": "^2.6.3",
     "react-transition-group": "^2.5.0",
     "styled-components": "^3.4.9",
-    "waait": "^1.0.2"
+    "waait": "^1.0.2",
+    "why-did-you-update": "^0.1.1"
   },
   "devDependencies": {
+    "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
     "babel-plugin-module-resolver": "^3.1.1",
     "casual": "^1.5.19",
     "enzyme-to-json": "^3.3.4",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.2.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.12.4",
+    "eslint-watch": "^5.1.2",
     "graphql-tools": "^4.0.0",
     "jest": "^23.6.0",
-    "jest-transform-graphql": "^2.1.0"
+    "jest-transform-graphql": "^2.1.0",
+    "prettier": "1.17.0"
   },
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>/jest.setup.js",
@@ -118,5 +137,9 @@
         ]
       }
     }
-  }
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "keywords": []
 }

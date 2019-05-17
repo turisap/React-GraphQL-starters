@@ -3,14 +3,26 @@
   "version": "1.0.0",
   "description": "shop-template",
   "main": "none",
+  "pre-commit": [
+    "precommit-msg",
+    "lint:frontend",
+    "lint:backend"
+  ],
+  "scripts": {
+    "test": "see ./backend or ./frontend",
+    "app": "concurrently \"cd frontend && npm run dev\" \"cd backend && npm run dev\"",
+    "lint:backend": "cd backend && npm run lint",
+    "lint:frontend": "cd frontend && npm run lint",
+    "lint": "npm-run-all lint:*",
+    "precommit-msg": "echo 'Linting before commit...' && exit 0"
+  },
   "dependencies": {
     "concurrently": "^4.1.0",
     "prettier": "^1.15.1"
   },
-  "devDependencies": {},
-  "scripts": {
-    "test": "see ./backend or ./frontend",
-    "app": "concurrently \"cd frontend && npm run dev\" \"cd backend && npm run dev\""
+  "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "pre-commit": "^1.2.2"
   },
   "repository": {
     "type": "git",

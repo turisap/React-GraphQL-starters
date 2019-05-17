@@ -1,0 +1,20 @@
+@import "../base/settings";
+
+.auth {
+  grid-row: 1 / -1;
+  grid-column: 1 / -1;
+  display: grid;
+  justify-content: center;
+  align-content:center;
+
+  p {
+    text-align:center;
+  }
+}
+
+.signin__form {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: center;
+  grid-gap: 20px;
+}

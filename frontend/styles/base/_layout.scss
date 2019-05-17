@@ -1,0 +1,47 @@
+/**
+* These media queries are for making responsive layout.
+*
+*/
+@import "./settings";
+
+
+/**
+*
+* This is mixin for media queries based on max and min width as well as device orientation
+*
+ */
+@mixin range-breakpoint($min : 0px, $max : 2000px, $orientation : false) {
+  @if $orientation {
+    @media only screen and (min-width: $min) and (max-width: $max) and (orientation : $orientation) { @content }
+  } @else {
+    @media only screen and (min-width: $min) and (max-width: $max) { @content }
+  }
+}
+
+
+
+/**
+*
+* This is mixin for media queries based on devices type and orientation
+*
+ */
+@mixin type-breakpoint($type, $orientation : false) {
+  @if $type == 'mobile' {
+    @media only screen and  (max-width: $mobiles_breakpoint) { @content }
+  }
+  @if $type == 'mobile' and $orientation {
+    @media only screen and (max-width: $mobiles_breakpoint) and (orientation : $orientation) { @content }
+  }
+  @if $type == 'tablet' {
+    @media only screen and  (min-width: $tablet_breakpoint) and (max-width : $laptop_breakpoint) { @content }
+  }
+  @if $type == 'tablet' and $orientation {
+    @media only screen and (min-width: $tablet_breakpoint) and (max-width : $laptop_breakpoint) and (orientation : $orientation) { @content }
+  }
+  @if $type == 'laptop' {
+    @media only screen and  (min-width: $laptop_breakpoint) { @content }
+  }
+  @if $type == 'laptop' and $orientation {
+    @media only screen and (min-width: $tablet_breakpoint)and (orientation : $orientation) { @content }
+  }
+}

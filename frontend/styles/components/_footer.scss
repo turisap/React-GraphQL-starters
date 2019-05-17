@@ -1,0 +1,10 @@
+@import "../base/settings";
+
+footer {
+  grid-area: footer;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-content: center;
+  justify-content: center;
+  border-top: 1px solid $border;
+}
