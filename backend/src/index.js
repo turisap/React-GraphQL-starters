@@ -32,11 +32,11 @@ server.express.use((req, res, next) => {
  * Use express middleware to populate each request with current project id
  */
 server.express.use((req, res, next) => {
-  const { projectId } = req.cookies;
-  if (projectId) {
-      req.projectId = projectId;
-  }
-  next();
+    const { projectId } = req.cookies;
+    if (projectId) {
+        req.projectId = projectId;
+    }
+    next();
 });
 
 

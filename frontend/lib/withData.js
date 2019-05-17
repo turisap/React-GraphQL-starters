@@ -1,6 +1,7 @@
 import withApollo from "next-with-apollo";
 import ApolloClient from "apollo-boost";
 import { CONFIG } from "../config";
+import clientState from './clientState';
 
 function createClient({ headers }) {
   return new ApolloClient({
@@ -17,14 +18,7 @@ function createClient({ headers }) {
       });
     },
     // local state store
-    clientState: {
-      resolvers: {
-        Mutation: {}
-      },
-      defaults: {
-
-      }
-    }
+    clientState
   });
 }
 

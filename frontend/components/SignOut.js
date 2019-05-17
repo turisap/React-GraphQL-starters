@@ -12,6 +12,7 @@ const SIGN_OUT_MUTATION = gql`
 `;
 
 const SignOut = () => (
+  // TODO make apollo clinet to clear cache on log out as here https://www.apollographql.com/docs/react/recipes/authentication
   <Mutation
     mutation={SIGN_OUT_MUTATION}
     refetchQueries={[{ query: CURRENT_USER_QUERY }]}

@@ -6,7 +6,6 @@ class SaveToState extends Component {
       [e.target.name]: e.target.value
     });
   };
-
 }
 
 export { SaveToState };

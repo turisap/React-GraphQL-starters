@@ -17,7 +17,6 @@ const CURRENT_USER_QUERY = gql`
 `;
 
 const User = props => {
-  // TODO make apollo clinet to clear cache on log out as here https://www.apollographql.com/docs/react/recipes/authentication
   return (
     <Query {...props} query={CURRENT_USER_QUERY}>
       {payload => props.children(payload)}
