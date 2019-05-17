@@ -3,16 +3,21 @@
 type Mutation {
     signup(email : String!, password : String!, name : String!, organisation: String!,
         image: String!, largeImage: String!, phone: String!) : User!
+    verifyEmail(id : ID!) : User!
     signin(email : String!, password : String!) : User!
     signout : SuccessMessage
     requestReset (email : String!) : SuccessMessage
     resetPassword (resetToken : String!, password : String!, confirmPassword : String!) : User!
+    createProject (title : String!, address : String!, levels_number : Float,
+    image : String!, largeImage : String!) : Project!
 }
 
 
 type Query {
     me : User
     sendEmail (type : String!, text : String!) : SuccessMessage
+    user(where : UserWhereUniqueInput): User!
+    myProjects(where: ProjectWhereInput) : [Project]!
 }
 
 

@@ -15,7 +15,14 @@ class Page extends Component {
    * Pages which do not require authentication
    * @type {string[]}
    */
-  noAuthentication = ["SignUpPage", "SignIn"];
+  noAuthentication = [
+    "SignUpPage",
+    "SignIn",
+    "VerifyEmailPage",
+    "SignUpPageSucces",
+    "RequestResetPage",
+    "ResetPasswordPage"
+  ];
 
   /**
    * This method checks if the child page requires authentication

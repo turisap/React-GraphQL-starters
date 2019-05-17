@@ -23,13 +23,15 @@ const Authentication = props => (
           </div>
         );
       }
+      if (!data.me.emailVerified) return <p>Please verify your email</p>;
+
       return props.children;
     }}
   </Query>
 );
 
 Authentication.propTypes = {
-  children: PropTypes.object.isRequired
+  children: PropTypes.array.isRequired
 };
 
 export { Authentication };

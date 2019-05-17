@@ -19,7 +19,21 @@ type User {
   phone: String!,
   resetToken: String,
   resetTokenExpiry: Float
+  verificationEmailToken: String @unique
+  emailVerified : Boolean! @default(value : false)
+  projects : [Project]!
 }
+
+type Project {
+  id: ID! @id
+  title: String!
+  address: String!
+  levels_number: Float!
+  image: String!
+  largeImage: String!
+  owner: User!
+}
+
 
 type SuccessMessage {
    id: ID! @id

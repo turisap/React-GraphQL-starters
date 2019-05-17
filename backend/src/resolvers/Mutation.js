@@ -2,35 +2,70 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { randomBytes } = require("crypto");
 const { promisify } = require("util");
-const { transport, makeANiceEmail } = require("../mail");
-
-
+const EmailController = require("../controllers/EmailController");
 
 const Mutations = {
-
-
     async signup(parent, args, ctx, info) {
         args.email = args.email.toLowerCase();
+        const email = args.email;
+        const existingUser = await ctx.db.query.user({ where: { email } });
+        if (existingUser) throw new Error("This email is already in use");
+
+        const randomBytesPromisified = promisify(randomBytes);
+        const verificationEmailToken = (await randomBytesPromisified(20)).toString(
+            "hex"
+        );
+
         const password = await bcrypt.hash(args.password, 10);
-        const user = await ctx.db.mutation.createUser({
-            data: {
-                ...args,
-                password,
-                permissions: {set: ["USER"]},
-            }
-        }, info);
+        const user = await ctx.db.mutation.createUser(
+            {
+                data: {
+                    ...args,
+                    password,
+                    verificationEmailToken,
+                    permissions: { set: ["USER"] }
+                }
+            },
+            info
+        );
+
+        EmailController.sendEmailVerificationEmail({
+            ...user,
+            appName: process.env.APP_NAME,
+            frontendURL: process.env.FRONTEND_URL
+        });
 
         _signInWithToken(ctx, user, 14);
         return user;
     },
 
+    /**
+   * Sets finds a user based on id and sets user's verification token to null
+   * gets triggered on loading link from email verification after registration
+   * @param parent
+   * @param id
+   * @param ctx
+   * @param info
+   * @returns {Promise<*>}
+   */
+    async verifyEmail(parent, { id }, ctx, info) {
+        const user = await ctx.db.query.user({ where: { id } });
+        if (!user) throw new Error("There is no such a user for these terms");
 
+        await ctx.db.mutation.updateUser({
+            where: { id },
+            data: {
+                verificationEmailToken: null,
+                emailVerified: true
+            }
+        });
 
+        return user;
+    },
 
-    async signin(parent, {email, password}, ctx, info) {
-        const user = await ctx.db.query.user({where: {email}});
+    async signin(parent, { email, password }, ctx, info) {
+        const user = await ctx.db.query.user({ where: { email } });
         if (!user) throw new Error(`There is no such a user for this ${email}`);
-
 
         const validUser = await bcrypt.compare(password, user.password);
         if (!validUser) throw new Error("Wrong password");
@@ -39,64 +74,57 @@ const Mutations = {
         return user;
     },
 
-
-
-
-    signout (parent, args, ctx, info) {
+    signout(parent, args, ctx, info) {
         ctx.response.clearCookie("token");
-        return {message: "GoodBuy"};
+        return { message: "GoodBuy" };
     },
-
-
 
     async requestReset(parent, args, ctx, info) {
         const user = _getUser(ctx, args.email);
-        if (!user) throw new Error(`There is no such a user for this ${args.email}`);
+        if (!user)
+            throw new Error(`There is no such a user for this ${args.email}`);
 
         const randomBytesPromisified = promisify(randomBytes);
         const resetToken = (await randomBytesPromisified(20)).toString("hex");
         const resetTokenExpiry = Date.now() + 3600000;
 
-        await ctx.db.mutation.updateUser({
-            where : { email : args.email },
-            data  : {
+        const updatedUser = await ctx.db.mutation.updateUser({
+            where: { email: args.email },
+            data: {
                 resetToken,
                 resetTokenExpiry
             }
         });
 
-        await transport.sendMail({
-            from : process.env.MAIL_OWNER_ADDRESS,
-            to : args.email,
-            subject : "Your password reset link",
-            html : makeANiceEmail(`Your password reset token is here!
-            <a href="${process.env.FRONTEND_URL}/reset?resetToken=${resetToken}">Click here to reset your Password</a>`)
+        EmailController.sendResetPasswordEmail({
+            ...updatedUser,
+            appName: process.env.APP_NAME,
+            frontendURL: process.env.FRONTEND_URL
         });
 
-        return {message : "Goodbuy"};
+        return { message: "Goodbuy" };
     },
 
-
-
     async resetPassword(parent, args, ctx, info) {
-        if (args.password !== args.confirmPassword) throw new Error("Your passwords does not match");
+        if (args.password !== args.confirmPassword)
+            throw new Error("Your passwords does not match");
 
         const [user] = await ctx.db.query.users({
-            where : {
-                resetToken : args.resetToken,
-                resetTokenExpiry_gte : Date.now() - 3600000
+            where: {
+                resetToken: args.resetToken,
+                resetTokenExpiry_gte: Date.now() - 3600000
             }
         });
 
-        if(!user) throw new Error("This reset token is either expired or invalid");
+        if (!user) throw new Error("This reset token is either expired or invalid");
 
         const password = await bcrypt.hash(args.password, 10);
 
         const updatedUser = ctx.db.mutation.updateUser({
-            where : { email : user.email },
-            data  : {
+            where: { email: user.email },
+            data: {
                 password,
-                resetToken : null,
+                resetToken: null,
                 resetTokenExpiry: null
             }
         });
@@ -105,8 +133,21 @@ const Mutations = {
 
         return updatedUser;
     },
-};
 
+    async createProject(parent, args, ctx, info) {
+        const { userId } = ctx.request;
+        if (!userId) throw new Error("You must be logged in..");
+
+        return await ctx.db.mutation.createProject({
+            data : {
+                ...args,
+                owner : {
+                    connect: { id : userId }
+                }
+            }
+        });
+    }
+};
 
 /**
  * Creates a token based on user's id and sets a cookie with it
@@ -116,14 +157,14 @@ const Mutations = {
  * @private
  */
 const _signInWithToken = (ctx, user, days) => {
-    const token = jwt.sign({userId : user.id}, process.env.APP_SECRET);
+    const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
     ctx.response.cookie("token", token, {
-        httpOnly : true,
-        maxAge : 1000 * 60 * 60 * 24 * days
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 24 * days
     });
 };
 
-const _getUser = async (ctx, email) => await ctx.db.query.user({where: {email}});
-
+const _getUser = async (ctx, email) =>
+    await ctx.db.query.user({ where: { email } });
 
 module.exports = Mutations;

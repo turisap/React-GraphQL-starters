@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
+import Link from "next/link";
 import Error from "./ErrorMessage";
 import { CURRENT_USER_QUERY } from "./User";
 
@@ -72,6 +73,9 @@ class SignIn extends Component {
                   />
                 </label>
                 <button type="submit">Sign In</button>
+                <Link href={"/requestReset"}>
+                  <a>Forgot password?</a>
+                </Link>
               </fieldset>
             </form>
           );
