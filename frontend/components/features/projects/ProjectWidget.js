@@ -5,7 +5,6 @@ import Cookies from "universal-cookie";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 
-
 const LOCAL_STATE_PROJECTID_MUTATION = gql`
   mutation setProjectId($projectId: String!) {
     setProjectId(projectId: $projectId) @client
