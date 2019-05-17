@@ -7,12 +7,13 @@ class UserWidget extends Component {
       <User>
         {({ data: { me } }) => (
           <>
-            { me &&
-            <div className="user__widget">
-              <img src={me.image} className="user__avatar" />
-              <p>{me.name}</p>
-              <span>OFF BTN</span>
-            </div>}
+            {me && (
+              <div className="user__widget">
+                <img src={me.image} className="user__avatar" />
+                <p>{me.name}</p>
+                <span>OFF BTN</span>
+              </div>
+            )}
           </>
         )}
       </User>

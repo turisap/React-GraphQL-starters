@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import Router from "next/router";
 import PasswordValidator from "password-validator";
 import Error from "./ErrorMessage";
 import { CURRENT_USER_QUERY } from "./User";
-import { CreateWithFilesUpload } from './abstractions/CreateWithFilesUpload';
+import { CreateWithFilesUpload } from "./abstractions/CreateWithFilesUpload";
 
 const SIGNUP_MUTATION = gql`
   mutation SIGNUP_MUTATION(
@@ -46,15 +46,23 @@ class SignUp extends CreateWithFilesUpload {
     uploadError: "",
     validPassword: false,
     touchedPassword: false,
-    readyToSubmit : false
+    readyToSubmit: false
   };
 
   readyToSubmit = () => {
-    const { name, email, organisation, phone, validPassword, uploadError } = this.state;
+    const {
+      name,
+      email,
+      organisation,
+      phone,
+      validPassword,
+      uploadError
+    } = this.state;
     let readyToSubmit = true;
-    if ( !name || !email || !organisation || !phone || !validPassword) readyToSubmit = false;
+    if (!name || !email || !organisation || !phone || !validPassword)
+      readyToSubmit = false;
     if (uploadError) readyToSubmit = false;
-    this.setState({ readyToSubmit })
+    this.setState({ readyToSubmit });
   };
 
   // TODO extract this method to ../lib/validatePassword
@@ -80,7 +88,6 @@ class SignUp extends CreateWithFilesUpload {
       touchedPassword: true
     });
   };
-
 
   render() {
     return (
@@ -178,7 +185,7 @@ class SignUp extends CreateWithFilesUpload {
                 </label>
                 <button
                   type="submit"
-                  disabled={!this.state.readyToSubmit && !this.state.image }
+                  disabled={!this.state.readyToSubmit && !this.state.image}
                 >
                   Sign Up
                 </button>
