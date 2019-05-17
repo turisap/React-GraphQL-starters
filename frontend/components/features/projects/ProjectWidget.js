@@ -2,26 +2,24 @@ import React from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
 import Cookies from "universal-cookie";
-import { Mutation, Query } from 'react-apollo';
-import gql from 'graphql-tag';
+import { Mutation } from "react-apollo";
+import gql from "graphql-tag";
 
-const LOCAL_STATE_PROJECTID_QUERY = gql`
-  {
-      projectId @client
-  }
-`;
 
 const LOCAL_STATE_PROJECTID_MUTATION = gql`
-  mutation setProjectId($projectId : String!) {
-    setProjectId(projectId : $projectId) @client
+  mutation setProjectId($projectId: String!) {
+    setProjectId(projectId: $projectId) @client
   }
 `;
 
 const ProjectWidget = ({ project }) => {
   const { title, address, image, owner, id } = project;
   return (
-    <Mutation mutation={LOCAL_STATE_PROJECTID_MUTATION} variables={{ projectId : id }}>
-      {(setProjectId) =>
+    <Mutation
+      mutation={LOCAL_STATE_PROJECTID_MUTATION}
+      variables={{ projectId: id }}
+    >
+      {setProjectId => (
         <div
           className="projectWidget"
           onClick={() => {
@@ -46,8 +44,7 @@ const ProjectWidget = ({ project }) => {
             </a>
           </Link>
         </div>
-
-      }
+      )}
     </Mutation>
   );
 };

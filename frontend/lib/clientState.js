@@ -3,15 +3,15 @@ export default {
     Mutation: {
       setProjectId(_, { projectId }, { cache }) {
         cache.writeData({
-          data : {
+          data: {
             projectId
           }
         });
-        return { data : { projectId }};
+        return { data: { projectId } };
       }
     }
   },
   defaults: {
-    projectId : false
+    projectId: false
   }
-}
+};

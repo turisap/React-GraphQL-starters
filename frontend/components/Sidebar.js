@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import Link from "next/link";
-import { Mutation, Query } from 'react-apollo';
-import gql from 'graphql-tag';
+import { Mutation, Query } from "react-apollo";
+import gql from "graphql-tag";
 import UserWidget from "./UserWidget";
 
-
 const LOCAL_STATE_PROJECTID_QUERY = gql`
-    {
-        projectId @client
-    }
+  {
+    projectId @client
+  }
 `;
 
 class SideBar extends Component {
@@ -33,7 +32,7 @@ class SideBar extends Component {
                 </>
               )}
             </div>
-          )
+          );
         }}
       </Query>
     );
