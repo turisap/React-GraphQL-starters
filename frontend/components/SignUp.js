@@ -3,6 +3,7 @@ import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import Router from "next/router";
 import PasswordValidator from "password-validator";
+import debounce from 'lodash.debounce';
 import Error from "./ErrorMessage";
 import { CURRENT_USER_QUERY } from "./User";
 import { CreateWithFilesUpload } from "./abstractions/CreateWithFilesUpload";
@@ -43,27 +44,27 @@ class SignUp extends CreateWithFilesUpload {
     phone: "",
     image: "",
     largeImage: "",
-    uploadError: "",
+    uploadError: null,
     validPassword: false,
     touchedPassword: false,
     readyToSubmit: false
   };
 
-  readyToSubmit = () => {
+  readyToSubmit = debounce(() => {
     const {
       name,
       email,
       organisation,
       phone,
       validPassword,
-      uploadError
+      image,
+      uploadError,
     } = this.state;
-    let readyToSubmit = true;
-    if (!name || !email || !organisation || !phone || !validPassword)
-      readyToSubmit = false;
-    if (uploadError) readyToSubmit = false;
+    let readyToSubmit = false;
+    if (name && email && organisation && phone && image && validPassword && !uploadError)
+      readyToSubmit = true;
     this.setState({ readyToSubmit });
-  };
+  }, 400);
 
   // TODO extract this method to ../lib/validatePassword
   validatePassword = e => {
@@ -101,7 +102,10 @@ class SignUp extends CreateWithFilesUpload {
           return (
             <form
               method="post"
-              onChange={this.readyToSubmit}
+              // onChange={() => {
+              //   this.readyToSubmit();
+              // }}
+              onMouseMove={this.readyToSubmit}
               onSubmit={async e => {
                 e.preventDefault();
                 await signUpFunction();
@@ -185,7 +189,7 @@ class SignUp extends CreateWithFilesUpload {
                 </label>
                 <button
                   type="submit"
-                  disabled={!this.state.readyToSubmit && !this.state.image}
+                  disabled={!this.state.readyToSubmit}
                 >
                   Sign Up
                 </button>
