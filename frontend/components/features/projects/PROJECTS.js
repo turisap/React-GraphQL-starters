@@ -49,3 +49,4 @@ const PROJECTS = () => (
 );
 
 export default PROJECTS;
+export { USERS_PROJECTS_QUERY };

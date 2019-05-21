@@ -9,6 +9,7 @@ const Query = {
     // item : forwardTo('db'),
     // itemsConnection : forwardTo('db'),
     user: forwardTo("db"),
+    project: forwardTo("db"),
 
     /**
          * Gets a current user

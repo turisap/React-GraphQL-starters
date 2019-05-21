@@ -3,7 +3,7 @@ import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import Router from "next/router";
 import PasswordValidator from "password-validator";
-import debounce from 'lodash.debounce';
+import debounce from "lodash.debounce";
 import Error from "./ErrorMessage";
 import { CURRENT_USER_QUERY } from "./User";
 import { CreateWithFilesUpload } from "./abstractions/CreateWithFilesUpload";
@@ -58,10 +58,18 @@ class SignUp extends CreateWithFilesUpload {
       phone,
       validPassword,
       image,
-      uploadError,
+      uploadError
     } = this.state;
     let readyToSubmit = false;
-    if (name && email && organisation && phone && image && validPassword && !uploadError)
+    if (
+      name &&
+      email &&
+      organisation &&
+      phone &&
+      image &&
+      validPassword &&
+      !uploadError
+    )
       readyToSubmit = true;
     this.setState({ readyToSubmit });
   }, 400);
@@ -187,10 +195,7 @@ class SignUp extends CreateWithFilesUpload {
                     onChange={this.uploadFile}
                   />
                 </label>
-                <button
-                  type="submit"
-                  disabled={!this.state.readyToSubmit}
-                >
+                <button type="submit" disabled={!this.state.readyToSubmit}>
                   Sign Up
                 </button>
               </fieldset>

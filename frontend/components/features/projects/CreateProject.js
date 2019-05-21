@@ -5,6 +5,7 @@ import Router from "next/router";
 import { CreateWithFilesUpload } from "../../abstractions/CreateWithFilesUpload";
 import Error from "../../ErrorMessage";
 import Loading from "../../Loading";
+import { USERS_PROJECTS_QUERY } from "./PROJECTS";
 
 const CREATE_PROJECT_MUTATION = gql`
   mutation CREATE_PROJECT_MUATION(
@@ -41,6 +42,7 @@ class CreateProject extends CreateWithFilesUpload {
       <Mutation
         mutation={CREATE_PROJECT_MUTATION}
         variables={this.state}
+        refetchQueries={[ { query : USERS_PROJECTS_QUERY } ]}
         onCompleted={() => {
           Router.push("/");
         }}
