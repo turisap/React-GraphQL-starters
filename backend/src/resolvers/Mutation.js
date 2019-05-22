@@ -145,7 +145,14 @@ const Mutations = {
                     connect: { id : userId }
                 }
             }
-        });
+        }, info);
+    },
+
+    async createJob(parent, args, ctx, info) {
+        const { userId, projectId } = ctx.request;
+        if (!userId) throw new Error("You must be logged in..");
+        if (!projectId) throw new Error("Please choose a project to work with");
+        //console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++=",args);
     }
 };
 

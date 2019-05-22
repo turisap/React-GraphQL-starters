@@ -23,6 +23,7 @@ const ProjectWidget = ({ project }) => {
           className="projectWidget"
           onClick={() => {
             const cookies = new Cookies();
+            cookies.remove("projectId", { path: "/" });
             cookies.set("projectId", id, { path: "/" });
             setProjectId();
           }}

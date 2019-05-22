@@ -1,11 +1,19 @@
 # source: https://us1.prisma.sh/kirill-shakirov-5f22b4/boilerplate/dev
-# timestamp: Thu May 16 2019 20:22:55 GMT+1200 (New Zealand Standard Time)
+# timestamp: Wed May 22 2019 20:46:38 GMT+1200 (New Zealand Standard Time)
+
+type AggregateJob {
+  count: Int!
+}
 
 type AggregateProject {
   count: Int!
 }
 
 type AggregateSuccessMessage {
+  count: Int!
+}
+
+type AggregateTag {
   count: Int!
 }
 
@@ -18,6 +26,382 @@ type BatchPayload {
   count: Long!
 }
 
+type Job implements Node {
+  id: ID!
+  project: Project!
+  title: String!
+  level: Float!
+  unit: String!
+  tag: Tag!
+  image: String
+  largeImage: String
+  assignee: User
+}
+
+"""A connection to a list of items."""
+type JobConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [JobEdge]!
+  aggregate: AggregateJob!
+}
+
+input JobCreateInput {
+  id: ID
+  title: String!
+  level: Float!
+  unit: String!
+  image: String
+  largeImage: String
+  project: ProjectCreateOneInput!
+  tag: TagCreateOneInput!
+  assignee: UserCreateOneInput
+}
+
+"""An edge in a connection."""
+type JobEdge {
+  """The item at the end of the edge."""
+  node: Job!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum JobGroup {
+  SURVEY
+  FUNDATION
+  STRUCTURAL_STEEL
+  STRUCTURAL_CONCRETE
+  FITIN
+  PLUMBING
+  ELECTRICAL
+  HANDOVER
+}
+
+enum JobOrderByInput {
+  id_ASC
+  id_DESC
+  title_ASC
+  title_DESC
+  level_ASC
+  level_DESC
+  unit_ASC
+  unit_DESC
+  image_ASC
+  image_DESC
+  largeImage_ASC
+  largeImage_DESC
+}
+
+type JobPreviousValues {
+  id: ID!
+  title: String!
+  level: Float!
+  unit: String!
+  image: String
+  largeImage: String
+}
+
+type JobSubscriptionPayload {
+  mutation: MutationType!
+  node: Job
+  updatedFields: [String!]
+  previousValues: JobPreviousValues
+}
+
+input JobSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [JobSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [JobSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [JobSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: JobWhereInput
+}
+
+input JobUpdateInput {
+  title: String
+  level: Float
+  unit: String
+  image: String
+  largeImage: String
+  project: ProjectUpdateOneRequiredInput
+  tag: TagUpdateOneRequiredInput
+  assignee: UserUpdateOneInput
+}
+
+input JobUpdateManyMutationInput {
+  title: String
+  level: Float
+  unit: String
+  image: String
+  largeImage: String
+}
+
+input JobWhereInput {
+  """Logical AND on all given filters."""
+  AND: [JobWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [JobWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [JobWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  title: String
+
+  """All values that are not equal to given value."""
+  title_not: String
+
+  """All values that are contained in given list."""
+  title_in: [String!]
+
+  """All values that are not contained in given list."""
+  title_not_in: [String!]
+
+  """All values less than the given value."""
+  title_lt: String
+
+  """All values less than or equal the given value."""
+  title_lte: String
+
+  """All values greater than the given value."""
+  title_gt: String
+
+  """All values greater than or equal the given value."""
+  title_gte: String
+
+  """All values containing the given string."""
+  title_contains: String
+
+  """All values not containing the given string."""
+  title_not_contains: String
+
+  """All values starting with the given string."""
+  title_starts_with: String
+
+  """All values not starting with the given string."""
+  title_not_starts_with: String
+
+  """All values ending with the given string."""
+  title_ends_with: String
+
+  """All values not ending with the given string."""
+  title_not_ends_with: String
+  level: Float
+
+  """All values that are not equal to given value."""
+  level_not: Float
+
+  """All values that are contained in given list."""
+  level_in: [Float!]
+
+  """All values that are not contained in given list."""
+  level_not_in: [Float!]
+
+  """All values less than the given value."""
+  level_lt: Float
+
+  """All values less than or equal the given value."""
+  level_lte: Float
+
+  """All values greater than the given value."""
+  level_gt: Float
+
+  """All values greater than or equal the given value."""
+  level_gte: Float
+  unit: String
+
+  """All values that are not equal to given value."""
+  unit_not: String
+
+  """All values that are contained in given list."""
+  unit_in: [String!]
+
+  """All values that are not contained in given list."""
+  unit_not_in: [String!]
+
+  """All values less than the given value."""
+  unit_lt: String
+
+  """All values less than or equal the given value."""
+  unit_lte: String
+
+  """All values greater than the given value."""
+  unit_gt: String
+
+  """All values greater than or equal the given value."""
+  unit_gte: String
+
+  """All values containing the given string."""
+  unit_contains: String
+
+  """All values not containing the given string."""
+  unit_not_contains: String
+
+  """All values starting with the given string."""
+  unit_starts_with: String
+
+  """All values not starting with the given string."""
+  unit_not_starts_with: String
+
+  """All values ending with the given string."""
+  unit_ends_with: String
+
+  """All values not ending with the given string."""
+  unit_not_ends_with: String
+  image: String
+
+  """All values that are not equal to given value."""
+  image_not: String
+
+  """All values that are contained in given list."""
+  image_in: [String!]
+
+  """All values that are not contained in given list."""
+  image_not_in: [String!]
+
+  """All values less than the given value."""
+  image_lt: String
+
+  """All values less than or equal the given value."""
+  image_lte: String
+
+  """All values greater than the given value."""
+  image_gt: String
+
+  """All values greater than or equal the given value."""
+  image_gte: String
+
+  """All values containing the given string."""
+  image_contains: String
+
+  """All values not containing the given string."""
+  image_not_contains: String
+
+  """All values starting with the given string."""
+  image_starts_with: String
+
+  """All values not starting with the given string."""
+  image_not_starts_with: String
+
+  """All values ending with the given string."""
+  image_ends_with: String
+
+  """All values not ending with the given string."""
+  image_not_ends_with: String
+  largeImage: String
+
+  """All values that are not equal to given value."""
+  largeImage_not: String
+
+  """All values that are contained in given list."""
+  largeImage_in: [String!]
+
+  """All values that are not contained in given list."""
+  largeImage_not_in: [String!]
+
+  """All values less than the given value."""
+  largeImage_lt: String
+
+  """All values less than or equal the given value."""
+  largeImage_lte: String
+
+  """All values greater than the given value."""
+  largeImage_gt: String
+
+  """All values greater than or equal the given value."""
+  largeImage_gte: String
+
+  """All values containing the given string."""
+  largeImage_contains: String
+
+  """All values not containing the given string."""
+  largeImage_not_contains: String
+
+  """All values starting with the given string."""
+  largeImage_starts_with: String
+
+  """All values not starting with the given string."""
+  largeImage_not_starts_with: String
+
+  """All values ending with the given string."""
+  largeImage_ends_with: String
+
+  """All values not ending with the given string."""
+  largeImage_not_ends_with: String
+  project: ProjectWhereInput
+  tag: TagWhereInput
+  assignee: UserWhereInput
+}
+
+input JobWhereUniqueInput {
+  id: ID
+}
+
 """
 The `Long` scalar type represents non-fractional signed whole numeric values.
 Long can represent values between -(2^63) and 2^63 - 1.
@@ -25,24 +409,36 @@ Long can represent values between -(2^63) and 2^63 - 1.
 scalar Long
 
 type Mutation {
+  createJob(data: JobCreateInput!): Job!
+  createSuccessMessage(data: SuccessMessageCreateInput!): SuccessMessage!
   createUser(data: UserCreateInput!): User!
   createProject(data: ProjectCreateInput!): Project!
-  createSuccessMessage(data: SuccessMessageCreateInput!): SuccessMessage!
+  createTag(data: TagCreateInput!): Tag!
+  updateJob(data: JobUpdateInput!, where: JobWhereUniqueInput!): Job
+  updateSuccessMessage(data: SuccessMessageUpdateInput!, where: SuccessMessageWhereUniqueInput!): SuccessMessage
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateProject(data: ProjectUpdateInput!, where: ProjectWhereUniqueInput!): Project
-  updateSuccessMessage(data: SuccessMessageUpdateInput!, where: SuccessMessageWhereUniqueInput!): SuccessMessage
+  updateTag(data: TagUpdateInput!, where: TagWhereUniqueInput!): Tag
+  deleteJob(where: JobWhereUniqueInput!): Job
+  deleteSuccessMessage(where: SuccessMessageWhereUniqueInput!): SuccessMessage
   deleteUser(where: UserWhereUniqueInput!): User
   deleteProject(where: ProjectWhereUniqueInput!): Project
-  deleteSuccessMessage(where: SuccessMessageWhereUniqueInput!): SuccessMessage
+  deleteTag(where: TagWhereUniqueInput!): Tag
+  upsertJob(where: JobWhereUniqueInput!, create: JobCreateInput!, update: JobUpdateInput!): Job!
+  upsertSuccessMessage(where: SuccessMessageWhereUniqueInput!, create: SuccessMessageCreateInput!, update: SuccessMessageUpdateInput!): SuccessMessage!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertProject(where: ProjectWhereUniqueInput!, create: ProjectCreateInput!, update: ProjectUpdateInput!): Project!
-  upsertSuccessMessage(where: SuccessMessageWhereUniqueInput!, create: SuccessMessageCreateInput!, update: SuccessMessageUpdateInput!): SuccessMessage!
+  upsertTag(where: TagWhereUniqueInput!, create: TagCreateInput!, update: TagUpdateInput!): Tag!
+  updateManyJobs(data: JobUpdateManyMutationInput!, where: JobWhereInput): BatchPayload!
+  updateManySuccessMessages(data: SuccessMessageUpdateManyMutationInput!, where: SuccessMessageWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyProjects(data: ProjectUpdateManyMutationInput!, where: ProjectWhereInput): BatchPayload!
-  updateManySuccessMessages(data: SuccessMessageUpdateManyMutationInput!, where: SuccessMessageWhereInput): BatchPayload!
+  updateManyTags(data: TagUpdateManyMutationInput!, where: TagWhereInput): BatchPayload!
+  deleteManyJobs(where: JobWhereInput): BatchPayload!
+  deleteManySuccessMessages(where: SuccessMessageWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyProjects(where: ProjectWhereInput): BatchPayload!
-  deleteManySuccessMessages(where: SuccessMessageWhereInput): BatchPayload!
+  deleteManyTags(where: TagWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -114,6 +510,11 @@ input ProjectCreateInput {
 input ProjectCreateManyWithoutOwnerInput {
   create: [ProjectCreateWithoutOwnerInput!]
   connect: [ProjectWhereUniqueInput!]
+}
+
+input ProjectCreateOneInput {
+  create: ProjectCreateInput
+  connect: ProjectWhereUniqueInput
 }
 
 input ProjectCreateWithoutOwnerInput {
@@ -430,6 +831,15 @@ input ProjectSubscriptionWhereInput {
   node: ProjectWhereInput
 }
 
+input ProjectUpdateDataInput {
+  title: String
+  address: String
+  levels_number: Float
+  image: String
+  largeImage: String
+  owner: UserUpdateOneRequiredWithoutProjectsInput
+}
+
 input ProjectUpdateInput {
   title: String
   address: String
@@ -472,6 +882,13 @@ input ProjectUpdateManyWithWhereNestedInput {
   data: ProjectUpdateManyDataInput!
 }
 
+input ProjectUpdateOneRequiredInput {
+  create: ProjectCreateInput
+  connect: ProjectWhereUniqueInput
+  update: ProjectUpdateDataInput
+  upsert: ProjectUpsertNestedInput
+}
+
 input ProjectUpdateWithoutOwnerDataInput {
   title: String
   address: String
@@ -483,6 +900,11 @@ input ProjectUpdateWithoutOwnerDataInput {
 input ProjectUpdateWithWhereUniqueWithoutOwnerInput {
   where: ProjectWhereUniqueInput!
   data: ProjectUpdateWithoutOwnerDataInput!
+}
+
+input ProjectUpsertNestedInput {
+  update: ProjectUpdateDataInput!
+  create: ProjectCreateInput!
 }
 
 input ProjectUpsertWithWhereUniqueWithoutOwnerInput {
@@ -730,15 +1152,21 @@ input ProjectWhereUniqueInput {
 }
 
 type Query {
+  jobs(where: JobWhereInput, orderBy: JobOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Job]!
+  successMessages(where: SuccessMessageWhereInput, orderBy: SuccessMessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SuccessMessage]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   projects(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project]!
-  successMessages(where: SuccessMessageWhereInput, orderBy: SuccessMessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SuccessMessage]!
+  tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag]!
+  job(where: JobWhereUniqueInput!): Job
+  successMessage(where: SuccessMessageWhereUniqueInput!): SuccessMessage
   user(where: UserWhereUniqueInput!): User
   project(where: ProjectWhereUniqueInput!): Project
-  successMessage(where: SuccessMessageWhereUniqueInput!): SuccessMessage
+  tag(where: TagWhereUniqueInput!): Tag
+  jobsConnection(where: JobWhereInput, orderBy: JobOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): JobConnection!
+  successMessagesConnection(where: SuccessMessageWhereInput, orderBy: SuccessMessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SuccessMessageConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   projectsConnection(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProjectConnection!
-  successMessagesConnection(where: SuccessMessageWhereInput, orderBy: SuccessMessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SuccessMessageConnection!
+  tagsConnection(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TagConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -748,9 +1176,11 @@ type Query {
 }
 
 type Subscription {
+  job(where: JobSubscriptionWhereInput): JobSubscriptionPayload
+  successMessage(where: SuccessMessageSubscriptionWhereInput): SuccessMessageSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   project(where: ProjectSubscriptionWhereInput): ProjectSubscriptionPayload
-  successMessage(where: SuccessMessageSubscriptionWhereInput): SuccessMessageSubscriptionPayload
+  tag(where: TagSubscriptionWhereInput): TagSubscriptionPayload
 }
 
 type SuccessMessage implements Node {
@@ -936,6 +1366,228 @@ input SuccessMessageWhereUniqueInput {
   id: ID
 }
 
+type Tag implements Node {
+  id: ID!
+  title: String!
+  jobGroup: JobGroup!
+}
+
+"""A connection to a list of items."""
+type TagConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [TagEdge]!
+  aggregate: AggregateTag!
+}
+
+input TagCreateInput {
+  id: ID
+  title: String!
+  jobGroup: JobGroup!
+}
+
+input TagCreateOneInput {
+  create: TagCreateInput
+  connect: TagWhereUniqueInput
+}
+
+"""An edge in a connection."""
+type TagEdge {
+  """The item at the end of the edge."""
+  node: Tag!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum TagOrderByInput {
+  id_ASC
+  id_DESC
+  title_ASC
+  title_DESC
+  jobGroup_ASC
+  jobGroup_DESC
+}
+
+type TagPreviousValues {
+  id: ID!
+  title: String!
+  jobGroup: JobGroup!
+}
+
+type TagSubscriptionPayload {
+  mutation: MutationType!
+  node: Tag
+  updatedFields: [String!]
+  previousValues: TagPreviousValues
+}
+
+input TagSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [TagSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [TagSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [TagSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: TagWhereInput
+}
+
+input TagUpdateDataInput {
+  title: String
+  jobGroup: JobGroup
+}
+
+input TagUpdateInput {
+  title: String
+  jobGroup: JobGroup
+}
+
+input TagUpdateManyMutationInput {
+  title: String
+  jobGroup: JobGroup
+}
+
+input TagUpdateOneRequiredInput {
+  create: TagCreateInput
+  connect: TagWhereUniqueInput
+  update: TagUpdateDataInput
+  upsert: TagUpsertNestedInput
+}
+
+input TagUpsertNestedInput {
+  update: TagUpdateDataInput!
+  create: TagCreateInput!
+}
+
+input TagWhereInput {
+  """Logical AND on all given filters."""
+  AND: [TagWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [TagWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [TagWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  title: String
+
+  """All values that are not equal to given value."""
+  title_not: String
+
+  """All values that are contained in given list."""
+  title_in: [String!]
+
+  """All values that are not contained in given list."""
+  title_not_in: [String!]
+
+  """All values less than the given value."""
+  title_lt: String
+
+  """All values less than or equal the given value."""
+  title_lte: String
+
+  """All values greater than the given value."""
+  title_gt: String
+
+  """All values greater than or equal the given value."""
+  title_gte: String
+
+  """All values containing the given string."""
+  title_contains: String
+
+  """All values not containing the given string."""
+  title_not_contains: String
+
+  """All values starting with the given string."""
+  title_starts_with: String
+
+  """All values not starting with the given string."""
+  title_not_starts_with: String
+
+  """All values ending with the given string."""
+  title_ends_with: String
+
+  """All values not ending with the given string."""
+  title_not_ends_with: String
+  jobGroup: JobGroup
+
+  """All values that are not equal to given value."""
+  jobGroup_not: JobGroup
+
+  """All values that are contained in given list."""
+  jobGroup_in: [JobGroup!]
+
+  """All values that are not contained in given list."""
+  jobGroup_not_in: [JobGroup!]
+}
+
+input TagWhereUniqueInput {
+  id: ID
+}
+
 type User implements Node {
   id: ID!
   name: String!
@@ -978,6 +1630,11 @@ input UserCreateInput {
   emailVerified: Boolean
   permissions: UserCreatepermissionsInput
   projects: ProjectCreateManyWithoutOwnerInput
+}
+
+input UserCreateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
 }
 
 input UserCreateOneWithoutProjectsInput {
@@ -1096,6 +1753,22 @@ input UserSubscriptionWhereInput {
   node: UserWhereInput
 }
 
+input UserUpdateDataInput {
+  name: String
+  email: String
+  password: String
+  image: String
+  largeImage: String
+  organisation: String
+  phone: String
+  resetToken: String
+  resetTokenExpiry: Float
+  verificationEmailToken: String
+  emailVerified: Boolean
+  permissions: UserUpdatepermissionsInput
+  projects: ProjectUpdateManyWithoutOwnerInput
+}
+
 input UserUpdateInput {
   name: String
   email: String
@@ -1127,6 +1800,15 @@ input UserUpdateManyMutationInput {
   permissions: UserUpdatepermissionsInput
 }
 
+input UserUpdateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
+}
+
 input UserUpdateOneRequiredWithoutProjectsInput {
   create: UserCreateWithoutProjectsInput
   connect: UserWhereUniqueInput
@@ -1151,6 +1833,11 @@ input UserUpdateWithoutProjectsDataInput {
   verificationEmailToken: String
   emailVerified: Boolean
   permissions: UserUpdatepermissionsInput
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
 }
 
 input UserUpsertWithoutProjectsInput {

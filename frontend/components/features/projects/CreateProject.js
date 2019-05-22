@@ -42,7 +42,7 @@ class CreateProject extends CreateWithFilesUpload {
       <Mutation
         mutation={CREATE_PROJECT_MUTATION}
         variables={this.state}
-        refetchQueries={[ { query : USERS_PROJECTS_QUERY } ]}
+        refetchQueries={[{ query: USERS_PROJECTS_QUERY }]}
         onCompleted={() => {
           Router.push("/");
         }}

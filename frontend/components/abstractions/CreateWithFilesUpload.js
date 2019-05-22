@@ -8,6 +8,11 @@ class CreateWithFilesUpload extends Component {
     });
   };
 
+  resetState = () => {
+    const keys = Object.keys(this.state);
+    keys.forEach(property => this.setState({ [property]: "" }));
+  };
+
   uploadFile = async e => {
     if (!e.target.files) return;
     const files = e.target.files;

@@ -7,6 +7,17 @@ enum Permission {
   PERMISSIONSUPDATE
 }
 
+enum JobGroup {
+ SURVEY
+ FUNDATION
+ STRUCTURAL_STEEL
+ STRUCTURAL_CONCRETE
+ FITIN
+ PLUMBING
+ ELECTRICAL
+ HANDOVER
+}
+
 type User {
   id: ID! @id
   name: String!
@@ -32,6 +43,24 @@ type Project {
   image: String!
   largeImage: String!
   owner: User!
+}
+
+type Job {
+ id: ID! @id
+ project: Project!
+ title: String!
+ level: Float!
+ unit: String!
+ tag: Tag!
+ image: String
+ largeImage: String
+ assignee: User
+}
+
+type Tag {
+ id: ID! @id
+ title: String!
+ jobGroup: JobGroup!
 }
 
 

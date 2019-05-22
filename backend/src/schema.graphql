@@ -10,6 +10,8 @@ type Mutation {
     resetPassword (resetToken : String!, password : String!, confirmPassword : String!) : User!
     createProject (title : String!, address : String!, levels_number : Float,
     image : String!, largeImage : String!) : Project!
+    createJob(tag: ID!, assignee: ID, title: String!, level: Float!, unit: String!, image: String,
+    largeImage: String) : Job!
 }
 
 
@@ -19,6 +21,7 @@ type Query {
     user(where : UserWhereUniqueInput): User!
     myProjects(where: ProjectWhereInput) : [Project]!
     project(where : UserWhereUniqueInput) : Project!
+    projectJobs(where: JobWhereInput) : [Job]!
 }
 
 
