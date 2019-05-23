@@ -1,5 +1,5 @@
 import React from "react";
-import { Mutation } from "react-apollo";
+import { Mutation, Query } from "react-apollo";
 import gql from "graphql-tag";
 import Router from "next/router";
 import PasswordValidator from "password-validator";
@@ -37,13 +37,23 @@ const SIGNUP_MUTATION = gql`
   }
 `;
 
+const EXISTING_OCCUPATIONS = gql`
+  query EXISTING_OCCUPATIONS {
+      occupations {
+          id
+          title
+      }
+  }
+`;
+
+
 class SignUp extends CreateWithFilesUpload {
   state = {
     name: "",
     email: "",
     password: "",
     organisation: "",
-    occupation : "",
+    occupation: "",
     phone: "",
     image: "",
     largeImage: "",
@@ -103,7 +113,7 @@ class SignUp extends CreateWithFilesUpload {
     });
   };
 
-  // TODO add a query to fetch existing occupations from the db
+
   render() {
     return (
       <Mutation
@@ -170,6 +180,26 @@ class SignUp extends CreateWithFilesUpload {
                     ? "Password should contain at least one letter, digit, uppercase, lowercase and to be at least 8 characters long"
                     : ""}
                 </label>
+                <Query query={EXISTING_OCCUPATIONS}>
+                  {({ data }) => (
+                    <label>
+                      Occupation
+                      <select
+                        required
+                        name="occupation"
+                        placeholder="Occupation"
+                        onChange={this.saveToState}
+                      >
+                        <option value="" disabled selected>
+                          Select your option
+                        </option>
+                        {data.occupations.map(occupation => (
+                          <option key={occupation.id} value={occupation.id}>{occupation.title}</option>
+                        ))}
+                      </select>
+                    </label>
+                  )}
+                </Query>
                 <label>
                   Organisation
                   <input
@@ -178,17 +208,6 @@ class SignUp extends CreateWithFilesUpload {
                     name="organisation"
                     placeholder="Organisation"
                     value={this.state.organisation}
-                    onChange={this.saveToState}
-                  />
-                </label>
-                <label>
-                  Occupation
-                  <input
-                    required
-                    type="text"
-                    name="occupation"
-                    placeholder="Occupation"
-                    value={this.state.occupation}
                     onChange={this.saveToState}
                   />
                 </label>

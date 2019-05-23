@@ -1,13 +1,23 @@
 import React, { Component } from "react";
+import { Query } from 'react-apollo';
+import gql from 'graphql-tag';
 import Link from "next/link";
 import UserWidget from "./UserWidget";
 import Cookies from "universal-cookie";
+import DisplayError from "./ErrorMessage";
+import Loading from './Loading';
 
-// const LOCAL_STATE_PROJECTID_QUERY = gql`
-//   {
-//     projectId @client
-//   }
-// `;
+/**
+ * Verifies whether or not project with id from cookies exists in the db
+ */
+const VERIFY_PROJECT_EXISTENSE = gql`
+  query VERIFY_PROJECT_QUERY($projectId : ID!) {
+      project( where : { id : $projectId}) {
+          id
+      }
+  }
+`;
+
 
 const cookies = new Cookies();
 
@@ -17,22 +27,34 @@ class SideBar extends Component {
     return (
       <div className="sidebar">
         <UserWidget />
-        {projectId && (
-          <>
-            <Link href="/">
-              <a className="sidebar__link">Projects</a>
-            </Link>
-            <Link href="/jobs">
-              <a className="sidebar__link">TODOs</a>
-            </Link>
-            <Link href="/people">
-              <a className="sidebar__link">HR</a>
-            </Link>
-            <Link href="/link1">
-              <a className="sidebar__link">Feature 3</a>
-            </Link>
-          </>
-        )}
+        <Query query={VERIFY_PROJECT_EXISTENSE} variables={{projectId}}>
+          {({ data, loading, error}) => {
+            if(loading) return <Loading/>
+            if(error) return <DisplayError error={error}/>;
+            if(!data.project) return (
+              <Link href="/">
+                <a className="sidebar__link">Projects</a>
+              </Link>
+            )
+            if(data.project.id) return (
+              <>
+                <Link href="/">
+                  <a className="sidebar__link">Projects</a>
+                </Link>
+                <Link href="/jobs">
+                  <a className="sidebar__link">TODOs</a>
+                </Link>
+                <Link href="/people">
+                  <a className="sidebar__link">HR</a>
+                </Link>
+                <Link href="/link1">
+                  <a className="sidebar__link">Feature 3</a>
+                </Link>
+              </>
+            )
+            return null;
+          }}
+        </Query>
       </div>
     );
   }

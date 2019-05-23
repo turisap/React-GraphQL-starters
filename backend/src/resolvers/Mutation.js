@@ -23,7 +23,12 @@ const Mutations = {
                     ...args,
                     password,
                     verificationEmailToken,
-                    permissions: { set: ["USER"] }
+                    permissions: { set: ["USER"] },
+                    occupation : {
+                        connect : {
+                            id : args.occupation
+                        }
+                    }
                 }
             },
             info

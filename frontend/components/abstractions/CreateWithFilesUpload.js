@@ -1,9 +1,8 @@
-import { SaveToState } from './SaveToState';
+import { SaveToState } from "./SaveToState";
 import { CONFIG } from "../../config";
 
 class CreateWithFilesUpload extends SaveToState {
-
-    uploadFile = async e => {
+  uploadFile = async e => {
     if (!e.target.files) return;
     const files = e.target.files;
     if (files[0].type !== "image/jpeg") {

@@ -29,13 +29,11 @@ const CREATE_JOB_MUTATION = gql`
   }
 `;
 
-
 /* eslint-disable */
 const Composed = adopt({
   createJob: ({ render }) => <Mutation mutation={CREATE_JOB_MUTATION}>{render}</Mutation>,
 });
 /* eslint-enable */
-
 
 class CreateJob extends CreateWithFilesUpload {
   state = {

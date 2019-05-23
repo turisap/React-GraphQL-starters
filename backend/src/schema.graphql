@@ -20,9 +20,10 @@ type Query {
     sendEmail (type : String!, text : String!) : SuccessMessage
     user(where : UserWhereUniqueInput): User!
     myProjects(where: ProjectWhereInput) : [Project]!
-    project(where : UserWhereUniqueInput) : Project!
+    project(where : UserWhereUniqueInput) : Project
     projectJobs(where: JobWhereInput) : [Job]!
     projectParticipants: [User]!
+    occupations : [Occupation]!
 }
 
 
