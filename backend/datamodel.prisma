@@ -23,6 +23,7 @@ type User {
   name: String!
   email: String! @unique
   password: String!
+  occupation : Occupation!
   permissions: [Permission] @scalarList(strategy: RELATION)
   image: String!
   largeImage: String!
@@ -61,6 +62,11 @@ type Tag {
  id: ID! @id
  title: String!
  jobGroup: JobGroup!
+}
+
+type Occupation {
+ id : ID! @id
+ title : String!
 }
 
 

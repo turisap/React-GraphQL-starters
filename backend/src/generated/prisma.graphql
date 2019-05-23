@@ -1,7 +1,11 @@
 # source: https://us1.prisma.sh/kirill-shakirov-5f22b4/boilerplate/dev
-# timestamp: Wed May 22 2019 20:46:38 GMT+1200 (New Zealand Standard Time)
+# timestamp: Thu May 23 2019 18:45:29 GMT+1200 (New Zealand Standard Time)
 
 type AggregateJob {
+  count: Int!
+}
+
+type AggregateOccupation {
   count: Int!
 }
 
@@ -411,33 +415,39 @@ scalar Long
 type Mutation {
   createJob(data: JobCreateInput!): Job!
   createSuccessMessage(data: SuccessMessageCreateInput!): SuccessMessage!
-  createUser(data: UserCreateInput!): User!
   createProject(data: ProjectCreateInput!): Project!
+  createUser(data: UserCreateInput!): User!
+  createOccupation(data: OccupationCreateInput!): Occupation!
   createTag(data: TagCreateInput!): Tag!
   updateJob(data: JobUpdateInput!, where: JobWhereUniqueInput!): Job
   updateSuccessMessage(data: SuccessMessageUpdateInput!, where: SuccessMessageWhereUniqueInput!): SuccessMessage
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateProject(data: ProjectUpdateInput!, where: ProjectWhereUniqueInput!): Project
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateOccupation(data: OccupationUpdateInput!, where: OccupationWhereUniqueInput!): Occupation
   updateTag(data: TagUpdateInput!, where: TagWhereUniqueInput!): Tag
   deleteJob(where: JobWhereUniqueInput!): Job
   deleteSuccessMessage(where: SuccessMessageWhereUniqueInput!): SuccessMessage
-  deleteUser(where: UserWhereUniqueInput!): User
   deleteProject(where: ProjectWhereUniqueInput!): Project
+  deleteUser(where: UserWhereUniqueInput!): User
+  deleteOccupation(where: OccupationWhereUniqueInput!): Occupation
   deleteTag(where: TagWhereUniqueInput!): Tag
   upsertJob(where: JobWhereUniqueInput!, create: JobCreateInput!, update: JobUpdateInput!): Job!
   upsertSuccessMessage(where: SuccessMessageWhereUniqueInput!, create: SuccessMessageCreateInput!, update: SuccessMessageUpdateInput!): SuccessMessage!
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertProject(where: ProjectWhereUniqueInput!, create: ProjectCreateInput!, update: ProjectUpdateInput!): Project!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  upsertOccupation(where: OccupationWhereUniqueInput!, create: OccupationCreateInput!, update: OccupationUpdateInput!): Occupation!
   upsertTag(where: TagWhereUniqueInput!, create: TagCreateInput!, update: TagUpdateInput!): Tag!
   updateManyJobs(data: JobUpdateManyMutationInput!, where: JobWhereInput): BatchPayload!
   updateManySuccessMessages(data: SuccessMessageUpdateManyMutationInput!, where: SuccessMessageWhereInput): BatchPayload!
-  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyProjects(data: ProjectUpdateManyMutationInput!, where: ProjectWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+  updateManyOccupations(data: OccupationUpdateManyMutationInput!, where: OccupationWhereInput): BatchPayload!
   updateManyTags(data: TagUpdateManyMutationInput!, where: TagWhereInput): BatchPayload!
   deleteManyJobs(where: JobWhereInput): BatchPayload!
   deleteManySuccessMessages(where: SuccessMessageWhereInput): BatchPayload!
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyProjects(where: ProjectWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
+  deleteManyOccupations(where: OccupationWhereInput): BatchPayload!
   deleteManyTags(where: TagWhereInput): BatchPayload!
 }
 
@@ -451,6 +461,210 @@ enum MutationType {
 interface Node {
   """The id of the object."""
   id: ID!
+}
+
+type Occupation implements Node {
+  id: ID!
+  title: String!
+}
+
+"""A connection to a list of items."""
+type OccupationConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [OccupationEdge]!
+  aggregate: AggregateOccupation!
+}
+
+input OccupationCreateInput {
+  id: ID
+  title: String!
+}
+
+input OccupationCreateOneInput {
+  create: OccupationCreateInput
+  connect: OccupationWhereUniqueInput
+}
+
+"""An edge in a connection."""
+type OccupationEdge {
+  """The item at the end of the edge."""
+  node: Occupation!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum OccupationOrderByInput {
+  id_ASC
+  id_DESC
+  title_ASC
+  title_DESC
+}
+
+type OccupationPreviousValues {
+  id: ID!
+  title: String!
+}
+
+type OccupationSubscriptionPayload {
+  mutation: MutationType!
+  node: Occupation
+  updatedFields: [String!]
+  previousValues: OccupationPreviousValues
+}
+
+input OccupationSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [OccupationSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [OccupationSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [OccupationSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: OccupationWhereInput
+}
+
+input OccupationUpdateDataInput {
+  title: String
+}
+
+input OccupationUpdateInput {
+  title: String
+}
+
+input OccupationUpdateManyMutationInput {
+  title: String
+}
+
+input OccupationUpdateOneRequiredInput {
+  create: OccupationCreateInput
+  connect: OccupationWhereUniqueInput
+  update: OccupationUpdateDataInput
+  upsert: OccupationUpsertNestedInput
+}
+
+input OccupationUpsertNestedInput {
+  update: OccupationUpdateDataInput!
+  create: OccupationCreateInput!
+}
+
+input OccupationWhereInput {
+  """Logical AND on all given filters."""
+  AND: [OccupationWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [OccupationWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [OccupationWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  title: String
+
+  """All values that are not equal to given value."""
+  title_not: String
+
+  """All values that are contained in given list."""
+  title_in: [String!]
+
+  """All values that are not contained in given list."""
+  title_not_in: [String!]
+
+  """All values less than the given value."""
+  title_lt: String
+
+  """All values less than or equal the given value."""
+  title_lte: String
+
+  """All values greater than the given value."""
+  title_gt: String
+
+  """All values greater than or equal the given value."""
+  title_gte: String
+
+  """All values containing the given string."""
+  title_contains: String
+
+  """All values not containing the given string."""
+  title_not_contains: String
+
+  """All values starting with the given string."""
+  title_starts_with: String
+
+  """All values not starting with the given string."""
+  title_not_starts_with: String
+
+  """All values ending with the given string."""
+  title_ends_with: String
+
+  """All values not ending with the given string."""
+  title_not_ends_with: String
+}
+
+input OccupationWhereUniqueInput {
+  id: ID
 }
 
 """Information about pagination in a connection."""
@@ -1154,18 +1368,21 @@ input ProjectWhereUniqueInput {
 type Query {
   jobs(where: JobWhereInput, orderBy: JobOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Job]!
   successMessages(where: SuccessMessageWhereInput, orderBy: SuccessMessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SuccessMessage]!
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   projects(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project]!
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  occupations(where: OccupationWhereInput, orderBy: OccupationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Occupation]!
   tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag]!
   job(where: JobWhereUniqueInput!): Job
   successMessage(where: SuccessMessageWhereUniqueInput!): SuccessMessage
-  user(where: UserWhereUniqueInput!): User
   project(where: ProjectWhereUniqueInput!): Project
+  user(where: UserWhereUniqueInput!): User
+  occupation(where: OccupationWhereUniqueInput!): Occupation
   tag(where: TagWhereUniqueInput!): Tag
   jobsConnection(where: JobWhereInput, orderBy: JobOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): JobConnection!
   successMessagesConnection(where: SuccessMessageWhereInput, orderBy: SuccessMessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SuccessMessageConnection!
-  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   projectsConnection(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProjectConnection!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  occupationsConnection(where: OccupationWhereInput, orderBy: OccupationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OccupationConnection!
   tagsConnection(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TagConnection!
 
   """Fetches an object given its ID"""
@@ -1178,8 +1395,9 @@ type Query {
 type Subscription {
   job(where: JobSubscriptionWhereInput): JobSubscriptionPayload
   successMessage(where: SuccessMessageSubscriptionWhereInput): SuccessMessageSubscriptionPayload
-  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   project(where: ProjectSubscriptionWhereInput): ProjectSubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  occupation(where: OccupationSubscriptionWhereInput): OccupationSubscriptionPayload
   tag(where: TagSubscriptionWhereInput): TagSubscriptionPayload
 }
 
@@ -1593,6 +1811,7 @@ type User implements Node {
   name: String!
   email: String!
   password: String!
+  occupation: Occupation!
   permissions: [Permission!]!
   image: String!
   largeImage: String!
@@ -1629,6 +1848,7 @@ input UserCreateInput {
   verificationEmailToken: String
   emailVerified: Boolean
   permissions: UserCreatepermissionsInput
+  occupation: OccupationCreateOneInput!
   projects: ProjectCreateManyWithoutOwnerInput
 }
 
@@ -1660,6 +1880,7 @@ input UserCreateWithoutProjectsInput {
   verificationEmailToken: String
   emailVerified: Boolean
   permissions: UserCreatepermissionsInput
+  occupation: OccupationCreateOneInput!
 }
 
 """An edge in a connection."""
@@ -1766,6 +1987,7 @@ input UserUpdateDataInput {
   verificationEmailToken: String
   emailVerified: Boolean
   permissions: UserUpdatepermissionsInput
+  occupation: OccupationUpdateOneRequiredInput
   projects: ProjectUpdateManyWithoutOwnerInput
 }
 
@@ -1782,6 +2004,7 @@ input UserUpdateInput {
   verificationEmailToken: String
   emailVerified: Boolean
   permissions: UserUpdatepermissionsInput
+  occupation: OccupationUpdateOneRequiredInput
   projects: ProjectUpdateManyWithoutOwnerInput
 }
 
@@ -1833,6 +2056,7 @@ input UserUpdateWithoutProjectsDataInput {
   verificationEmailToken: String
   emailVerified: Boolean
   permissions: UserUpdatepermissionsInput
+  occupation: OccupationUpdateOneRequiredInput
 }
 
 input UserUpsertNestedInput {
@@ -2280,6 +2504,7 @@ input UserWhereInput {
 
   """All values that are not equal to given value."""
   emailVerified_not: Boolean
+  occupation: OccupationWhereInput
   projects_every: ProjectWhereInput
   projects_some: ProjectWhereInput
   projects_none: ProjectWhereInput

@@ -6,7 +6,6 @@ import { CreateWithFilesUpload } from "../../abstractions/CreateWithFilesUpload"
 
 const CREATE_JOB_MUTATION = gql`
   mutation CREATE_JOB_MUATION(
-    $project: ID!
     $tag: ID!
     $title: String!
     $level: Float!
@@ -30,18 +29,20 @@ const CREATE_JOB_MUTATION = gql`
   }
 `;
 
+
 /* eslint-disable */
 const Composed = adopt({
   createJob: ({ render }) => <Mutation mutation={CREATE_JOB_MUTATION}>{render}</Mutation>,
 });
 /* eslint-enable */
 
+
 class CreateJob extends CreateWithFilesUpload {
   state = {
     tag: null,
-    title: "fdklg",
-    level: ";dfl",
-    unit: "slfk",
+    title: "",
+    level: "",
+    unit: "",
     image: "",
     largeImage: "",
     assignee: ""

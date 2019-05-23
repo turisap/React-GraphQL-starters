@@ -1,19 +1,9 @@
-import { Component } from "react";
+import { SaveToState } from './SaveToState';
 import { CONFIG } from "../../config";
 
-class CreateWithFilesUpload extends Component {
-  saveToState = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  };
+class CreateWithFilesUpload extends SaveToState {
 
-  resetState = () => {
-    const keys = Object.keys(this.state);
-    keys.forEach(property => this.setState({ [property]: "" }));
-  };
-
-  uploadFile = async e => {
+    uploadFile = async e => {
     if (!e.target.files) return;
     const files = e.target.files;
     if (files[0].type !== "image/jpeg") {

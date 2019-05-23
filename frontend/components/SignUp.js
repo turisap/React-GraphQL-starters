@@ -14,6 +14,7 @@ const SIGNUP_MUTATION = gql`
     $name: String!
     $password: String!
     $organisation: String!
+    $occupation: String!
     $phone: String!
     $image: String!
     $largeImage: String!
@@ -23,6 +24,7 @@ const SIGNUP_MUTATION = gql`
       name: $name
       password: $password
       organisation: $organisation
+      occupation: $occupation
       phone: $phone
       image: $image
       largeImage: $largeImage
@@ -41,6 +43,7 @@ class SignUp extends CreateWithFilesUpload {
     email: "",
     password: "",
     organisation: "",
+    occupation : "",
     phone: "",
     image: "",
     largeImage: "",
@@ -55,6 +58,7 @@ class SignUp extends CreateWithFilesUpload {
       name,
       email,
       organisation,
+      occupation,
       phone,
       validPassword,
       image,
@@ -64,6 +68,7 @@ class SignUp extends CreateWithFilesUpload {
     if (
       name &&
       email &&
+      occupation &&
       organisation &&
       phone &&
       image &&
@@ -98,6 +103,7 @@ class SignUp extends CreateWithFilesUpload {
     });
   };
 
+  // TODO add a query to fetch existing occupations from the db
   render() {
     return (
       <Mutation
@@ -172,6 +178,17 @@ class SignUp extends CreateWithFilesUpload {
                     name="organisation"
                     placeholder="Organisation"
                     value={this.state.organisation}
+                    onChange={this.saveToState}
+                  />
+                </label>
+                <label>
+                  Occupation
+                  <input
+                    required
+                    type="text"
+                    name="occupation"
+                    placeholder="Occupation"
+                    value={this.state.occupation}
                     onChange={this.saveToState}
                   />
                 </label>

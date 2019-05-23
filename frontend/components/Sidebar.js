@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import Link from "next/link";
-// import { Query } from "react-apollo";
-// import gql from "graphql-tag";
 import UserWidget from "./UserWidget";
 import Cookies from "universal-cookie";
 
@@ -27,8 +25,8 @@ class SideBar extends Component {
             <Link href="/jobs">
               <a className="sidebar__link">TODOs</a>
             </Link>
-            <Link href="/link1">
-              <a className="sidebar__link">Feature 2</a>
+            <Link href="/people">
+              <a className="sidebar__link">HR</a>
             </Link>
             <Link href="/link1">
               <a className="sidebar__link">Feature 3</a>
