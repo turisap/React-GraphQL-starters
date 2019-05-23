@@ -9,6 +9,7 @@ const Query = {
     // itemsConnection : forwardTo('db'),
     user: forwardTo("db"),
     project: forwardTo("db"),
+    projects: forwardTo("db"),
     occupations : forwardTo("db"),
 
     /**

@@ -21,6 +21,7 @@ type Query {
     user(where : UserWhereUniqueInput): User!
     myProjects(where: ProjectWhereInput) : [Project]!
     project(where : UserWhereUniqueInput) : Project
+    projects : [Project]!
     projectJobs(where: JobWhereInput) : [Job]!
     projectParticipants: [User]!
     occupations : [Occupation]!

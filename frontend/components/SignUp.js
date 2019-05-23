@@ -39,13 +39,12 @@ const SIGNUP_MUTATION = gql`
 
 const EXISTING_OCCUPATIONS = gql`
   query EXISTING_OCCUPATIONS {
-      occupations {
-          id
-          title
-      }
+    occupations {
+      id
+      title
+    }
   }
 `;
-
 
 class SignUp extends CreateWithFilesUpload {
   state = {
@@ -112,7 +111,6 @@ class SignUp extends CreateWithFilesUpload {
       touchedPassword: true
     });
   };
-
 
   render() {
     return (
@@ -194,7 +192,9 @@ class SignUp extends CreateWithFilesUpload {
                           Select your option
                         </option>
                         {data.occupations.map(occupation => (
-                          <option key={occupation.id} value={occupation.id}>{occupation.title}</option>
+                          <option key={occupation.id} value={occupation.id}>
+                            {occupation.title}
+                          </option>
                         ))}
                       </select>
                     </label>
@@ -246,4 +246,4 @@ class SignUp extends CreateWithFilesUpload {
 SignUp.propTypes = {};
 
 export default SignUp;
-export { SIGNUP_MUTATION };
+export { SIGNUP_MUTATION, EXISTING_OCCUPATIONS };
