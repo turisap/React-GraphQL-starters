@@ -3,6 +3,8 @@
 type Mutation {
     signup(email : String!, password : String!, name : String!, organisation: String!, occupation : String!
         image: String!, largeImage: String!, phone: String!) : User!
+    fakeSignup(email : String!, password : String!, name : String!, organisation: String!, occupation : String!
+        image: String!, largeImage: String!, phone: String!) : User!
     verifyEmail(id : ID!) : User!
     signin(email : String!, password : String!) : User!
     signout : SuccessMessage

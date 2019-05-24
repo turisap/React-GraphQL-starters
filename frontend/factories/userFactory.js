@@ -3,7 +3,7 @@ import faker from "faker";
 import { Query, Mutation } from "react-apollo";
 import gql from 'graphql-tag';
 import { adopt } from "react-adopt";
-import { SIGNUP_MUTATION, EXISTING_OCCUPATIONS } from "../components/SignUp";
+import { EXISTING_OCCUPATIONS } from "../components/SignUp";
 
 const ALL_PROJECTS_QUERY = gql`
   query ALL_PROJECTS_QUERY {
@@ -14,9 +14,38 @@ const ALL_PROJECTS_QUERY = gql`
   }
 `;
 
+const FAKE_SIGNUP_MUTATION = gql`
+    mutation SIGNUP_MUTATION(
+    $email: String!
+    $name: String!
+    $password: String!
+    $organisation: String!
+    $occupation: String!
+    $phone: String!
+    $image: String!
+    $largeImage: String!
+    ) {
+        fakeSignup(
+            email: $email
+            name: $name
+            password: $password
+            organisation: $organisation
+            occupation: $occupation
+            phone: $phone
+            image: $image
+            largeImage: $largeImage
+        ) {
+            id
+            email
+            name
+            verificationEmailToken
+        }
+    }
+`;
+
 const Composed = adopt({
   signUp: ({ render }) => (
-    <Mutation mutation={SIGNUP_MUTATION}>{render}</Mutation>
+    <Mutation mutation={FAKE_SIGNUP_MUTATION}>{render}</Mutation>
   ),
   occupations: ({ render }) => (
     <Query query={EXISTING_OCCUPATIONS}>{render}</Query>

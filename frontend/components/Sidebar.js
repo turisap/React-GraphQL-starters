@@ -48,10 +48,11 @@ class SideBar extends Component {
                   <Link href="/people">
                     <a className="sidebar__link">HR</a>
                   </Link>
-                  {process.env.NODE_ENV === "development" &&
-                  <Link href="/faker">
-                    <a className="sidebar__link">Fake Data</a>
-                  </Link>}
+                  {process.env.NODE_ENV === "development" && (
+                    <Link href="/faker">
+                      <a className="sidebar__link">Fake Data</a>
+                    </Link>
+                  )}
                 </>
               );
             return null;

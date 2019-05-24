@@ -1,10 +1,10 @@
-import React from 'react';
-import CreateFakeUsers from '../factories/userFactory';
+import React from "react";
+import CreateFakeUsers from "../factories/userFactory";
 
 const FakaDataPage = () => (
   <>
-    <CreateFakeUsers/>
-    </>
+    <CreateFakeUsers />
+  </>
 );
 
 export default FakaDataPage;
