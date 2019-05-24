@@ -4,7 +4,7 @@ import Link from "next/link";
 import gql from "graphql-tag";
 import Loading from "../../Loading";
 import DisplayError from "../../ErrorMessage";
-import UserWidget from "../../UserWidget";
+import ParticipantWidget from "./ParticipantWidget";
 
 const PROJECT_PARTICIPANTS_QUERY = gql`
   query PROJECT_PARTICIPANTS_QUERY {
@@ -12,6 +12,9 @@ const PROJECT_PARTICIPANTS_QUERY = gql`
       id
       name
       email
+      occupation {
+        title
+      }
       image
     }
   }
@@ -38,12 +41,17 @@ class PEOPLE extends Component {
                 {addParticipantLink}
               </p>
             );
-          return data.projectParticipants.map(participant => (
-            <>
-              <UserWidget key={participant.id} participant={participant} />
+          return (
+            <div className="peoplePage">
+              {data.projectParticipants.map(participant => (
+                <ParticipantWidget
+                  key={participant.id}
+                  participant={participant}
+                />
+              ))}
               {addParticipantLink}
-            </>
-          ));
+            </div>
+          );
         }}
       </Query>
     );

@@ -2,16 +2,18 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const ParticipantWidget = ({ participant }) => {
-  const { name, image, position, email } = participant;
-  <div className="participant__widget">
-    <img src={image} className="participant__avatar" />
-    <p>{name}</p>
-    <p>{position}</p>
-    <p>{email}</p>
-  </div>;
+  const { name, image, occupation, email } = participant;
+  return (
+    <div className="participant__widget">
+      <img src={image} className="participant__avatar" />
+      <p>{name}</p>
+      <p>{occupation.title}</p>
+      <p>{email}</p>
+    </div>
+  );
 };
 
-ParticipantWidget.PropTypes = {
+ParticipantWidget.propTypes = {
   participant: PropTypes.shape({
     id: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
