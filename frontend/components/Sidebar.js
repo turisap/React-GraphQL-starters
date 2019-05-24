@@ -9,12 +9,11 @@ import Loading from "./Loading";
 
 /**
  * Verifies whether or not project with id from cookies exists in the db
+ * and checks if it belongs to the logged in user
  */
-const VERIFY_PROJECT_EXISTENSE = gql`
+const PROJECT_EXISTS_AND_BELONGS_TO_USER = gql`
   query VERIFY_PROJECT_QUERY($projectId: ID!) {
-    project(where: { id: $projectId }) {
-      id
-    }
+      projectExistsAndBelongsToUser(projectId : $projectId) 
   }
 `;
 
@@ -26,22 +25,23 @@ class SideBar extends Component {
     return (
       <div className="sidebar">
         <UserWidget />
-        <Query query={VERIFY_PROJECT_EXISTENSE} variables={{ projectId }}>
+        <Link href="/">
+          <a className="sidebar__link">Projects</a>
+        </Link>
+        {projectId &&
+        <Query query={PROJECT_EXISTS_AND_BELONGS_TO_USER} variables={{ projectId }}>
           {({ data, loading, error }) => {
             if (loading) return <Loading />;
             if (error) return <DisplayError error={error} />;
-            if (!data.project)
-              return (
-                <Link href="/">
-                  <a className="sidebar__link">Projects</a>
-                </Link>
-              );
-            if (data.project.id)
+            // if (!data.projectExistsAndBelongsToUser)
+            //   return (
+            //     <Link href="/">
+            //       <a className="sidebar__link">Projects</a>
+            //     </Link>
+            //   );
+            if (data.projectExistsAndBelongsToUser)
               return (
                 <>
-                  <Link href="/">
-                    <a className="sidebar__link">Projects</a>
-                  </Link>
                   <Link href="/jobs">
                     <a className="sidebar__link">TODOs</a>
                   </Link>
@@ -58,6 +58,7 @@ class SideBar extends Component {
             return null;
           }}
         </Query>
+        }
       </div>
     );
   }

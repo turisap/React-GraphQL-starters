@@ -14,6 +14,7 @@ const USERS_PROJECTS_QUERY = gql`
       address
       image
       owner {
+          id
         name
       }
     }

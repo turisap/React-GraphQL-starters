@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/kirill-shakirov-5f22b4/boilerplate/dev
-# timestamp: Thu May 23 2019 18:45:29 GMT+1200 (New Zealand Standard Time)
+# timestamp: Fri May 24 2019 20:04:08 GMT+1200 (New Zealand Standard Time)
 
 type AggregateJob {
   count: Int!
@@ -1404,6 +1404,7 @@ type Subscription {
 type SuccessMessage implements Node {
   id: ID!
   message: String!
+  user: User!
 }
 
 """A connection to a list of items."""
@@ -1419,6 +1420,7 @@ type SuccessMessageConnection {
 input SuccessMessageCreateInput {
   id: ID
   message: String!
+  user: UserCreateOneInput!
 }
 
 """An edge in a connection."""
@@ -1483,6 +1485,7 @@ input SuccessMessageSubscriptionWhereInput {
 
 input SuccessMessageUpdateInput {
   message: String
+  user: UserUpdateOneRequiredInput
 }
 
 input SuccessMessageUpdateManyMutationInput {
@@ -1578,6 +1581,7 @@ input SuccessMessageWhereInput {
 
   """All values not ending with the given string."""
   message_not_ends_with: String
+  user: UserWhereInput
 }
 
 input SuccessMessageWhereUniqueInput {
@@ -2028,6 +2032,13 @@ input UserUpdateOneInput {
   connect: UserWhereUniqueInput
   disconnect: Boolean
   delete: Boolean
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
+}
+
+input UserUpdateOneRequiredInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
   update: UserUpdateDataInput
   upsert: UserUpsertNestedInput
 }

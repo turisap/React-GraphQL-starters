@@ -62,7 +62,7 @@ const CreateFakeUsers = () => {
     {
       name : `${faker.name.firstName()} ${faker.name.lastName()}`,
       email: faker.internet.email(),
-      password : faker.internet.password(),
+      password : "123456", // faker.internet.password(),
       occupation : _getRandom(occupations).id,
       image: "https://i.pravatar.cc/300",
       largeImage : "https://i.pravatar.cc/800",

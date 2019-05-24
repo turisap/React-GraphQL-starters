@@ -21,9 +21,10 @@ type Query {
     me : User
     sendEmail (type : String!, text : String!) : SuccessMessage
     user(where : UserWhereUniqueInput): User!
-    myProjects(where: ProjectWhereInput) : [Project]!
-    project(where : UserWhereUniqueInput) : Project
-    projects : [Project]!
+    myProjects : [Project]
+    project(where : ProjectWhereUniqueInput) : Project
+    allProjects : [Project]!
+    projectExistsAndBelongsToUser(projectId : ID!) : Boolean
     projectJobs(where: JobWhereInput) : [Job]!
     projectParticipants: [User]!
     occupations : [Occupation]!

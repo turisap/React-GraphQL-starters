@@ -73,4 +73,5 @@ type Occupation {
 type SuccessMessage {
    id: ID! @id
    message : String!
+   user : User!
 }
