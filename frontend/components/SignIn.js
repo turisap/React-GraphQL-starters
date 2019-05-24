@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
-import Cookies from 'universal-cookie';
 import Link from "next/link";
 import Error from "./ErrorMessage";
 import { CURRENT_USER_QUERY } from "./User";
-
 
 const SIGNIN_MUTATION = gql`
   mutation SIGNIN_MUTATION($email: String!, $password: String!) {

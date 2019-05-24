@@ -20,11 +20,11 @@ const SignOut = () => (
     mutation={SIGN_OUT_MUTATION}
     refetchQueries={[{ query: CURRENT_USER_QUERY }]}
     onCompleted={() => {
-      cookies.remove('userId', {path : "/"});
-      cookies.remove('projectId', {path : "/"});
-      cookies.remove('tokenId', {path : "/"});
-      cookies.remove('user', {path : "/"});
-      cookies.remove('token', {path : "/"});
+      cookies.remove("userId", { path: "/" });
+      cookies.remove("projectId", { path: "/" });
+      cookies.remove("tokenId", { path: "/" });
+      cookies.remove("user", { path: "/" });
+      cookies.remove("token", { path: "/" });
     }}
   >
     {signOut => <button onClick={signOut}>Sign Out</button>}
