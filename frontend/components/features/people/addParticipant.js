@@ -1,13 +1,17 @@
-import React, { Component } from "react";
-// import { Mutation } from "react-apollo";
-// import gql from "graphql-tag";
-// import { adopt } from "react-adopt";
-// import { CreateWithFilesUpload } from "../../abstractions/CreateWithFilesUpload";
+import React from "react";
+import ExistingOccupations from '../../ExistingOccupations';
+import { SaveToState } from "../../abstractions/SaveToState";
 
-class AddParticipant extends Component {
+class AddParticipant extends SaveToState {
   render() {
-    return (
-      <p>Add participant form</p>
+    return(
+      <fieldset
+        disabled={false}
+        aria-busy={false}
+      >
+        
+        <ExistingOccupations/>
+      </fieldset>
     )
   }
 }

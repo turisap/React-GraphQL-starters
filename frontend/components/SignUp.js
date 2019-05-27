@@ -7,6 +7,7 @@ import debounce from "lodash.debounce";
 import Error from "./ErrorMessage";
 import { CURRENT_USER_QUERY } from "./User";
 import { CreateWithFilesUpload } from "./abstractions/CreateWithFilesUpload";
+import ExistingOccupations from './ExistingOccupations';
 
 const SIGNUP_MUTATION = gql`
   mutation SIGNUP_MUTATION(
@@ -37,14 +38,6 @@ const SIGNUP_MUTATION = gql`
   }
 `;
 
-const EXISTING_OCCUPATIONS = gql`
-  query EXISTING_OCCUPATIONS {
-    occupations {
-      id
-      title
-    }
-  }
-`;
 
 class SignUp extends CreateWithFilesUpload {
   state = {
@@ -178,28 +171,7 @@ class SignUp extends CreateWithFilesUpload {
                     ? "Password should contain at least one letter, digit, uppercase, lowercase and to be at least 8 characters long"
                     : ""}
                 </label>
-                <Query query={EXISTING_OCCUPATIONS}>
-                  {({ data }) => (
-                    <label>
-                      Occupation
-                      <select
-                        required
-                        name="occupation"
-                        placeholder="Occupation"
-                        onChange={this.saveToState}
-                      >
-                        <option value="" disabled selected>
-                          Select your option
-                        </option>
-                        {data.occupations.map(occupation => (
-                          <option key={occupation.id} value={occupation.id}>
-                            {occupation.title}
-                          </option>
-                        ))}
-                      </select>
-                    </label>
-                  )}
-                </Query>
+                <ExistingOccupations changeHandler={this.saveToState}/>
                 <label>
                   Organisation
                   <input
@@ -246,4 +218,4 @@ class SignUp extends CreateWithFilesUpload {
 SignUp.propTypes = {};
 
 export default SignUp;
-export { SIGNUP_MUTATION, EXISTING_OCCUPATIONS };
+export { SIGNUP_MUTATION };
