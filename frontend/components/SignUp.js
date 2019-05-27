@@ -1,5 +1,5 @@
 import React from "react";
-import { Mutation, Query } from "react-apollo";
+import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import Router from "next/router";
 import PasswordValidator from "password-validator";
@@ -7,7 +7,7 @@ import debounce from "lodash.debounce";
 import Error from "./ErrorMessage";
 import { CURRENT_USER_QUERY } from "./User";
 import { CreateWithFilesUpload } from "./abstractions/CreateWithFilesUpload";
-import ExistingOccupations from './ExistingOccupations';
+import ExistingOccupations from "./ExistingOccupations";
 
 const SIGNUP_MUTATION = gql`
   mutation SIGNUP_MUTATION(
@@ -37,7 +37,6 @@ const SIGNUP_MUTATION = gql`
     }
   }
 `;
-
 
 class SignUp extends CreateWithFilesUpload {
   state = {
@@ -171,7 +170,7 @@ class SignUp extends CreateWithFilesUpload {
                     ? "Password should contain at least one letter, digit, uppercase, lowercase and to be at least 8 characters long"
                     : ""}
                 </label>
-                <ExistingOccupations changeHandler={this.saveToState}/>
+                <ExistingOccupations changeHandler={this.saveToState} />
                 <label>
                   Organisation
                   <input

@@ -1,21 +1,21 @@
 import React from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { SaveToState } from "./abstractions/SaveToState";
 
 const EXISTING_OCCUPATIONS = gql`
-    query EXISTING_OCCUPATIONS {
-        occupations {
-            id
-            title
-        }
+  query EXISTING_OCCUPATIONS {
+    occupations {
+      id
+      title
     }
+  }
 `;
 
 class ExistingOccupations extends SaveToState {
   static propTypes = {
-    changeHandler : PropTypes.func
+    changeHandler: PropTypes.func
   };
 
   render() {
@@ -40,9 +40,8 @@ class ExistingOccupations extends SaveToState {
           </label>
         )}
       </Query>
-    )
+    );
   }
 }
-
 
 export default ExistingOccupations;
