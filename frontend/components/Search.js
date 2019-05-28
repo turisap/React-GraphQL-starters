@@ -1,28 +1,31 @@
 import React from "react";
 import Downshift from "downshift";
-import Router from "next/router";
 import { ApolloConsumer } from "react-apollo";
-import gql from "graphql-tag";
 import debounce from "lodash.debounce";
+import PropTypes from "prop-types";
 
-const SEARCH_ITEMS_QUERY = gql`
-  query SEARCH_ITEMS_QUERY($searchTerm: String!) {
-    items(
-      where: {
-        OR: [
-          { title_contains: $searchTerm }
-          { description_contains: $searchTerm }
-        ]
-      }
-    ) {
-      id
-      title
-      image
-    }
-  }
-`;
+// const SEARCH_ITEMS_QUERY = gql`
+//   query SEARCH_ITEMS_QUERY($searchTerm: String!) {
+//     items(
+//       where: {
+//         OR: [
+//           { title_contains: $searchTerm }
+//           { description_contains: $searchTerm }
+//         ]
+//       }
+//     ) {
+//       id
+//       title
+//       image
+//     }
+//   }
+// `;
 
 class AutoComplete extends React.Component {
+  static propTypes = {
+    searchQuery: PropTypes.string.isRequired
+  };
+
   state = {
     items: [],
     loading: false
@@ -33,7 +36,7 @@ class AutoComplete extends React.Component {
     this.setState({ loading: true });
     // manually query apollo client
     const res = await client.query({
-      query: SEARCH_ITEMS_QUERY,
+      query: this.props.searchQuery,
       variables: { searchTerm: e.target.value }
     });
     this.setState({
@@ -42,14 +45,6 @@ class AutoComplete extends React.Component {
     });
   }, 400);
 
-  routeToItem = item => {
-    Router.push({
-      pathname: "/item",
-      query: {
-        id: item.id
-      }
-    });
-  };
 
   render() {
     return (
@@ -70,7 +65,7 @@ class AutoComplete extends React.Component {
                 <input
                   {...getInputProps({
                     type: "search",
-                    placeholder: "Search For An Item",
+                    placeholder: "Search For A Name",
                     id: "search",
                     className: this.state.loading ? "loading" : "",
                     onChange: e => {

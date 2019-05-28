@@ -1,13 +1,15 @@
 import React from "react";
-import { Mutation } from "react-apollo";
+import { Mutation, Query } from "react-apollo";
 import gql from "graphql-tag";
 import Router from "next/router";
 import PasswordValidator from "password-validator";
 import debounce from "lodash.debounce";
 import Error from "./ErrorMessage";
 import { CURRENT_USER_QUERY } from "./User";
+import { ALL_ORGANIZATIONS_QUERY } from "../factories/userFactory";
 import { CreateWithFilesUpload } from "./abstractions/CreateWithFilesUpload";
 import ExistingOccupations from "./ExistingOccupations";
+import Loading from "./Loading";
 
 const SIGNUP_MUTATION = gql`
   mutation SIGNUP_MUTATION(
@@ -171,17 +173,33 @@ class SignUp extends CreateWithFilesUpload {
                     : ""}
                 </label>
                 <ExistingOccupations changeHandler={this.saveToState} />
-                <label>
-                  Organisation
-                  <input
-                    required
-                    type="text"
-                    name="organisation"
-                    placeholder="Organisation"
-                    value={this.state.organisation}
-                    onChange={this.saveToState}
-                  />
-                </label>
+                {/*TODO organizations should be fetched from DB as predefined*/}
+                <Query query={ALL_ORGANIZATIONS_QUERY}>
+                  {({ data, loading }) => {
+                    if (loading) return <Loading />;
+                    if (data.organisations && data.organisations.length)
+                      return (
+                        <label>
+                          Organisation
+                          <select
+                            required
+                            name="organisation"
+                            placeholder="Organisation"
+                            value={this.state.organisation}
+                            onChange={this.saveToState}
+                          >
+                            <option value="" disabled selected>
+                              Select your organization
+                            </option>
+                            {data.organisations.map(org => (
+                              <option key={org.id} value={org.id}>{org.title}</option>
+                            ))}
+                          </select>
+                        </label>
+                      );
+                    return "";
+                  }}
+                </Query>
                 <label>
                   Phone Number
                   <input

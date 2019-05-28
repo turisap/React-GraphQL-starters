@@ -3,11 +3,20 @@ import faker from "faker";
 import { Query, Mutation } from "react-apollo";
 import gql from 'graphql-tag';
 import { adopt } from "react-adopt";
-import { EXISTING_OCCUPATIONS } from "../components/SignUp";
+import { EXISTING_OCCUPATIONS } from "../components/ExistingOccupations";
 
 const ALL_PROJECTS_QUERY = gql`
   query ALL_PROJECTS_QUERY {
       projects {
+          title
+          id
+      }
+  }
+`;
+
+const ALL_ORGANIZATIONS_QUERY = gql`
+  query ALL_ORGANIZATIONS_QUERY {
+      organisations {
           title
           id
       }
@@ -52,13 +61,16 @@ const Composed = adopt({
   ),
   projects : ({ render }) => (
     <Query query={ALL_PROJECTS_QUERY}>{render}</Query>
-  )
+  ),
+  organisations : ({ render }) => (
+    <Query query={ALL_ORGANIZATIONS_QUERY}>{render}</Query>
+  ),
 });
 
 const CreateFakeUsers = () => {
   const [usersNumber, setUsersNumber] = useState(0);
 
-  const fakeUser = (occupations, projects) => (
+  const fakeUser = (occupations, projects, organisations) => (
     {
       name : `${faker.name.firstName()} ${faker.name.lastName()}`,
       email: faker.internet.email(),
@@ -66,7 +78,7 @@ const CreateFakeUsers = () => {
       occupation : _getRandom(occupations).id,
       image: "https://i.pravatar.cc/300",
       largeImage : "https://i.pravatar.cc/800",
-      organisation : "TROLOLO",
+      organisation : _getRandom(organisations).id,
       phone: faker.phone.phoneNumber(),
       emailVerified: true,
       projects : _getRandom(projects).id
@@ -75,7 +87,7 @@ const CreateFakeUsers = () => {
 
   return (
     <Composed>
-      {({ signUp, occupations, projects }) => (
+      {({ signUp, occupations, projects, organisations }) => (
         <>
           <input
             type="number"
@@ -86,10 +98,11 @@ const CreateFakeUsers = () => {
             onClick={e => {
               e.preventDefault();
               const iterate =  [... Array(5)].fill(1);
+              console.log(projects)
               iterate.forEach(() => {
                 setTimeout(async () => {
                   await signUp({ variables: {
-                      ...fakeUser(occupations.data.occupations, projects.data.projects)
+                      ...fakeUser(occupations.data.occupations, projects.data.projects, organisations.data.organisations)
                     } })
                 }, 500)
               })
@@ -106,3 +119,4 @@ const CreateFakeUsers = () => {
 const _getRandom = entity => entity[Math.floor(Math.random() * entity.length)];
 
 export default CreateFakeUsers;
+export { ALL_PROJECTS_QUERY, ALL_ORGANIZATIONS_QUERY};

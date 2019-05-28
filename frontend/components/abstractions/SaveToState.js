@@ -1,4 +1,5 @@
 import { Component } from "react";
+import Router from "next/router";
 
 class SaveToState extends Component {
   resetState = () => {
@@ -9,6 +10,13 @@ class SaveToState extends Component {
   saveToState = e => {
     this.setState({
       [e.target.name]: e.target.value
+    });
+  };
+
+  routeTo = (pathname, query = {}) => {
+    Router.push({
+      pathname,
+      query
     });
   };
 }

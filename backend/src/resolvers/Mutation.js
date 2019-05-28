@@ -31,6 +31,11 @@ const Mutations = {
                         connect: {
                             id: args.occupation
                         }
+                    },
+                    organisation : {
+                        connect : {
+                            id : args.organisation
+                        }
                     }
                 }
             },

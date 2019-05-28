@@ -27,6 +27,11 @@ const FakeDataMutations = {
                             id : args.occupation
                         }
                     },
+                    organisation : {
+                        connect : {
+                            id : args.organisation
+                        }
+                    },
                     emailVerified: true
                 }
             },

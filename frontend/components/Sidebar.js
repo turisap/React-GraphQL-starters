@@ -36,12 +36,7 @@ class SideBar extends Component {
             {({ data, loading, error }) => {
               if (loading) return <Loading />;
               if (error) return <DisplayError error={error} />;
-              // if (!data.projectExistsAndBelongsToUser)
-              //   return (
-              //     <Link href="/">
-              //       <a className="sidebar__link">Projects</a>
-              //     </Link>
-              //   );
+
               if (data.projectExistsAndBelongsToUser)
                 return (
                   <>
@@ -51,16 +46,16 @@ class SideBar extends Component {
                     <Link href="/people">
                       <a className="sidebar__link">HR</a>
                     </Link>
-                    {process.env.NODE_ENV === "development" && (
-                      <Link href="/faker">
-                        <a className="sidebar__link">Fake Data</a>
-                      </Link>
-                    )}
                   </>
                 );
               return null;
             }}
           </Query>
+        )}
+        {process.env.NODE_ENV === "development" && (
+          <Link href="/faker">
+            <a className="sidebar__link">Fake Data</a>
+          </Link>
         )}
       </div>
     );

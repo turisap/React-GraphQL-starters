@@ -94,6 +94,7 @@ class CreateJob extends CreateWithFilesUpload {
                   />
                 </label>
                 <label>
+                  {/*TODO make a list of prefetched tags*/}
                   Tag
                   <select
                     required

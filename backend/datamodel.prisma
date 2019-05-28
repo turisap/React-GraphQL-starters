@@ -27,7 +27,7 @@ type User {
   permissions: [Permission] @scalarList(strategy: RELATION)
   image: String!
   largeImage: String!
-  organisation: String!
+  organisation: Organisation!
   phone: String!,
   resetToken: String,
   resetTokenExpiry: Float
@@ -67,6 +67,14 @@ type Tag {
 type Occupation {
  id : ID! @id
  title : String!
+}
+
+type Organisation {
+ id: ID! @id,
+ title : String!
+ address : String!
+ image: String!
+ largeImage: String!
 }
 
 

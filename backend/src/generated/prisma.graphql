@@ -1,11 +1,15 @@
 # source: https://us1.prisma.sh/kirill-shakirov-5f22b4/boilerplate/dev
-# timestamp: Fri May 24 2019 20:04:08 GMT+1200 (New Zealand Standard Time)
+# timestamp: Tue May 28 2019 20:11:29 GMT+1200 (New Zealand Standard Time)
 
 type AggregateJob {
   count: Int!
 }
 
 type AggregateOccupation {
+  count: Int!
+}
+
+type AggregateOrganisation {
   count: Int!
 }
 
@@ -418,36 +422,42 @@ type Mutation {
   createProject(data: ProjectCreateInput!): Project!
   createUser(data: UserCreateInput!): User!
   createOccupation(data: OccupationCreateInput!): Occupation!
+  createOrganisation(data: OrganisationCreateInput!): Organisation!
   createTag(data: TagCreateInput!): Tag!
   updateJob(data: JobUpdateInput!, where: JobWhereUniqueInput!): Job
   updateSuccessMessage(data: SuccessMessageUpdateInput!, where: SuccessMessageWhereUniqueInput!): SuccessMessage
   updateProject(data: ProjectUpdateInput!, where: ProjectWhereUniqueInput!): Project
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateOccupation(data: OccupationUpdateInput!, where: OccupationWhereUniqueInput!): Occupation
+  updateOrganisation(data: OrganisationUpdateInput!, where: OrganisationWhereUniqueInput!): Organisation
   updateTag(data: TagUpdateInput!, where: TagWhereUniqueInput!): Tag
   deleteJob(where: JobWhereUniqueInput!): Job
   deleteSuccessMessage(where: SuccessMessageWhereUniqueInput!): SuccessMessage
   deleteProject(where: ProjectWhereUniqueInput!): Project
   deleteUser(where: UserWhereUniqueInput!): User
   deleteOccupation(where: OccupationWhereUniqueInput!): Occupation
+  deleteOrganisation(where: OrganisationWhereUniqueInput!): Organisation
   deleteTag(where: TagWhereUniqueInput!): Tag
   upsertJob(where: JobWhereUniqueInput!, create: JobCreateInput!, update: JobUpdateInput!): Job!
   upsertSuccessMessage(where: SuccessMessageWhereUniqueInput!, create: SuccessMessageCreateInput!, update: SuccessMessageUpdateInput!): SuccessMessage!
   upsertProject(where: ProjectWhereUniqueInput!, create: ProjectCreateInput!, update: ProjectUpdateInput!): Project!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertOccupation(where: OccupationWhereUniqueInput!, create: OccupationCreateInput!, update: OccupationUpdateInput!): Occupation!
+  upsertOrganisation(where: OrganisationWhereUniqueInput!, create: OrganisationCreateInput!, update: OrganisationUpdateInput!): Organisation!
   upsertTag(where: TagWhereUniqueInput!, create: TagCreateInput!, update: TagUpdateInput!): Tag!
   updateManyJobs(data: JobUpdateManyMutationInput!, where: JobWhereInput): BatchPayload!
   updateManySuccessMessages(data: SuccessMessageUpdateManyMutationInput!, where: SuccessMessageWhereInput): BatchPayload!
   updateManyProjects(data: ProjectUpdateManyMutationInput!, where: ProjectWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyOccupations(data: OccupationUpdateManyMutationInput!, where: OccupationWhereInput): BatchPayload!
+  updateManyOrganisations(data: OrganisationUpdateManyMutationInput!, where: OrganisationWhereInput): BatchPayload!
   updateManyTags(data: TagUpdateManyMutationInput!, where: TagWhereInput): BatchPayload!
   deleteManyJobs(where: JobWhereInput): BatchPayload!
   deleteManySuccessMessages(where: SuccessMessageWhereInput): BatchPayload!
   deleteManyProjects(where: ProjectWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyOccupations(where: OccupationWhereInput): BatchPayload!
+  deleteManyOrganisations(where: OrganisationWhereInput): BatchPayload!
   deleteManyTags(where: TagWhereInput): BatchPayload!
 }
 
@@ -664,6 +674,354 @@ input OccupationWhereInput {
 }
 
 input OccupationWhereUniqueInput {
+  id: ID
+}
+
+type Organisation implements Node {
+  id: ID!
+  title: String!
+  address: String!
+  image: String!
+  largeImage: String!
+}
+
+"""A connection to a list of items."""
+type OrganisationConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [OrganisationEdge]!
+  aggregate: AggregateOrganisation!
+}
+
+input OrganisationCreateInput {
+  id: ID
+  title: String!
+  address: String!
+  image: String!
+  largeImage: String!
+}
+
+input OrganisationCreateOneInput {
+  create: OrganisationCreateInput
+  connect: OrganisationWhereUniqueInput
+}
+
+"""An edge in a connection."""
+type OrganisationEdge {
+  """The item at the end of the edge."""
+  node: Organisation!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum OrganisationOrderByInput {
+  id_ASC
+  id_DESC
+  title_ASC
+  title_DESC
+  address_ASC
+  address_DESC
+  image_ASC
+  image_DESC
+  largeImage_ASC
+  largeImage_DESC
+}
+
+type OrganisationPreviousValues {
+  id: ID!
+  title: String!
+  address: String!
+  image: String!
+  largeImage: String!
+}
+
+type OrganisationSubscriptionPayload {
+  mutation: MutationType!
+  node: Organisation
+  updatedFields: [String!]
+  previousValues: OrganisationPreviousValues
+}
+
+input OrganisationSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [OrganisationSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [OrganisationSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [OrganisationSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: OrganisationWhereInput
+}
+
+input OrganisationUpdateDataInput {
+  title: String
+  address: String
+  image: String
+  largeImage: String
+}
+
+input OrganisationUpdateInput {
+  title: String
+  address: String
+  image: String
+  largeImage: String
+}
+
+input OrganisationUpdateManyMutationInput {
+  title: String
+  address: String
+  image: String
+  largeImage: String
+}
+
+input OrganisationUpdateOneRequiredInput {
+  create: OrganisationCreateInput
+  connect: OrganisationWhereUniqueInput
+  update: OrganisationUpdateDataInput
+  upsert: OrganisationUpsertNestedInput
+}
+
+input OrganisationUpsertNestedInput {
+  update: OrganisationUpdateDataInput!
+  create: OrganisationCreateInput!
+}
+
+input OrganisationWhereInput {
+  """Logical AND on all given filters."""
+  AND: [OrganisationWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [OrganisationWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [OrganisationWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  title: String
+
+  """All values that are not equal to given value."""
+  title_not: String
+
+  """All values that are contained in given list."""
+  title_in: [String!]
+
+  """All values that are not contained in given list."""
+  title_not_in: [String!]
+
+  """All values less than the given value."""
+  title_lt: String
+
+  """All values less than or equal the given value."""
+  title_lte: String
+
+  """All values greater than the given value."""
+  title_gt: String
+
+  """All values greater than or equal the given value."""
+  title_gte: String
+
+  """All values containing the given string."""
+  title_contains: String
+
+  """All values not containing the given string."""
+  title_not_contains: String
+
+  """All values starting with the given string."""
+  title_starts_with: String
+
+  """All values not starting with the given string."""
+  title_not_starts_with: String
+
+  """All values ending with the given string."""
+  title_ends_with: String
+
+  """All values not ending with the given string."""
+  title_not_ends_with: String
+  address: String
+
+  """All values that are not equal to given value."""
+  address_not: String
+
+  """All values that are contained in given list."""
+  address_in: [String!]
+
+  """All values that are not contained in given list."""
+  address_not_in: [String!]
+
+  """All values less than the given value."""
+  address_lt: String
+
+  """All values less than or equal the given value."""
+  address_lte: String
+
+  """All values greater than the given value."""
+  address_gt: String
+
+  """All values greater than or equal the given value."""
+  address_gte: String
+
+  """All values containing the given string."""
+  address_contains: String
+
+  """All values not containing the given string."""
+  address_not_contains: String
+
+  """All values starting with the given string."""
+  address_starts_with: String
+
+  """All values not starting with the given string."""
+  address_not_starts_with: String
+
+  """All values ending with the given string."""
+  address_ends_with: String
+
+  """All values not ending with the given string."""
+  address_not_ends_with: String
+  image: String
+
+  """All values that are not equal to given value."""
+  image_not: String
+
+  """All values that are contained in given list."""
+  image_in: [String!]
+
+  """All values that are not contained in given list."""
+  image_not_in: [String!]
+
+  """All values less than the given value."""
+  image_lt: String
+
+  """All values less than or equal the given value."""
+  image_lte: String
+
+  """All values greater than the given value."""
+  image_gt: String
+
+  """All values greater than or equal the given value."""
+  image_gte: String
+
+  """All values containing the given string."""
+  image_contains: String
+
+  """All values not containing the given string."""
+  image_not_contains: String
+
+  """All values starting with the given string."""
+  image_starts_with: String
+
+  """All values not starting with the given string."""
+  image_not_starts_with: String
+
+  """All values ending with the given string."""
+  image_ends_with: String
+
+  """All values not ending with the given string."""
+  image_not_ends_with: String
+  largeImage: String
+
+  """All values that are not equal to given value."""
+  largeImage_not: String
+
+  """All values that are contained in given list."""
+  largeImage_in: [String!]
+
+  """All values that are not contained in given list."""
+  largeImage_not_in: [String!]
+
+  """All values less than the given value."""
+  largeImage_lt: String
+
+  """All values less than or equal the given value."""
+  largeImage_lte: String
+
+  """All values greater than the given value."""
+  largeImage_gt: String
+
+  """All values greater than or equal the given value."""
+  largeImage_gte: String
+
+  """All values containing the given string."""
+  largeImage_contains: String
+
+  """All values not containing the given string."""
+  largeImage_not_contains: String
+
+  """All values starting with the given string."""
+  largeImage_starts_with: String
+
+  """All values not starting with the given string."""
+  largeImage_not_starts_with: String
+
+  """All values ending with the given string."""
+  largeImage_ends_with: String
+
+  """All values not ending with the given string."""
+  largeImage_not_ends_with: String
+}
+
+input OrganisationWhereUniqueInput {
   id: ID
 }
 
@@ -1371,18 +1729,21 @@ type Query {
   projects(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   occupations(where: OccupationWhereInput, orderBy: OccupationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Occupation]!
+  organisations(where: OrganisationWhereInput, orderBy: OrganisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Organisation]!
   tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag]!
   job(where: JobWhereUniqueInput!): Job
   successMessage(where: SuccessMessageWhereUniqueInput!): SuccessMessage
   project(where: ProjectWhereUniqueInput!): Project
   user(where: UserWhereUniqueInput!): User
   occupation(where: OccupationWhereUniqueInput!): Occupation
+  organisation(where: OrganisationWhereUniqueInput!): Organisation
   tag(where: TagWhereUniqueInput!): Tag
   jobsConnection(where: JobWhereInput, orderBy: JobOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): JobConnection!
   successMessagesConnection(where: SuccessMessageWhereInput, orderBy: SuccessMessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SuccessMessageConnection!
   projectsConnection(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProjectConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   occupationsConnection(where: OccupationWhereInput, orderBy: OccupationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OccupationConnection!
+  organisationsConnection(where: OrganisationWhereInput, orderBy: OrganisationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OrganisationConnection!
   tagsConnection(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TagConnection!
 
   """Fetches an object given its ID"""
@@ -1398,6 +1759,7 @@ type Subscription {
   project(where: ProjectSubscriptionWhereInput): ProjectSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   occupation(where: OccupationSubscriptionWhereInput): OccupationSubscriptionPayload
+  organisation(where: OrganisationSubscriptionWhereInput): OrganisationSubscriptionPayload
   tag(where: TagSubscriptionWhereInput): TagSubscriptionPayload
 }
 
@@ -1819,7 +2181,7 @@ type User implements Node {
   permissions: [Permission!]!
   image: String!
   largeImage: String!
-  organisation: String!
+  organisation: Organisation!
   phone: String!
   resetToken: String
   resetTokenExpiry: Float
@@ -1845,7 +2207,6 @@ input UserCreateInput {
   password: String!
   image: String!
   largeImage: String!
-  organisation: String!
   phone: String!
   resetToken: String
   resetTokenExpiry: Float
@@ -1853,6 +2214,7 @@ input UserCreateInput {
   emailVerified: Boolean
   permissions: UserCreatepermissionsInput
   occupation: OccupationCreateOneInput!
+  organisation: OrganisationCreateOneInput!
   projects: ProjectCreateManyWithoutOwnerInput
 }
 
@@ -1877,7 +2239,6 @@ input UserCreateWithoutProjectsInput {
   password: String!
   image: String!
   largeImage: String!
-  organisation: String!
   phone: String!
   resetToken: String
   resetTokenExpiry: Float
@@ -1885,6 +2246,7 @@ input UserCreateWithoutProjectsInput {
   emailVerified: Boolean
   permissions: UserCreatepermissionsInput
   occupation: OccupationCreateOneInput!
+  organisation: OrganisationCreateOneInput!
 }
 
 """An edge in a connection."""
@@ -1909,8 +2271,6 @@ enum UserOrderByInput {
   image_DESC
   largeImage_ASC
   largeImage_DESC
-  organisation_ASC
-  organisation_DESC
   phone_ASC
   phone_DESC
   resetToken_ASC
@@ -1931,7 +2291,6 @@ type UserPreviousValues {
   permissions: [Permission!]!
   image: String!
   largeImage: String!
-  organisation: String!
   phone: String!
   resetToken: String
   resetTokenExpiry: Float
@@ -1984,7 +2343,6 @@ input UserUpdateDataInput {
   password: String
   image: String
   largeImage: String
-  organisation: String
   phone: String
   resetToken: String
   resetTokenExpiry: Float
@@ -1992,6 +2350,7 @@ input UserUpdateDataInput {
   emailVerified: Boolean
   permissions: UserUpdatepermissionsInput
   occupation: OccupationUpdateOneRequiredInput
+  organisation: OrganisationUpdateOneRequiredInput
   projects: ProjectUpdateManyWithoutOwnerInput
 }
 
@@ -2001,7 +2360,6 @@ input UserUpdateInput {
   password: String
   image: String
   largeImage: String
-  organisation: String
   phone: String
   resetToken: String
   resetTokenExpiry: Float
@@ -2009,6 +2367,7 @@ input UserUpdateInput {
   emailVerified: Boolean
   permissions: UserUpdatepermissionsInput
   occupation: OccupationUpdateOneRequiredInput
+  organisation: OrganisationUpdateOneRequiredInput
   projects: ProjectUpdateManyWithoutOwnerInput
 }
 
@@ -2018,7 +2377,6 @@ input UserUpdateManyMutationInput {
   password: String
   image: String
   largeImage: String
-  organisation: String
   phone: String
   resetToken: String
   resetTokenExpiry: Float
@@ -2060,7 +2418,6 @@ input UserUpdateWithoutProjectsDataInput {
   password: String
   image: String
   largeImage: String
-  organisation: String
   phone: String
   resetToken: String
   resetTokenExpiry: Float
@@ -2068,6 +2425,7 @@ input UserUpdateWithoutProjectsDataInput {
   emailVerified: Boolean
   permissions: UserUpdatepermissionsInput
   occupation: OccupationUpdateOneRequiredInput
+  organisation: OrganisationUpdateOneRequiredInput
 }
 
 input UserUpsertNestedInput {
@@ -2329,46 +2687,6 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   largeImage_not_ends_with: String
-  organisation: String
-
-  """All values that are not equal to given value."""
-  organisation_not: String
-
-  """All values that are contained in given list."""
-  organisation_in: [String!]
-
-  """All values that are not contained in given list."""
-  organisation_not_in: [String!]
-
-  """All values less than the given value."""
-  organisation_lt: String
-
-  """All values less than or equal the given value."""
-  organisation_lte: String
-
-  """All values greater than the given value."""
-  organisation_gt: String
-
-  """All values greater than or equal the given value."""
-  organisation_gte: String
-
-  """All values containing the given string."""
-  organisation_contains: String
-
-  """All values not containing the given string."""
-  organisation_not_contains: String
-
-  """All values starting with the given string."""
-  organisation_starts_with: String
-
-  """All values not starting with the given string."""
-  organisation_not_starts_with: String
-
-  """All values ending with the given string."""
-  organisation_ends_with: String
-
-  """All values not ending with the given string."""
-  organisation_not_ends_with: String
   phone: String
 
   """All values that are not equal to given value."""
@@ -2516,6 +2834,7 @@ input UserWhereInput {
   """All values that are not equal to given value."""
   emailVerified_not: Boolean
   occupation: OccupationWhereInput
+  organisation: OrganisationWhereInput
   projects_every: ProjectWhereInput
   projects_some: ProjectWhereInput
   projects_none: ProjectWhereInput

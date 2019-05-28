@@ -9,8 +9,9 @@ const Query = {
     // itemsConnection : forwardTo('db'),
     user: forwardTo("db"),
     project: forwardTo("db"),
-    allProjects: forwardTo("db"),
+    projects: forwardTo("db"),
     occupations: forwardTo("db"),
+    organisations : forwardTo("db"),
 
     /**
    * Gets a current user
@@ -38,11 +39,13 @@ const Query = {
         const { userId } = ctx.request;
         if (!userId) throw new Error("You must be logged in..");
 
-        return await ctx.db.query.projects({
-            where : {
-                owner : { id : userId }
-            }
-        }, `{
+        return await ctx.db.query.projects(
+            {
+                where: {
+                    owner: { id: userId }
+                }
+            },
+            `{
       id
       title
       address
@@ -50,7 +53,6 @@ const Query = {
       image
       owner {id, name}}`
         );
-
     },
 
     /**
@@ -77,7 +79,8 @@ const Query = {
        }`
         );
 
-        return project.owner.id === userId;
+        if (project) return project.owner.id === userId;
+        return false;
     },
 
     /**
@@ -101,6 +104,14 @@ const Query = {
         );
     },
 
+    /**
+   * Fetches people who participate in a given project
+   * @param parent
+   * @param args
+   * @param ctx
+   * @param info
+   * @returns {Promise<*|{}>}
+   */
     async projectParticipants(parent, args, ctx, info) {
         const { userId, projectId } = ctx.request;
         if (!userId) throw new Error("You must be logged in..");
@@ -112,6 +123,31 @@ const Query = {
             },
             info
         );
+    },
+
+    /**
+   * Fetches all employees of an organization based on a search term and logged in user id
+   * @param parent
+   * @param args
+   * @param ctx
+   * @param info
+   * @returns {Promise<void>}
+   */
+    async searchInOrganizationByName(parent, args, ctx, info) {
+        const { userId, projectId } = ctx.request;
+        if (!userId) throw new Error("You must be logged in..");
+        if (!projectId) throw new Error("Please specify a project to work on");
+
+        // return await ctx.db.query.users(
+        //     {
+        //         where : {
+        //             AND : [
+        //                 { name_contains : args.searchTerm },
+        //                 { id }
+        //             ]
+        //         }
+        //     }
+        // );
     }
 };
 

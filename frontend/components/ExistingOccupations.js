@@ -45,3 +45,4 @@ class ExistingOccupations extends SaveToState {
 }
 
 export default ExistingOccupations;
+export { EXISTING_OCCUPATIONS };
