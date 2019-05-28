@@ -26,7 +26,7 @@ class AddParticipant extends SaveToState {
     return (
       <fieldset disabled={false} aria-busy={false}>
         <ExistingOccupations />
-        <Search />
+        <Search searchQuery={SEARCH_BY_NAME_QUERY} />
       </fieldset>
     );
   }

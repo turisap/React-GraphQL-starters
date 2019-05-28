@@ -45,7 +45,6 @@ class AutoComplete extends React.Component {
     });
   }, 400);
 
-
   render() {
     return (
       <Downshift

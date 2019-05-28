@@ -192,7 +192,9 @@ class SignUp extends CreateWithFilesUpload {
                               Select your organization
                             </option>
                             {data.organisations.map(org => (
-                              <option key={org.id} value={org.id}>{org.title}</option>
+                              <option key={org.id} value={org.id}>
+                                {org.title}
+                              </option>
                             ))}
                           </select>
                         </label>
