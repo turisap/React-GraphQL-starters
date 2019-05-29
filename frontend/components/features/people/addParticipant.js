@@ -15,6 +15,7 @@ const SEARCH_BY_NAME_QUERY = gql`
     ) {
       id
       name
+        email
       image
       occupation {
         title
@@ -48,12 +49,15 @@ class AddParticipant extends SaveToState {
         <Query query={LOCAL_STATE_SEARCH_ITEMS_QUERY}>
           {({ data, loading }) => {
             if (loading) return <Loading />;
-            if (data.searchItems) {
+            if (data.searchItems && data.searchItems.length) {
               return data.searchItems.map(participant => (
-                <ParticipantWidget key={JSON.parse(participant).id} participant={JSON.parse(participant)} />
+                <ParticipantWidget
+                  key={JSON.parse(participant).id}
+                  participant={JSON.parse(participant)}
+                />
               ));
             }
-            return "";
+            return <p>Nothing has been found</p>;
           }}
         </Query>
       </>

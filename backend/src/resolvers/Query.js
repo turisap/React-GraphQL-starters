@@ -144,10 +144,10 @@ const Query = {
                     AND : [
                         { name_contains : args.searchTerm },
                         { organisation : { id : user.organisation } },
-                      { occupation : { id : args.occupation } }
+                        { occupation : { id : args.occupation } }
                     ],
                 }
-            }, `{id, name, image, occupation {title}}`
+            }, "{id, name, email, image, occupation {title}}"
         );
     }
 };

@@ -15,7 +15,7 @@ class AutoComplete extends React.Component {
   static propTypes = {
     searchQuery: PropTypes.object.isRequired,
     itemsTitle: PropTypes.string.isRequired,
-    variables : PropTypes.object
+    variables: PropTypes.object
   };
 
   state = {
@@ -37,9 +37,7 @@ class AutoComplete extends React.Component {
         searchItems: res.data[this.props.itemsTitle].map(i => JSON.stringify(i))
       }
     });
-    // client.writeData({
-    //   data : { searchItems : res.data[this.props.itemsTitle].map(i => JSON.stringify(i))}
-    // })
+
     this.setState({
       items: res.data[this.props.itemsTitle],
       loading: false

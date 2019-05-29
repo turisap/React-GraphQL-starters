@@ -15,6 +15,7 @@ export default {
             searchItems
           }
         });
+        return null;
       }
     }
   },
