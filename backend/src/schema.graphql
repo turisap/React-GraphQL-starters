@@ -21,7 +21,7 @@ type Query {
     me : User
     sendEmail (type : String!, text : String!) : SuccessMessage
     user(where : UserWhereUniqueInput): User!
-    searchInOrganizationByName(searchTerm : String!) : [User]!
+    searchInOrganizationByName(searchTerm : String!, occupation : String!) : [User]!
     myProjects : [Project]
     project(where : ProjectWhereUniqueInput) : Project
     projects : [Project]!

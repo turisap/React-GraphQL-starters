@@ -15,7 +15,7 @@ const EXISTING_OCCUPATIONS = gql`
 
 class ExistingOccupations extends SaveToState {
   static propTypes = {
-    changeHandler: PropTypes.func
+    changeHandler: PropTypes.func.isRequired
   };
 
   render() {
@@ -31,6 +31,7 @@ class ExistingOccupations extends SaveToState {
               onChange={this.props.changeHandler}
               defaultValue="Occupation"
             >
+              <option selected>Select occupation</option>
               {data.occupations.map(occupation => (
                 <option key={occupation.id} value={occupation.id}>
                   {occupation.title}

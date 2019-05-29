@@ -134,20 +134,21 @@ const Query = {
    * @returns {Promise<void>}
    */
     async searchInOrganizationByName(parent, args, ctx, info) {
-        const { userId, projectId } = ctx.request;
+        const { userId, user, projectId } = ctx.request;
         if (!userId) throw new Error("You must be logged in..");
         if (!projectId) throw new Error("Please specify a project to work on");
 
-        // return await ctx.db.query.users(
-        //     {
-        //         where : {
-        //             AND : [
-        //                 { name_contains : args.searchTerm },
-        //                 { id }
-        //             ]
-        //         }
-        //     }
-        // );
+        return await ctx.db.query.users(
+            {
+                where : {
+                    AND : [
+                        { name_contains : args.searchTerm },
+                        { organisation : { id : user.organisation } },
+                      { occupation : { id : args.occupation } }
+                    ],
+                }
+            }, `{id, name, image, occupation {title}}`
+        );
     }
 };
 

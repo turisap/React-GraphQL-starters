@@ -3,27 +3,19 @@ import Downshift from "downshift";
 import { ApolloConsumer } from "react-apollo";
 import debounce from "lodash.debounce";
 import PropTypes from "prop-types";
+import gql from "graphql-tag";
 
-// const SEARCH_ITEMS_QUERY = gql`
-//   query SEARCH_ITEMS_QUERY($searchTerm: String!) {
-//     items(
-//       where: {
-//         OR: [
-//           { title_contains: $searchTerm }
-//           { description_contains: $searchTerm }
-//         ]
-//       }
-//     ) {
-//       id
-//       title
-//       image
-//     }
-//   }
-// `;
+const LOCAL_STATE_SEARCH_ITEMS_MUTATION = gql`
+  mutation setSearchItems($searchItems: String!) {
+    setSearchItems(searchItems: $searchItems) @client
+  }
+`;
 
 class AutoComplete extends React.Component {
   static propTypes = {
-    searchQuery: PropTypes.string.isRequired
+    searchQuery: PropTypes.object.isRequired,
+    itemsTitle: PropTypes.string.isRequired,
+    variables : PropTypes.object
   };
 
   state = {
@@ -37,26 +29,32 @@ class AutoComplete extends React.Component {
     // manually query apollo client
     const res = await client.query({
       query: this.props.searchQuery,
-      variables: { searchTerm: e.target.value }
+      variables: { searchTerm: e.target.value, ...this.props.variables }
     });
+    await client.mutate({
+      mutation: LOCAL_STATE_SEARCH_ITEMS_MUTATION,
+      variables: {
+        searchItems: res.data[this.props.itemsTitle].map(i => JSON.stringify(i))
+      }
+    });
+    // client.writeData({
+    //   data : { searchItems : res.data[this.props.itemsTitle].map(i => JSON.stringify(i))}
+    // })
     this.setState({
-      items: res.data.items,
+      items: res.data[this.props.itemsTitle],
       loading: false
     });
   }, 400);
 
   render() {
     return (
-      <Downshift
-        onChange={this.routeToItem}
-        itemToString={item => (item === null ? "" : item.title)}
-      >
+      <Downshift itemToString={item => (item === null ? "" : item.title)}>
         {({
-          getInputProps,
-          getItemProps,
-          isOpen,
-          inputValue,
-          highlightedIndex
+          getInputProps
+          // getItemProps,
+          // isOpen,
+          // inputValue,
+          // highlightedIndex
         }) => (
           <div>
             <ApolloConsumer>
@@ -75,23 +73,23 @@ class AutoComplete extends React.Component {
                 />
               )}
             </ApolloConsumer>
-            {isOpen && (
-              <div>
-                {this.state.items.map((item, index) => (
-                  <div
-                    {...getItemProps({ item })}
-                    key={item.id}
-                    highlighted={index === highlightedIndex}
-                  >
-                    <img width="50" src={item.image} alt={item.title} />
-                    {item.title}
-                  </div>
-                ))}
-                {!this.state.items.length && !this.state.loading && (
-                  <div> Nothing Found {inputValue}</div>
-                )}
-              </div>
-            )}
+            {/*{isOpen && (*/}
+            {/*<div>*/}
+            {/*{this.state.items.map((item, index) => (*/}
+            {/*<div*/}
+            {/*{...getItemProps({ item })}*/}
+            {/*key={item.id}*/}
+            {/*// highlighted={index === highlightedIndex}*/}
+            {/*>*/}
+            {/*<img width="50" src={item.image} alt={item.title || item.name} />*/}
+            {/*{item.title}*/}
+            {/*</div>*/}
+            {/*))}*/}
+            {/*{!this.state.items.length && !this.state.loading && (*/}
+            {/*<div> Nothing Found {inputValue}</div>*/}
+            {/*)}*/}
+            {/*</div>*/}
+            {/*)}*/}
           </div>
         )}
       </Downshift>

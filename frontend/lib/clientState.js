@@ -8,6 +8,13 @@ export default {
           }
         });
         return { data: { projectId } };
+      },
+      setSearchItems(_, { searchItems }, { cache }) {
+        cache.writeData({
+          data: {
+            searchItems
+          }
+        });
       }
     }
   },
