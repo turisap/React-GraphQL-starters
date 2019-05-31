@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/kirill-shakirov-5f22b4/boilerplate/dev
-# timestamp: Tue May 28 2019 20:11:29 GMT+1200 (New Zealand Standard Time)
+# timestamp: Thu May 30 2019 20:34:53 GMT+1200 (New Zealand Standard Time)
 
 type AggregateJob {
   count: Int!
@@ -79,7 +79,7 @@ type JobEdge {
 
 enum JobGroup {
   SURVEY
-  FUNDATION
+  FOUNDATION
   STRUCTURAL_STEEL
   STRUCTURAL_CONCRETE
   FITIN

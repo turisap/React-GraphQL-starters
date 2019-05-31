@@ -19,6 +19,8 @@ const PROJECT_EXISTS_AND_BELONGS_TO_USER = gql`
 
 const cookies = new Cookies();
 
+// TODO add an animation for loading buttons as it is done in gitbook dashboard https://app.gitbook.com/
+
 class SideBar extends Component {
   render() {
     const projectId = cookies.get("projectId");

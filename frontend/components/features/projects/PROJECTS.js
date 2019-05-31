@@ -43,6 +43,9 @@ const PROJECTS = () => (
           {data.myProjects.map(project => (
             <ProjectWidget project={project} key={project.id} />
           ))}
+          <Link href="/createProject">
+            <a>create</a>
+          </Link>
         </div>
       );
     }}

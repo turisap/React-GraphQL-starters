@@ -1,8 +1,10 @@
+/* eslint-disable */
 import React, { Component } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import Cookies from "universal-cookie";
 import Link from "next/link";
+import { adopt } from "react-adopt";
 import DisplayError from "../../ErrorMessage";
 import Loading from "../../Loading";
 
@@ -13,8 +15,8 @@ import Loading from "../../Loading";
 // `;
 
 const CURRENT_PROJECTS_JOBS = gql`
-  query CURRENT_PROJECT_JOBS($projectId: ID!) {
-    projectJobs(where: { id: $projectId }) {
+  query CURRENT_PROJECT_JOBS {
+    projectJobs {
       title
       level
       unit
@@ -26,27 +28,43 @@ const CURRENT_PROJECTS_JOBS = gql`
   }
 `;
 
+const CURRENT_PROJECT = gql`
+  query CURRENT_PROJECT {
+    project {
+      title
+    }
+  }
+`;
+
+const Composed = adopt({
+  projectJobs: ({ render }) => (
+    <Query query={CURRENT_PROJECTS_JOBS}>{render}</Query>
+  ),
+  currentProject: ({ render }) => (
+    <Query query={CURRENT_PROJECT}>{render}</Query>
+  )
+});
+
 class JOBS extends Component {
   render() {
-    const cookies = new Cookies();
-    const projectId = cookies.get("projectId");
     return (
-      <Query query={CURRENT_PROJECTS_JOBS} variables={{ projectId }}>
-        {({ data, error, loading }) => {
+      <Composed>
+        {({ projectJobs, currentProject, data, error, loading }) => {
           if (error) return <DisplayError error={error} />;
           if (loading) return <Loading />;
-          if (!data.projectJobs.length)
+          if (!projectJobs.data.projectJobs.length)
             return (
               <p>
-                You don&apos;t have any jobs for this project yet.
+                You don&apos;t have any jobs for{" "}
+                {currentProject.data.project.title} yet.
                 <Link href="/createJob">
                   <a>Create one</a>
                 </Link>
               </p>
             );
-          return <p>lolol</p>;
+          return projectJobs.data.projectJobs.map(job => <p>Job</p>);
         }}
-      </Query>
+      </Composed>
     );
   }
 }

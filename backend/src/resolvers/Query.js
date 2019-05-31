@@ -8,10 +8,10 @@ const Query = {
     // item : forwardTo('db'),
     // itemsConnection : forwardTo('db'),
     user: forwardTo("db"),
-    project: forwardTo("db"),
     projects: forwardTo("db"),
     occupations: forwardTo("db"),
     organisations : forwardTo("db"),
+
 
     /**
    * Gets a current user
@@ -25,6 +25,14 @@ const Query = {
             },
             info
         );
+    },
+
+    project(parent, arg, ctx, info) {
+        const projectId = ctx.request.projectId;
+        if(!projectId) throw new Error("You must specify a project to work with");
+        return ctx.db.query.project({
+            where: { id : projectId }
+        });
     },
 
     /**
@@ -149,6 +157,24 @@ const Query = {
                 }
             }, "{id, name, email, image, occupation {title}}"
         );
+    },
+
+
+    /**
+   * Fetches all tags based on a chosen job category
+   * @param parent
+   * @param args
+   * @param ctx
+   * @param info
+   * @returns {Promise<*>}
+   */
+    async allTagsOfJobGroup(parent, args, ctx, info) {
+
+        return await ctx.db.query.tags({
+            where : {
+                jobGroup : args.jobGroup
+            }
+        }, info);
     }
 };
 

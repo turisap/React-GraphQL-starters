@@ -23,13 +23,14 @@ type Query {
     user(where : UserWhereUniqueInput): User!
     searchInOrganizationByName(searchTerm : String!, occupation : String!) : [User]!
     myProjects : [Project]
-    project(where : ProjectWhereUniqueInput) : Project
+    project : Project
     projects : [Project]!
     projectExistsAndBelongsToUser(projectId : ID!) : Boolean
-    projectJobs(where: JobWhereInput) : [Job]!
+    projectJobs : [Job]!
     projectParticipants: [User]!
     occupations : [Occupation]!
     organisations : [Organisation]!
+    allTagsOfJobGroup (jobGroup : String!) : [Tag]!
 }
 
 

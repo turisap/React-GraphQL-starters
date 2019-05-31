@@ -15,7 +15,7 @@ const SEARCH_BY_NAME_QUERY = gql`
     ) {
       id
       name
-        email
+      email
       image
       occupation {
         title
