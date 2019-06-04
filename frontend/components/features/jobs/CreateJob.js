@@ -6,9 +6,9 @@ import { Form } from "react-advanced-form";
 import { CreateWithFilesUpload } from "../../abstractions/CreateWithFilesUpload";
 //import DisplayError from "../../ErrorMessage";
 //import Loading from "../../Loading";
-import InputL from "../../fields/Input";
-import validationMessages from "../../../lib/validationMessages";
-import validationRules from "../../../lib/validationRules";
+import Input from "../../fields/Input";
+//import validationMessages from "../../../lib/validationMessages";
+//import validationRules from "../../../lib/validationRules";
 
 // const CREATE_JOB_MUTATION = gql`
 //   mutation CREATE_JOB_MUATION(
@@ -73,10 +73,15 @@ class CreateJob extends CreateWithFilesUpload {
   //TODO add assignees from project participants
   // TODO add form validation using react-advanced-form
 
+  lol = ({  fields }) => {
+    //console.log(fields);
+    return new Promise((resolve, reject) => reject());
+  };
+
   render() {
     return (
-      <Form messages={validationMessages} rules={validationRules}>
-        <InputL name="createJob__title" />
+      <Form action={this.lol}>
+        <Input name="createJob__title" type="text" required />
         <button>Create</button>
       </Form>
     );

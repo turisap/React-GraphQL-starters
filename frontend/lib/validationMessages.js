@@ -28,7 +28,8 @@ export default {
     },
 
     createJob__title: {
-      isRequired: "You need to provide job title to create a job"
+      isRequired: "You need to provide job title to create a job",
+      minLength: "Job title should be at least 6 characters long"
     }
   }
 };
