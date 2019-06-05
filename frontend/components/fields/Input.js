@@ -17,7 +17,7 @@ const Input = props => {
       {/* Render input errors underneath */}
       {touched &&
         errors &&
-        errors.map(error => <div className="text--red">{error}</div>)}
+        errors.map((error, i) => <div className="formError" key={i}>{error}</div>)}
     </div>
   );
 };

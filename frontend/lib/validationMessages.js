@@ -24,12 +24,18 @@ export default {
   name: {
     // create job form
     jobGroup: {
-      isRequired: "You need to provide job group to proceed"
+      missing : "Please fill job group field",
+      rule : {
+        isRequired: "You need to provide job group to proceed"
+      }
     },
 
     createJob__title: {
-      isRequired: "You need to provide job title to create a job",
-      minLength: "Job title should be at least 6 characters long"
+      missing : "Please fill job group field",
+      rule : {
+        isRequired: "You need to provide job title to create a job",
+        minLength: "Job title should be at least 6 characters long"
+      }
     }
   }
 };

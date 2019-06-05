@@ -73,9 +73,9 @@ class CreateJob extends CreateWithFilesUpload {
   //TODO add assignees from project participants
   // TODO add form validation using react-advanced-form
 
-  lol = ({  fields }) => {
+  lol = ({ fields }) => {
     //console.log(fields);
-    return new Promise((resolve, reject) => reject());
+    return new Promise((resolve, reject) => reject(fields));
   };
 
   render() {
