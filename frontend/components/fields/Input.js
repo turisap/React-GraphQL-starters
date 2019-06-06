@@ -6,18 +6,23 @@ const Input = props => {
    * "fieldProps" need to be mapped to the field element.
    * "fieldState" contains the current state of a field.
    */
-  const { fieldProps, fieldState } = props;
-  const { touched, errors } = fieldState;
+  const { fieldProps, fieldState, label } = props;
+  const {  errors } = fieldState;
 
   return (
     <div className="input">
+      {label && (
+        <label className="form-control-label" htmlFor={null || fieldProps.name}>
+          {label}
+        </label>
+      )}
       {/* Propagating "fieldProps" is crucial to register a field */}
       <input {...fieldProps} />
 
       {/* Render input errors underneath */}
-      {touched &&
-        errors &&
-        errors.map((error, i) => <div className="formError" key={i}>{error}</div>)}
+      { errors &&
+        errors.map(error => <div className="formError" key={error}>{error}</div>)}
+
     </div>
   );
 };

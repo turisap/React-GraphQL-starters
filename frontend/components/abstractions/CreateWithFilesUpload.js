@@ -22,10 +22,12 @@ class CreateWithFilesUpload extends SaveToState {
     });
 
     const file = await res.json();
-    this.setState({
+    const urls = {
       image: file.secure_url,
       largeImage: file.eager[0].secure_url
-    });
+    };
+    this.setState({ ...urls });
+    return urls;
   };
 }
 
