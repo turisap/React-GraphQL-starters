@@ -10,8 +10,7 @@ const Query = {
     user: forwardTo("db"),
     projects: forwardTo("db"),
     occupations: forwardTo("db"),
-    organisations : forwardTo("db"),
-
+    organisations: forwardTo("db"),
 
     /**
    * Gets a current user
@@ -27,12 +26,23 @@ const Query = {
         );
     },
 
+    /**
+   * Fetches a project based on id from request
+   * @param parent
+   * @param arg
+   * @param ctx
+   * @param info
+   * @returns {*}
+   */
     project(parent, arg, ctx, info) {
         const projectId = ctx.request.projectId;
-        if(!projectId) throw new Error("You must specify a project to work with");
-        return ctx.db.query.project({
-            where: { id : projectId }
-        });
+        if (!projectId) throw new Error("You must specify a project to work with");
+        return ctx.db.query.project(
+            {
+                where: { id: projectId }
+            },
+            info
+        );
     },
 
     /**
@@ -148,17 +158,17 @@ const Query = {
 
         return await ctx.db.query.users(
             {
-                where : {
-                    AND : [
-                        { name_contains : args.searchTerm },
-                        { organisation : { id : user.organisation } },
-                        { occupation : { id : args.occupation } }
-                    ],
+                where: {
+                    AND: [
+                        { name_contains: args.searchTerm },
+                        { organisation: { id: user.organisation } },
+                        { occupation: { id: args.occupation } }
+                    ]
                 }
-            }, "{id, name, email, image, occupation {title}}"
+            },
+            "{id, name, email, image, occupation {title}}"
         );
     },
-
 
     /**
    * Fetches all tags based on a chosen job category
@@ -169,12 +179,14 @@ const Query = {
    * @returns {Promise<*>}
    */
     async allTagsOfJobGroup(parent, args, ctx, info) {
-
-        return await ctx.db.query.tags({
-            where : {
-                jobGroup : args.jobGroup
-            }
-        }, info);
+        return await ctx.db.query.tags(
+            {
+                where: {
+                    jobGroup: args.jobGroup
+                }
+            },
+            info
+        );
     }
 };
 

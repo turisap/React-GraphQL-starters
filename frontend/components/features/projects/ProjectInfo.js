@@ -6,8 +6,8 @@ import Loading from "../../Loading";
 import Error from "../../ErrorMessage";
 
 const PROJECT_QUERY = gql`
-  query PROJECT_QUERY($id: ID!) {
-    project(where: { id: $id }) {
+  query PROJECT_QUERY {
+    project {
       id
       title
       address
@@ -30,7 +30,7 @@ class ProjectInfo extends Component {
   render() {
     // TODO add functionality of adding people to projects
     return (
-      <Query query={PROJECT_QUERY} variables={{ id: this.props.projectId }}>
+      <Query query={PROJECT_QUERY}>
         {({ data, error, loading }) => {
           if (loading) return <Loading />;
           if (error) return <Error error={error} />;

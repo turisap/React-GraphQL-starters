@@ -5,6 +5,7 @@ class CreateWithFilesUpload extends SaveToState {
   uploadFile = async e => {
     if (!e.target.files) return;
     const files = e.target.files;
+    //if (!files[0]) return;
     if (files[0].type !== "image/jpeg") {
       this.setState({ uploadError: "Please upload an image file" });
       return;
@@ -22,6 +23,7 @@ class CreateWithFilesUpload extends SaveToState {
     });
 
     const file = await res.json();
+    //if(!file.secure_url) return;
     const urls = {
       image: file.secure_url,
       largeImage: file.eager[0].secure_url

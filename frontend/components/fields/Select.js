@@ -10,7 +10,7 @@ export class Select extends React.Component {
     label: PropTypes.string,
     multiple: PropTypes.bool,
     name: PropTypes.string.isRequired,
-    children: PropTypes.object,
+    children: PropTypes.array,
 
     /* Inherited */
     fieldProps: PropTypes.object.isRequired,

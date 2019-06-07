@@ -32,9 +32,9 @@ const Mutations = {
                             id: args.occupation
                         }
                     },
-                    organisation : {
-                        connect : {
-                            id : args.organisation
+                    organisation: {
+                        connect: {
+                            id: args.organisation
                         }
                     }
                 }
@@ -171,6 +171,26 @@ const Mutations = {
         const { userId, projectId } = ctx.request;
         if (!userId) throw new Error("You must be logged in..");
         if (!projectId) throw new Error("Please choose a project to work with");
+
+        const { title, level, unit, image, largeImage, tag, assignee } = args;
+        return ctx.db.mutation.createJob({
+            data: {
+                title,
+                level,
+                unit,
+                image,
+                largeImage,
+                project: {
+                    connect: { id: projectId }
+                },
+                tag: {
+                    connect: { id: tag }
+                },
+                assignee: {
+                    connect: { id: assignee }
+                }
+            }
+        });
     }
 };
 
