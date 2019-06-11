@@ -9,6 +9,7 @@ import Loading from "../../Loading";
 import Input from "../../fields/Input";
 import Select from "../../fields/Select";
 import FileUpload from "../../fields/FileUpload";
+import TextArea from "../../fields/TextArea";
 
 const CREATE_JOB_MUTATION = gql`
   mutation CREATE_JOB_MUATION(
@@ -58,6 +59,7 @@ const ALL_PROJECT_PARTICIPANTS_QUERY = gql`
 `;
 
 // TODO create job factory and sorting by assignees/tags and so on
+// TODO add a description field (textarea)
 
 class CreateJob extends CreateWithFilesUpload {
   constructor(props) {
@@ -165,6 +167,7 @@ class CreateJob extends CreateWithFilesUpload {
                   </Query>
                 )}
               </Select>
+              <TextArea />
               <FileUpload
                 label="Job Picture"
                 name="job__picture"
