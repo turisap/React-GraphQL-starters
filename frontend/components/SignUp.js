@@ -1,11 +1,15 @@
-import React, { Component } from "react";
-import { Mutation } from "react-apollo";
+import React from "react";
+import { Mutation, Query } from "react-apollo";
 import gql from "graphql-tag";
 import Router from "next/router";
 import PasswordValidator from "password-validator";
+import debounce from "lodash.debounce";
 import Error from "./ErrorMessage";
 import { CURRENT_USER_QUERY } from "./User";
-import { CONFIG } from "../config";
+import { ALL_ORGANIZATIONS_QUERY } from "../factories/userFactory";
+import { CreateWithFilesUpload } from "./abstractions/CreateWithFilesUpload";
+import ExistingOccupations from "./ExistingOccupations";
+import Loading from "./Loading";
 
 const SIGNUP_MUTATION = gql`
   mutation SIGNUP_MUTATION(
@@ -13,6 +17,7 @@ const SIGNUP_MUTATION = gql`
     $name: String!
     $password: String!
     $organisation: String!
+    $occupation: String!
     $phone: String!
     $image: String!
     $largeImage: String!
@@ -22,6 +27,7 @@ const SIGNUP_MUTATION = gql`
       name: $name
       password: $password
       organisation: $organisation
+      occupation: $occupation
       phone: $phone
       image: $image
       largeImage: $largeImage
@@ -34,25 +40,47 @@ const SIGNUP_MUTATION = gql`
   }
 `;
 
-class SignUp extends Component {
+class SignUp extends CreateWithFilesUpload {
   state = {
     name: "",
     email: "",
     password: "",
     organisation: "",
+    occupation: "",
     phone: "",
     image: "",
     largeImage: "",
-    uploadError: "",
+    uploadError: null,
     validPassword: false,
-    touchedPassword: false
+    touchedPassword: false,
+    readyToSubmit: false
   };
 
-  saveToState = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  };
+  readyToSubmit = debounce(() => {
+    const {
+      name,
+      email,
+      organisation,
+      occupation,
+      phone,
+      validPassword,
+      image,
+      uploadError
+    } = this.state;
+    let readyToSubmit = false;
+    if (
+      name &&
+      email &&
+      occupation &&
+      organisation &&
+      phone &&
+      image &&
+      validPassword &&
+      !uploadError
+    )
+      readyToSubmit = true;
+    this.setState({ readyToSubmit });
+  }, 400);
 
   // TODO extract this method to ../lib/validatePassword
   validatePassword = e => {
@@ -78,32 +106,6 @@ class SignUp extends Component {
     });
   };
 
-  uploadFile = async e => {
-    if (!e.target.files) return;
-    const files = e.target.files;
-    if (files[0].type !== "image/jpeg") {
-      this.setState({ uploadError: "Please upload an image file" });
-      return;
-    } else {
-      this.setState({ uploadError: "" });
-    }
-
-    const data = new FormData();
-    data.append("file", files[0]);
-    data.append("upload_preset", CONFIG.CLOUDINARY_PRESET);
-
-    const res = await fetch(CONFIG.CLOUDINARY_ENDPOINT, {
-      method: "POST",
-      body: data
-    });
-
-    const file = await res.json();
-    this.setState({
-      image: file.secure_url,
-      largeImage: file.eager[0].secure_url
-    });
-  };
-
   render() {
     return (
       <Mutation
@@ -116,6 +118,10 @@ class SignUp extends Component {
           return (
             <form
               method="post"
+              // onChange={() => {
+              //   this.readyToSubmit();
+              // }}
+              onMouseMove={this.readyToSubmit}
               onSubmit={async e => {
                 e.preventDefault();
                 await signUpFunction();
@@ -166,17 +172,36 @@ class SignUp extends Component {
                     ? "Password should contain at least one letter, digit, uppercase, lowercase and to be at least 8 characters long"
                     : ""}
                 </label>
-                <label>
-                  Organisation
-                  <input
-                    required
-                    type="text"
-                    name="organisation"
-                    placeholder="Organisation"
-                    value={this.state.organisation}
-                    onChange={this.saveToState}
-                  />
-                </label>
+                <ExistingOccupations changeHandler={this.saveToState} />
+                {/*TODO organizations should be fetched from DB as predefined*/}
+                <Query query={ALL_ORGANIZATIONS_QUERY}>
+                  {({ data, loading }) => {
+                    if (loading) return <Loading />;
+                    if (data.organisations && data.organisations.length)
+                      return (
+                        <label>
+                          Organisation
+                          <select
+                            required
+                            name="organisation"
+                            placeholder="Organisation"
+                            value={this.state.organisation}
+                            onChange={this.saveToState}
+                          >
+                            <option value="" disabled selected>
+                              Select your organization
+                            </option>
+                            {data.organisations.map(org => (
+                              <option key={org.id} value={org.id}>
+                                {org.title}
+                              </option>
+                            ))}
+                          </select>
+                        </label>
+                      );
+                    return "";
+                  }}
+                </Query>
                 <label>
                   Phone Number
                   <input
@@ -194,16 +219,10 @@ class SignUp extends Component {
                     required
                     type="file"
                     name="avatar"
-                    value={this.state.avatar}
                     onChange={this.uploadFile}
                   />
                 </label>
-                <button
-                  type="submit"
-                  disabled={
-                    !!this.state.uploadError || !this.state.validPassword
-                  }
-                >
+                <button type="submit" disabled={!this.state.readyToSubmit}>
                   Sign Up
                 </button>
               </fieldset>

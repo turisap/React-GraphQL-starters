@@ -1,7 +1,9 @@
 # import * from './generated/prisma.graphql'
 
 type Mutation {
-    signup(email : String!, password : String!, name : String!, organisation: String!,
+    signup(email : String!, password : String!, name : String!, organisation: String!, occupation : String!
+        image: String!, largeImage: String!, phone: String!) : User!
+    fakeSignup(email : String!, password : String!, name : String!, organisation: String!, occupation : String!
         image: String!, largeImage: String!, phone: String!) : User!
     verifyEmail(id : ID!) : User!
     signin(email : String!, password : String!) : User!
@@ -10,6 +12,8 @@ type Mutation {
     resetPassword (resetToken : String!, password : String!, confirmPassword : String!) : User!
     createProject (title : String!, address : String!, levels_number : Float,
     image : String!, largeImage : String!) : Project!
+    createJob(tag: ID!, assignee: ID, title: String!, level: Float!, unit: String!, image: String,
+    largeImage: String, description: String) : Job!
 }
 
 
@@ -17,7 +21,16 @@ type Query {
     me : User
     sendEmail (type : String!, text : String!) : SuccessMessage
     user(where : UserWhereUniqueInput): User!
-    myProjects(where: ProjectWhereInput) : [Project]!
+    searchInOrganizationByName(searchTerm : String!, occupation : String!) : [User]!
+    myProjects : [Project]
+    project : Project
+    projects : [Project]!
+    projectExistsAndBelongsToUser(projectId : ID!) : Boolean
+    projectJobs : [Job]!
+    projectParticipants: [User]!
+    occupations : [Occupation]!
+    organisations : [Organisation]!
+    allTagsOfJobGroup (jobGroup : String!) : [Tag]!
 }
 
 

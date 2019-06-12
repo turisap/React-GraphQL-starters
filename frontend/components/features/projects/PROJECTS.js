@@ -4,7 +4,7 @@ import { Query } from "react-apollo";
 import Link from "next/link";
 import DisplayError from "../../ErrorMessage";
 import Loading from "../../Loading";
-import ProjectWidget from "./Project";
+import ProjectWidget from "./ProjectWidget";
 
 const USERS_PROJECTS_QUERY = gql`
   query USERS_PROJECTS_QUERY {
@@ -14,6 +14,7 @@ const USERS_PROJECTS_QUERY = gql`
       address
       image
       owner {
+        id
         name
       }
     }
@@ -42,6 +43,9 @@ const PROJECTS = () => (
           {data.myProjects.map(project => (
             <ProjectWidget project={project} key={project.id} />
           ))}
+          <Link href="/createProject">
+            <a>create</a>
+          </Link>
         </div>
       );
     }}
@@ -49,3 +53,4 @@ const PROJECTS = () => (
 );
 
 export default PROJECTS;
+export { USERS_PROJECTS_QUERY };

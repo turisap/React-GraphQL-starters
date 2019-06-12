@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Query, Mutation } from "react-apollo";
+import { Query, Mutation, compose, graphql } from "react-apollo";
 import gql from "graphql-tag";
 import Link from "next/link";
 import Loading from "./Loading";

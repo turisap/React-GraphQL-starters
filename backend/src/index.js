@@ -29,6 +29,18 @@ server.express.use((req, res, next) => {
 
 
 /**
+ * Use express middleware to populate each request with current project id
+ */
+server.express.use((req, res, next) => {
+    const { projectId } = req.cookies;
+    if (projectId) {
+        req.projectId = projectId;
+    }
+    next();
+});
+
+
+/**
  * Use express middleware to populate each request with current user's object
  */
 server.express.use(async (req, res, next) => {
@@ -37,7 +49,6 @@ server.express.use(async (req, res, next) => {
     req.user = user;
     next();
 });
-
 
 
 

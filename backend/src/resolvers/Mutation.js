@@ -3,8 +3,11 @@ const jwt = require("jsonwebtoken");
 const { randomBytes } = require("crypto");
 const { promisify } = require("util");
 const EmailController = require("../controllers/EmailController");
+const FakeDataMutations = require("./FakeMutations");
 
 const Mutations = {
+    ...FakeDataMutations,
+
     async signup(parent, args, ctx, info) {
         args.email = args.email.toLowerCase();
         const email = args.email;
@@ -23,7 +26,17 @@ const Mutations = {
                     ...args,
                     password,
                     verificationEmailToken,
-                    permissions: { set: ["USER"] }
+                    permissions: { set: ["USER"] },
+                    occupation: {
+                        connect: {
+                            id: args.occupation
+                        }
+                    },
+                    organisation: {
+                        connect: {
+                            id: args.organisation
+                        }
+                    }
                 }
             },
             info
@@ -76,6 +89,9 @@ const Mutations = {
 
     signout(parent, args, ctx, info) {
         ctx.response.clearCookie("token");
+        ctx.response.clearCookie("projectId");
+        ctx.response.clearCookie("userId");
+        ctx.response.clearCookie("user");
         return { message: "GoodBuy" };
     },
 
@@ -138,11 +154,41 @@ const Mutations = {
         const { userId } = ctx.request;
         if (!userId) throw new Error("You must be logged in..");
 
-        return await ctx.db.mutation.createProject({
-            data : {
-                ...args,
-                owner : {
-                    connect: { id : userId }
+        return await ctx.db.mutation.createProject(
+            {
+                data: {
+                    ...args,
+                    owner: {
+                        connect: { id: userId }
+                    }
+                }
+            },
+            info
+        );
+    },
+
+    async createJob(parent, args, ctx, info) {
+        const { userId, projectId } = ctx.request;
+        if (!userId) throw new Error("You must be logged in..");
+        if (!projectId) throw new Error("Please choose a project to work with");
+
+        const { title, level, unit, image, largeImage, tag, assignee, description } = args;
+        return ctx.db.mutation.createJob({
+            data: {
+                title,
+                level,
+                unit,
+                image,
+                largeImage,
+                description,
+                project: {
+                    connect: { id: projectId }
+                },
+                tag: {
+                    connect: { id: tag }
+                },
+                assignee: {
+                    connect: { id: assignee }
                 }
             }
         });
