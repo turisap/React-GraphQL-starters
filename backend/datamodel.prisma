@@ -7,15 +7,27 @@ enum Permission {
   PERMISSIONSUPDATE
 }
 
+enum JobGroup {
+ SURVEY
+ FOUNDATION
+ STRUCTURAL_STEEL
+ STRUCTURAL_CONCRETE
+ FITIN
+ PLUMBING
+ ELECTRICAL
+ HANDOVER
+}
+
 type User {
   id: ID! @id
   name: String!
   email: String! @unique
   password: String!
+  occupation : Occupation!
   permissions: [Permission] @scalarList(strategy: RELATION)
   image: String!
   largeImage: String!
-  organisation: String!
+  organisation: Organisation!
   phone: String!,
   resetToken: String,
   resetTokenExpiry: Float
@@ -34,8 +46,41 @@ type Project {
   owner: User!
 }
 
+type Job {
+ id: ID! @id
+ project: Project!
+ title: String!
+ level: Float!
+ unit: String!
+ tag: Tag!
+ image: String
+ largeImage: String
+ assignee: User
+ description : String
+}
+
+type Tag {
+ id: ID! @id
+ title: String!
+ jobGroup: JobGroup!
+}
+
+type Occupation {
+ id : ID! @id
+ title : String!
+}
+
+type Organisation {
+ id: ID! @id,
+ title : String!
+ address : String!
+ image: String!
+ largeImage: String!
+}
+
 
 type SuccessMessage {
    id: ID! @id
    message : String!
+   user : User!
 }
