@@ -66,6 +66,13 @@ export default {
 
     createJob__tag: {
       missing: pleaseProvideField("tag. You need to choose job group first.")
+    },
+
+    createJob__description: {
+      missing: pleaseProvideField("job description"),
+      rule : {
+        minLength: "Job description should be at least 5 characters long"
+      }
     }
   }
 };

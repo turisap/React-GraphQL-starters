@@ -8,7 +8,7 @@ class Textarea extends React.Component {
     id: PropTypes.string,
     className: PropTypes.string,
     label: PropTypes.string,
-      name: PropTypes.string,
+    name: PropTypes.string,
 
     /* Inherited */
     fieldProps: PropTypes.object.isRequired,

@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/kirill-shakirov-5f22b4/boilerplate/dev
-# timestamp: Thu May 30 2019 20:34:53 GMT+1200 (New Zealand Standard Time)
+# timestamp: Wed Jun 12 2019 03:05:04 GMT-0400 (EDT)
 
 type AggregateJob {
   count: Int!
@@ -44,6 +44,7 @@ type Job implements Node {
   image: String
   largeImage: String
   assignee: User
+  description: String
 }
 
 """A connection to a list of items."""
@@ -63,6 +64,7 @@ input JobCreateInput {
   unit: String!
   image: String
   largeImage: String
+  description: String
   project: ProjectCreateOneInput!
   tag: TagCreateOneInput!
   assignee: UserCreateOneInput
@@ -101,6 +103,8 @@ enum JobOrderByInput {
   image_DESC
   largeImage_ASC
   largeImage_DESC
+  description_ASC
+  description_DESC
 }
 
 type JobPreviousValues {
@@ -110,6 +114,7 @@ type JobPreviousValues {
   unit: String!
   image: String
   largeImage: String
+  description: String
 }
 
 type JobSubscriptionPayload {
@@ -157,6 +162,7 @@ input JobUpdateInput {
   unit: String
   image: String
   largeImage: String
+  description: String
   project: ProjectUpdateOneRequiredInput
   tag: TagUpdateOneRequiredInput
   assignee: UserUpdateOneInput
@@ -168,6 +174,7 @@ input JobUpdateManyMutationInput {
   unit: String
   image: String
   largeImage: String
+  description: String
 }
 
 input JobWhereInput {
@@ -401,6 +408,46 @@ input JobWhereInput {
 
   """All values not ending with the given string."""
   largeImage_not_ends_with: String
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
   project: ProjectWhereInput
   tag: TagWhereInput
   assignee: UserWhereInput

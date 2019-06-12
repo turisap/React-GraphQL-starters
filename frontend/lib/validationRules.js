@@ -40,7 +40,12 @@ const validationRules = {
 
     createJob__tag: {
       // validates the presence of tag's id
-      isRequired: ({ value }) => value.length > 1
+      isRequired: ({ value }) => value.length > 0
+    },
+
+    createJob__description : {
+      isRequired: ({ value }) => value.length > 0,
+      minLength : ({ value }) => value.length > 5
     }
   }
 };

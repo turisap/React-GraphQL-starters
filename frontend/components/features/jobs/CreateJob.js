@@ -20,6 +20,7 @@ const CREATE_JOB_MUTATION = gql`
     $image: String
     $largeImage: String
     $assignee: ID!
+    $description: String
   ) {
     createJob(
       tag: $tag
@@ -29,6 +30,7 @@ const CREATE_JOB_MUTATION = gql`
       image: $image
       largeImage: $largeImage
       assignee: $assignee
+      description: $description
     ) {
       id
       title
@@ -95,7 +97,8 @@ class CreateJob extends CreateWithFilesUpload {
                     title: serialized.createJob__title,
                     unit: serialized.unit__number,
                     tag: serialized.createJob__tag,
-                    image: serialized.job__picture
+                    image: serialized.job__picture,
+                    description: serialized.createJob__description
                   }
                 });
                 this.resetState();
@@ -114,7 +117,7 @@ class CreateJob extends CreateWithFilesUpload {
                 <option value="FOUNDATION">FOUNDATION</option>
                 <option value="STRUCTURAL_STEEL">STRUCTURAL STEEL</option>
                 <option value="STRUCTURAL_CONCRETE">STRUCTURAL CONCRETE</option>
-                <option value="FITIN">FITIN</option>
+                <option value="FITIN">FIT IN</option>
                 <option value="PLUMBING">PLUMBING</option>
                 <option value="ELECTRICAL">ELECTRICAL</option>
                 <option value=" HANDOVER"> HANDOVER</option>
@@ -167,7 +170,11 @@ class CreateJob extends CreateWithFilesUpload {
                   </Query>
                 )}
               </Select>
-              <TextArea />
+              <TextArea
+                label="Description"
+                required
+                name="createJob__description"
+              />
               <FileUpload
                 label="Job Picture"
                 name="job__picture"

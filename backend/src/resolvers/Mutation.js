@@ -172,7 +172,7 @@ const Mutations = {
         if (!userId) throw new Error("You must be logged in..");
         if (!projectId) throw new Error("Please choose a project to work with");
 
-        const { title, level, unit, image, largeImage, tag, assignee } = args;
+        const { title, level, unit, image, largeImage, tag, assignee, description } = args;
         return ctx.db.mutation.createJob({
             data: {
                 title,
@@ -180,6 +180,7 @@ const Mutations = {
                 unit,
                 image,
                 largeImage,
+                description,
                 project: {
                     connect: { id: projectId }
                 },

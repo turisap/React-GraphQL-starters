@@ -13,7 +13,7 @@ type Mutation {
     createProject (title : String!, address : String!, levels_number : Float,
     image : String!, largeImage : String!) : Project!
     createJob(tag: ID!, assignee: ID, title: String!, level: Float!, unit: String!, image: String,
-    largeImage: String) : Job!
+    largeImage: String, description: String) : Job!
 }
 
 
