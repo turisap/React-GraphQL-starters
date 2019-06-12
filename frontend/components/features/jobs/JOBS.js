@@ -2,11 +2,11 @@
 import React, { Component } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import Cookies from "universal-cookie";
 import Link from "next/link";
 import { adopt } from "react-adopt";
 import DisplayError from "../../ErrorMessage";
 import Loading from "../../Loading";
+import Job from './Job';
 
 // const CURRENT_PROJECT_QUERY = gql`
 //   {
@@ -17,6 +17,7 @@ import Loading from "../../Loading";
 const CURRENT_PROJECTS_JOBS = gql`
   query CURRENT_PROJECT_JOBS {
     projectJobs {
+      id
       title
       level
       unit
@@ -61,8 +62,9 @@ class JOBS extends Component {
                   <a>Create one</a>
                 </Link>
               </p>
-            );
-          return projectJobs.data.projectJobs.map(job => <p>Job</p>);
+            );console.log(projectJobs.data.projectJobs)
+
+          return projectJobs.data.projectJobs.map(job => <Job job={job} key={job.id}/>);
         }}
       </Composed>
     );

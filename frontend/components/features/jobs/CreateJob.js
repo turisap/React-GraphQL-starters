@@ -60,8 +60,8 @@ const ALL_PROJECT_PARTICIPANTS_QUERY = gql`
   }
 `;
 
-// TODO create job factory and sorting by assignees/tags and so on
-// TODO add a description field (textarea)
+// TODO create job factory
+//  TODO sorting by assignees/tags and so on
 
 class CreateJob extends CreateWithFilesUpload {
   constructor(props) {
@@ -192,3 +192,4 @@ class CreateJob extends CreateWithFilesUpload {
 }
 
 export default CreateJob;
+export { ALL_PROJECT_PARTICIPANTS_QUERY, ALL_TAGS_OF_JOB_GROUP_QUERY, CREATE_JOB_MUTATION };

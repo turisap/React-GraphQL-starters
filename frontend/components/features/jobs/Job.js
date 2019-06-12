@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-
 /**
  * Renders a job widget
  * @param title
@@ -11,9 +10,9 @@ import PropTypes from "prop-types";
  * @returns {*}
  * @constructor
  */
-const Job = ({ title, level, unit, tag }) => (
+const Job = ({ job: { title, level, unit, tag } }) => (
   <div>
-    <h3>{title}</h3>
+    <h2>{title}</h2>
     <p>Level: {level}</p>
     <p>Unit: {unit}</p>
     <p>Tag: {tag.title}</p>
@@ -21,12 +20,14 @@ const Job = ({ title, level, unit, tag }) => (
 );
 
 Job.propTypes = {
-  title: PropTypes.string.isRequired,
-  level: PropTypes.string.isRequired,
-  unit: PropTypes.string.isRequired,
-  tag: PropTypes.object.shape({
+  job: PropTypes.shape({
     title: PropTypes.string.isRequired,
-    jobGroup: PropTypes.string.isRequired
+    level: PropTypes.number.isRequired,
+    unit: PropTypes.string.isRequired,
+    tag: PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      jobGroup: PropTypes.string.isRequired
+    })
   })
 };
 
