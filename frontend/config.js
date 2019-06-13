@@ -36,6 +36,16 @@ const CONFIG = {
 
     CURRENCY : 'NZD',
 
+    JOB_GROUPS : [
+        "SURVEY",
+        "FOUNDATION",
+        "STRUCTURAL_STEEL",
+        "FITIN",
+        "PLUMBING",
+        "ELECTRICAL",
+        "HANDOVER"
+    ]
+
 };
 
 export { CONFIG };

@@ -1,0 +1,9 @@
+@import "../../base/settings";
+
+.jobsPage {
+  padding: 2rem;
+  display:grid;
+  grid-gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 25rem));
+  justify-content: space-between;
+}

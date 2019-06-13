@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
  * @constructor
  */
 const Job = ({ job: { title, level, unit, tag } }) => (
-  <div>
+  <div className="jobWidget">
     <h2>{title}</h2>
     <p>Level: {level}</p>
     <p>Unit: {unit}</p>

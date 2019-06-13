@@ -6,13 +6,10 @@ import Link from "next/link";
 import { adopt } from "react-adopt";
 import DisplayError from "../../ErrorMessage";
 import Loading from "../../Loading";
-import Job from './Job';
+import Job from "./Job";
+import SortingFilter from "./SortingFilter";
+import { ALL_TAGS_OF_JOB_GROUP_QUERY } from "./CreateJob";
 
-// const CURRENT_PROJECT_QUERY = gql`
-//   {
-//       projectId @client
-//   }
-// `;
 
 const CURRENT_PROJECTS_JOBS = gql`
   query CURRENT_PROJECT_JOBS {
@@ -37,13 +34,23 @@ const CURRENT_PROJECT = gql`
   }
 `;
 
+const JOB_GROUP_FILTER = gql`
+    query JOB_GROUP_FILTER {
+      jobGroupFilter @client
+    }
+`;
+
+
 const Composed = adopt({
   projectJobs: ({ render }) => (
     <Query query={CURRENT_PROJECTS_JOBS}>{render}</Query>
   ),
   currentProject: ({ render }) => (
     <Query query={CURRENT_PROJECT}>{render}</Query>
-  )
+  ),
+  localStateJobGroup : ({ render }) => (
+      <Query query={JOB_GROUP_FILTER}>{render}</Query>
+  ),
 });
 
 //  TODO sorting by assignees/tags and so on
@@ -51,28 +58,43 @@ const Composed = adopt({
 class JOBS extends Component {
   render() {
     return (
-      <Composed>
-        {({ projectJobs, currentProject, data, error, loading }) => {
-          if (error) return <DisplayError error={error} />;
-          if (loading) return <Loading />;
-          const jsx = [
-              <Link href="/createJob">
-                <a>Create one</a>
-              </Link>
-          ];
-          if (!projectJobs.data.projectJobs.length){
-            jsx.push(<p>
-              You don&apos;t have any jobs for{" "}
-              {currentProject.data.project.title} yet.
-            </p>)
-            return jsx;
-          }
+      <div className="jobsPage">
+        <Composed>
+          {({ projectJobs, currentProject, localStateJobGroup, error, loading }) => (
+              <Query query={ALL_TAGS_OF_JOB_GROUP_QUERY} variables={{jobGroup : localStateJobGroup.data.jobGroupFilter}}>
+                {(payload) => {
+                  const { data : tagList }  = payload;
+                  console.log(tagList)
+                  if (error) return <DisplayError error={error} />;
+                  if (loading) return <Loading />;
+                  console.log(localStateJobGroup.data.jobGroupFilter)
+                  const jsx = [
+                    <SortingFilter key={0} tags={tagList}/>,
+                    <Link href="/createJob" key={1}>
+                      <a>Create one</a>
+                    </Link>
+                  ];
+                  if (!projectJobs.data.projectJobs.length) {
+                    jsx.push(
+                        <p key={2}>
+                          You don&apos;t have any jobs for{" "}
+                          {currentProject.data.project.title} yet.
+                        </p>
+                    );
+                    return jsx;
+                  }
 
-
-          jsx.push(projectJobs.data.projectJobs.map(job => <Job job={job} key={job.id}/>));
-          return jsx;
-        }}
-      </Composed>
+                  jsx.push(
+                      projectJobs.data.projectJobs.map(job => (
+                          <Job job={job} key={job.id} />
+                      ))
+                  );
+                  return jsx;
+                }}
+              </Query>
+          )}
+        </Composed>
+      </div>
     );
   }
 }

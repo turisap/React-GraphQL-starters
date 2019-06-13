@@ -16,10 +16,19 @@ export default {
           }
         });
         return null;
+      },
+      setJobGroupFilter(_, { jobGroupFilter }, { cache }) {
+        cache.writeData({
+          data: {
+            jobGroupFilter
+          }
+        });
+        return null;
       }
     }
   },
   defaults: {
-    projectId: false
+    projectId: false,
+    jobGroupFilter: false
   }
 };
