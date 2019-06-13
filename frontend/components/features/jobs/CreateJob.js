@@ -10,6 +10,7 @@ import Input from "../../fields/Input";
 import Select from "../../fields/Select";
 import FileUpload from "../../fields/FileUpload";
 import TextArea from "../../fields/TextArea";
+import { CURRENT_PROJECTS_JOBS } from './JOBS';
 
 const CREATE_JOB_MUTATION = gql`
   mutation CREATE_JOB_MUATION(
@@ -60,8 +61,6 @@ const ALL_PROJECT_PARTICIPANTS_QUERY = gql`
   }
 `;
 
-// TODO create job factory
-//  TODO sorting by assignees/tags and so on
 
 class CreateJob extends CreateWithFilesUpload {
   constructor(props) {
@@ -82,6 +81,7 @@ class CreateJob extends CreateWithFilesUpload {
           this.setState({ jobCreated: true });
           Router.push("/jobs");
         }}
+        refetchQueries={[{ query : CURRENT_PROJECTS_JOBS }]}
       >
         {(createJob, { loading, error }) => {
           if (loading) return <Loading />;

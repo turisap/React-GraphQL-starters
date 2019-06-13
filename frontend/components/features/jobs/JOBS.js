@@ -46,6 +46,8 @@ const Composed = adopt({
   )
 });
 
+//  TODO sorting by assignees/tags and so on
+
 class JOBS extends Component {
   render() {
     return (
@@ -53,18 +55,22 @@ class JOBS extends Component {
         {({ projectJobs, currentProject, data, error, loading }) => {
           if (error) return <DisplayError error={error} />;
           if (loading) return <Loading />;
-          if (!projectJobs.data.projectJobs.length)
-            return (
-              <p>
-                You don&apos;t have any jobs for{" "}
-                {currentProject.data.project.title} yet.
-                <Link href="/createJob">
-                  <a>Create one</a>
-                </Link>
-              </p>
-            );console.log(projectJobs.data.projectJobs)
+          const jsx = [
+              <Link href="/createJob">
+                <a>Create one</a>
+              </Link>
+          ];
+          if (!projectJobs.data.projectJobs.length){
+            jsx.push(<p>
+              You don&apos;t have any jobs for{" "}
+              {currentProject.data.project.title} yet.
+            </p>)
+            return jsx;
+          }
 
-          return projectJobs.data.projectJobs.map(job => <Job job={job} key={job.id}/>);
+
+          jsx.push(projectJobs.data.projectJobs.map(job => <Job job={job} key={job.id}/>));
+          return jsx;
         }}
       </Composed>
     );
@@ -72,3 +78,4 @@ class JOBS extends Component {
 }
 
 export default JOBS;
+export { CURRENT_PROJECTS_JOBS };
