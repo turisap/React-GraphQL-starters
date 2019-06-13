@@ -7,23 +7,23 @@ import {
   ALL_PROJECT_PARTICIPANTS_QUERY
 } from "../components/features/jobs/CreateJob";
 
-const CreateFakeJobs = () => {
-  const level = _getRandomLevel();
-  const jobGroup = "FITIN"; //_getRandomElement(jobGroups);
 
-  const fakeJob = {
-    title: faker.lorem.word(),
-    level,
-    unit: _getRandomUnit(level),
-    image: "https://placeholder.com/",
-    largeImage: "https://placeholder.com/",
-    // assignee: User
-    description: faker.lorem.paragraph()
-  };
+function useForceUpdate(){
+  const [value, set] = useState(true); //boolean state
+  return () => set(!value); // toggle the state to force render
+}
+
+const CreateFakeJobs = () => {
+  const jobGroup = _getRandomElement(jobGroups);
+
+  let fakeJob = _getFakeJob(_getRandomLevel());
+
+  const forceUpdate = useForceUpdate();
 
   return (
     <Query query={ALL_TAGS_OF_JOB_GROUP_QUERY} variables={{ jobGroup }}>
       {({ data }) => {
+        console.log(data);
         fakeJob.tag = _getRandomElement(data.allTagsOfJobGroup).id;
         return (
           <Query query={ALL_PROJECT_PARTICIPANTS_QUERY}>
@@ -32,7 +32,14 @@ const CreateFakeJobs = () => {
               return (
                 <Mutation mutation={CREATE_JOB_MUTATION} variables={fakeJob}>
                   {createJob => (
-                    <button onClick={createJob}>Create A Job</button>
+                    <button
+                      onClick={() => {
+                        createJob();
+                        forceUpdate();
+                      }}
+                    >
+                      Create A Job
+                    </button>
                   )}
                 </Mutation>
               );
@@ -54,6 +61,15 @@ const jobGroups = [
   "HANDOVER"
 ];
 
+const _getFakeJob = level => ({
+  title: faker.lorem.word(),
+  level,
+  unit: _getRandomUnit(level),
+  image: "https://placeholder.com/",
+  largeImage: "https://placeholder.com/",
+  // assignee: User
+  description: faker.lorem.paragraph()
+});
 const _getRandomLevel = () => Math.ceil(Math.random() * 10 + 1);
 const _getRandomUnit = level =>
   `${level}${_getRandomLevel()}${_getRandomLevel()}`;
