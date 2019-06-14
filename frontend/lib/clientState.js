@@ -17,6 +17,7 @@ export default {
         });
         return null;
       },
+      // job sorting filter bar in /features/jobs/JOBS.js
       setJobGroupFilter(_, { jobGroupFilter }, { cache }) {
         cache.writeData({
           data: {
@@ -24,11 +25,19 @@ export default {
           }
         });
         return null;
+      },
+      setJobTagFilter(_, { jobTagFilter }, { cache }) {
+        cache.writeData({
+          data: {
+            jobTagFilter
+          }
+        });
       }
     }
   },
   defaults: {
     projectId: false,
-    jobGroupFilter: false
+    jobGroupFilter: false,
+    jobGroupTag: null
   }
 };

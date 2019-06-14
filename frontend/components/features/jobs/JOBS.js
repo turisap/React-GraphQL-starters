@@ -40,6 +40,12 @@ const JOB_GROUP_FILTER = gql`
     }
 `;
 
+const JOB_GROUP_TAG = gql`
+    query JOB_GROUP_TAG {
+      jobTagFilter @client
+    }
+`;
+
 
 const Composed = adopt({
   projectJobs: ({ render }) => (
@@ -51,6 +57,9 @@ const Composed = adopt({
   localStateJobGroup : ({ render }) => (
       <Query query={JOB_GROUP_FILTER}>{render}</Query>
   ),
+  localStateJobTag : ({ render }) => (
+      <Query query={JOB_GROUP_TAG}>{render}</Query>
+  )
 });
 
 //  TODO sorting by assignees/tags and so on
@@ -60,7 +69,7 @@ class JOBS extends Component {
     return (
       <div className="jobsPage">
         <Composed>
-          {({ projectJobs, currentProject, localStateJobGroup, error, loading }) => (
+          {({ projectJobs, currentProject, localStateJobGroup, localStateJobTag, error, loading }) => (
               <Query query={ALL_TAGS_OF_JOB_GROUP_QUERY} variables={{jobGroup : localStateJobGroup.data.jobGroupFilter}}>
                 {(payload) => {
                   const { data : tagList }  = payload;
@@ -68,6 +77,7 @@ class JOBS extends Component {
                   if (error) return <DisplayError error={error} />;
                   if (loading) return <Loading />;
                   console.log(localStateJobGroup.data.jobGroupFilter)
+                  console.log("LOCAL STATE TAG", localStateJobTag)
                   const jsx = [
                     <SortingFilter key={0} tags={tagList}/>,
                     <Link href="/createJob" key={1}>
