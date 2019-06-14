@@ -57,6 +57,7 @@ type Job {
  largeImage: String
  assignee: User
  description : String
+ completed : Boolean @default(value : false)
 }
 
 type Tag {

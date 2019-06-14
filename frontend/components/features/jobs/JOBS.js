@@ -10,7 +10,6 @@ import Job from "./Job";
 import SortingFilter from "./SortingFilter";
 import { ALL_TAGS_OF_JOB_GROUP_QUERY } from "./CreateJob";
 
-
 const CURRENT_PROJECTS_JOBS = gql`
   query CURRENT_PROJECT_JOBS {
     projectJobs {
@@ -35,73 +34,93 @@ const CURRENT_PROJECT = gql`
 `;
 
 const JOB_GROUP_FILTER = gql`
-    query JOB_GROUP_FILTER {
-      jobGroupFilter @client
-    }
+  query JOB_GROUP_FILTER {
+    jobGroupFilter @client
+  }
 `;
 
 const JOB_GROUP_TAG = gql`
-    query JOB_GROUP_TAG {
-      jobTagFilter @client
-    }
+  query JOB_GROUP_TAG {
+    jobTagFilter @client
+  }
 `;
 
-
 const Composed = adopt({
-  projectJobs: ({ render }) => (
-    <Query query={CURRENT_PROJECTS_JOBS}>{render}</Query>
-  ),
   currentProject: ({ render }) => (
     <Query query={CURRENT_PROJECT}>{render}</Query>
   ),
-  localStateJobGroup : ({ render }) => (
-      <Query query={JOB_GROUP_FILTER}>{render}</Query>
+  localStateJobGroup: ({ render }) => (
+    <Query query={JOB_GROUP_FILTER}>{render}</Query>
   ),
-  localStateJobTag : ({ render }) => (
-      <Query query={JOB_GROUP_TAG}>{render}</Query>
+  localStateJobTag: ({ render }) => (
+    <Query query={JOB_GROUP_TAG}>{render}</Query>
   )
 });
 
 //  TODO sorting by assignees/tags and so on
+/**
+ * Modified projectJobs on the backend to accept tag and job group ( only to consoleloging). I need to pass it from frontend
+ * now and wirte queries on the backend
+ */
 
 class JOBS extends Component {
   render() {
     return (
       <div className="jobsPage">
         <Composed>
-          {({ projectJobs, currentProject, localStateJobGroup, localStateJobTag, error, loading }) => (
-              <Query query={ALL_TAGS_OF_JOB_GROUP_QUERY} variables={{jobGroup : localStateJobGroup.data.jobGroupFilter}}>
-                {(payload) => {
-                  const { data : tagList }  = payload;
-                  console.log(tagList)
-                  if (error) return <DisplayError error={error} />;
-                  if (loading) return <Loading />;
-                  console.log(localStateJobGroup.data.jobGroupFilter)
-                  console.log("LOCAL STATE TAG", localStateJobTag)
-                  const jsx = [
-                    <SortingFilter key={0} tags={tagList}/>,
-                    <Link href="/createJob" key={1}>
-                      <a>Create one</a>
-                    </Link>
-                  ];
-                  if (!projectJobs.data.projectJobs.length) {
-                    jsx.push(
-                        <p key={2}>
-                          You don&apos;t have any jobs for{" "}
-                          {currentProject.data.project.title} yet.
-                        </p>
-                    );
-                    return jsx;
-                  }
+          {({
+            currentProject,
+            localStateJobGroup,
+            localStateJobTag,
+            error,
+            loading
+          }) => (
+            <Query
+              query={ALL_TAGS_OF_JOB_GROUP_QUERY}
+              variables={{ jobGroup: localStateJobGroup.data.jobGroupFilter }}
+            >
+              {payload => {
+                const { data: tagList } = payload;
+                //console.log(tagList)
+                if (error) return <DisplayError error={error} />;
+                if (loading) return <Loading />;
+                //console.log(localStateJobGroup.data.jobGroupFilter)
+                console.log(
+                  "LOCAL STATE TAG",
+                  localStateJobTag.data.jobTagFilter
+                );
+                const jsx = [
+                  <SortingFilter key={0} tags={tagList} />,
+                  <Link href="/createJob" key={1}>
+                    <a>Create one</a>
+                  </Link>
+                ];
 
-                  jsx.push(
-                      projectJobs.data.projectJobs.map(job => (
+                return (
+                  <Query query={CURRENT_PROJECTS_JOBS}>
+                    {({ data, loading }) => {
+                      const {projectJobs} =data;
+                      if (!projectJobs ) {
+                        jsx.push(
+                          <p key={2}>
+                            You don&apos;t have any jobs for{" "}
+                            {currentProject.data.project.title} yet.
+                          </p>
+                        );
+                        return jsx;
+                      }
+                      if (loading) return <Loading />;
+                      jsx.push(
+                        projectJobs.map(job => (
                           <Job job={job} key={job.id} />
-                      ))
-                  );
-                  return jsx;
-                }}
-              </Query>
+                        ))
+                      );
+                      return jsx;
+                    }}
+                  </Query>
+                );
+              }}
+            </Query>
           )}
         </Composed>
       </div>

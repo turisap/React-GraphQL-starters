@@ -132,8 +132,12 @@ const Query = {
    */
     async projectParticipants(parent, args, ctx, info) {
         const { userId, projectId } = ctx.request;
+        const {jobGroup, jobTag} = args;
         if (!userId) throw new Error("You must be logged in..");
         if (!projectId) throw new Error("Please specify a project to work on");
+
+        if(jobGroup) console.log("++++++++++++++++++++++++++++ JBGORUP", jobGroup);
+        if(jobTag) console.log("+++++++++++++++++++++++++ JOBTAG", jobTag);
 
         return await ctx.db.query.users(
             {
