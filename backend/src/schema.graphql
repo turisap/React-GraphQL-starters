@@ -30,7 +30,7 @@ type Query {
     projectParticipants: [User]!
     occupations : [Occupation]!
     organisations : [Organisation]!
-    allTagsOfJobGroup (jobGroup : String!) : [Tag]!
+    allTagsOfJobGroup (jobGroup : String) : [Tag]!
 }
 
 

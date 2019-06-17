@@ -32,12 +32,12 @@ export default {
             jobTagFilter
           }
         });
-      }
+      },
     }
   },
   defaults: {
     projectId: false,
-    jobGroupFilter: false,
+    jobGroupFilter: null,
     jobGroupTag: null
   }
 };

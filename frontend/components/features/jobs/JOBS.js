@@ -33,28 +33,10 @@ const CURRENT_PROJECT = gql`
   }
 `;
 
-const JOB_GROUP_FILTER = gql`
-  query JOB_GROUP_FILTER {
-    jobGroupFilter @client
-  }
-`;
-
-const JOB_GROUP_TAG = gql`
-  query JOB_GROUP_TAG {
-    jobTagFilter @client
-  }
-`;
-
 const Composed = adopt({
   currentProject: ({ render }) => (
     <Query query={CURRENT_PROJECT}>{render}</Query>
   ),
-  localStateJobGroup: ({ render }) => (
-    <Query query={JOB_GROUP_FILTER}>{render}</Query>
-  ),
-  localStateJobTag: ({ render }) => (
-    <Query query={JOB_GROUP_TAG}>{render}</Query>
-  )
 });
 
 //  TODO sorting by assignees/tags and so on
@@ -70,63 +52,45 @@ class JOBS extends Component {
         <Composed>
           {({
             currentProject,
-            localStateJobGroup,
-            localStateJobTag,
-            error,
-            loading
-          }) => (
-            <Query
-              query={ALL_TAGS_OF_JOB_GROUP_QUERY}
-              variables={{ jobGroup: localStateJobGroup.data.jobGroupFilter }}
-            >
-              {payload => {
-                const { data: tagList } = payload;
-                //console.log(tagList)
-                if (error) return <DisplayError error={error} />;
-                if (loading) return <Loading />;
-                //console.log(localStateJobGroup.data.jobGroupFilter)
-                console.log(
-                  "LOCAL STATE TAG",
-                  localStateJobTag.data.jobTagFilter
-                );
-                const jsx = [
-                  <SortingFilter key={0} tags={tagList} />,
-                  <Link href="/createJob" key={1}>
-                    <a>Create one</a>
-                  </Link>
-                ];
-
-                return (
-                  <Query query={CURRENT_PROJECTS_JOBS}>
-                    {({ data, loading }) => {
-                      const {projectJobs} =data;
-                      if (!projectJobs ) {
-                        jsx.push(
+          }) => {
+            const jsx = [
+              <SortingFilter key={0} />,
+              <Link href="/createJob" key={1}>
+                <a>Create one</a>
+              </Link>
+            ];
+            return (
+                <Query
+                    query={CURRENT_PROJECTS_JOBS}
+                >
+                  {({ data, loading }) => {
+                    const { projectJobs } = data;
+                    if (!projectJobs) {
+                      jsx.push(
                           <p key={2}>
                             You don&apos;t have any jobs for{" "}
                             {currentProject.data.project.title} yet.
                           </p>
-                        );
-                        return jsx;
-                      }
-                      if (loading) return <Loading />;
-                      jsx.push(
-                        projectJobs.map(job => (
-                          <Job job={job} key={job.id} />
-                        ))
                       );
                       return jsx;
-                    }}
-                  </Query>
-                );
-              }}
-            </Query>
-          )}
+                    }
+                    if (loading) return <Loading />;
+                    jsx.push(
+                        projectJobs.map(job => <Job job={job} key={job.id} />)
+                    );
+                    return jsx;
+                  }}
+                </Query>
+            )
+          }
+
+          }
         </Composed>
       </div>
     );
   }
 }
+
 
 export default JOBS;
 export { CURRENT_PROJECTS_JOBS };
