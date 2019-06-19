@@ -32,7 +32,7 @@ export default {
             jobTagFilter
           }
         });
-      },
+      }
     }
   },
   defaults: {

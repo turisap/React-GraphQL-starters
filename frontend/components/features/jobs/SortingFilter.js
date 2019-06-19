@@ -26,9 +26,16 @@ const Composed = adopt({
   )
 });
 
+
+function useForceUpdate(){
+  const [value, set] = useState(true); //boolean state
+  return () => set(!value); // toggle the state to force render
+}
+
 const SortingFilter = props => {
   const [groupFilter, setGroupFilter] = useState(null);
   const { tags } = props;
+  const forceUpdate = useForceUpdate();
 
   return (
     <Composed>
@@ -47,7 +54,12 @@ const SortingFilter = props => {
           ));
         }
         if (tags) {
-          return tags.map(tag => <p key={tag.id} onClick={() => setLocalStateTagFilter({variables: {tagFilter: tag.id}})}>{tag.title}</p>);
+          return (
+              <>
+                {tags.map(tag => <p key={tag.id} onClick={() => setLocalStateTagFilter({variables: {tagFilter: tag.id}})}>{tag.title}</p>)}
+                <button onClick={forceUpdate}>BACK</button>
+              </>
+          )
         }
         return "";
       }}

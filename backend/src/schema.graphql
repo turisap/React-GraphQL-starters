@@ -31,7 +31,7 @@ type Query {
     occupations : [Occupation]!
     organisations : [Organisation]!
     allTagsOfJobGroup (jobGroup : String) : [Tag]!
-    testJobs (projectId : ID!, jobTag:  ID!) : [Job]!
+    #testJobs (projectId : ID!, jobTag:  ID!) : [Job]!
 }
 
 
