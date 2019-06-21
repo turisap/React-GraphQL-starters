@@ -17,6 +17,8 @@ export default {
         });
         return null;
       },
+
+
       // job sorting filter bar in /features/jobs/JOBS.js
       setJobGroupFilter(_, { jobGroupFilter }, { cache }) {
         cache.writeData({
@@ -30,6 +32,15 @@ export default {
         cache.writeData({
           data: {
             jobTagFilter
+          }
+        });
+      },
+      removeFilters(_, args, { cache }) {
+        console.log('removeing freacking filters!!!!!!!!!!!')
+        cache.writeData({
+          data: {
+            jobTagFilter: null,
+            jobGroupFilter: null
           }
         });
       }

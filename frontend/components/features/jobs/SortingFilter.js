@@ -17,17 +17,25 @@ const LOCAL_STATE_SET_TAG_FILTER = gql`
   }
 `;
 
+const LOCAL_STATE_REMOVE_FILTERS = gql`
+  mutation LOCAL_STATE_REMOVE_FILTERS($name : String!) {
+    removeFilters(name : $name) @client
+  }
+`;
+
 const Composed = adopt({
   setLocalStateGroupFilter: ({ render }) => (
     <Mutation mutation={LOCAl_STATE_SET_GROUP_FILTER}>{render}</Mutation>
   ),
-  setLocalStateTagFilter : ({ render }) => (
-      <Mutation mutation={LOCAL_STATE_SET_TAG_FILTER}>{render}</Mutation>
+  setLocalStateTagFilter: ({ render }) => (
+    <Mutation mutation={LOCAL_STATE_SET_TAG_FILTER}>{render}</Mutation>
+  ),
+  removeFiltersFromLocalState: ({ render }) => (
+    <Mutation mutation={LOCAL_STATE_REMOVE_FILTERS}>{render}</Mutation>
   )
 });
 
-
-function useForceUpdate(){
+function useForceUpdate() {
   const [value, set] = useState(true); //boolean state
   return () => set(!value); // toggle the state to force render
 }
@@ -39,7 +47,7 @@ const SortingFilter = props => {
 
   return (
     <Composed>
-      {({ setLocalStateGroupFilter, setLocalStateTagFilter }) => {
+      {({ setLocalStateGroupFilter, setLocalStateTagFilter, removeFiltersFromLocalState }) => {
         if (!groupFilter && !tags.length) {
           return CONFIG.JOB_GROUPS.map(jobGroup => (
             <p
@@ -55,11 +63,27 @@ const SortingFilter = props => {
         }
         if (tags) {
           return (
-              <>
-                {tags.map(tag => <p key={tag.id} onClick={() => setLocalStateTagFilter({variables: {tagFilter: tag.id}})}>{tag.title}</p>)}
-                <button onClick={forceUpdate}>BACK</button>
-              </>
-          )
+            <>
+              {tags.map(tag => (
+                <p
+                  key={tag.id}
+                  onClick={() =>
+                    setLocalStateTagFilter({ variables: { tagFilter: tag.id } })
+                  }
+                >
+                  {tag.title}
+                </p>
+              ))}
+              <button
+                onClick={() => {
+                  forceUpdate();
+                  removeFiltersFromLocalState();
+                }}
+              >
+                BACK
+              </button>
+            </>
+          );
         }
         return "";
       }}
