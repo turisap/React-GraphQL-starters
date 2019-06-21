@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React, { Component } from "react";
-import { Query } from "react-apollo";
+import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import Link from "next/link";
 import { adopt } from "react-adopt";
@@ -34,14 +34,6 @@ const CURRENT_PROJECT = gql`
   }
 `;
 
-const ALL_TAGS_FOR_JOB_GROUP =gql`
-  query ALL_TAGS_FOR_JOB_GROUP($jobGroup: String) {
-    allTagsOfJobGroup(jobGroup: $jobGroup) {
-      id,
-      title
-    }
-  }
-`;
 
 const LOCAL_STATE_JOB_TAG_QUERY = gql`
   query {
@@ -55,6 +47,12 @@ const LOCAL_STATE_JOB_GROUP_QUERY = gql`
     }
 `;
 
+const SET_TAGS_FOR_JOB_GROUP = gql`
+    mutation SET_TAGS_FOR_JOB_GROUP ($jobGroupTags : Array) {
+      setJobGroupTags (jobGroupTags: $jobGroupTags) @client
+    }
+`;
+
 const Composed = adopt({
   currentProject: ({ render }) => (
     <Query query={CURRENT_PROJECT}>{render}</Query>
@@ -64,6 +62,9 @@ const Composed = adopt({
   ),
   localStateJobTag : ({ render} ) => (
       <Query query={LOCAL_STATE_JOB_TAG_QUERY}>{render}</Query>
+  ),
+  setTagsForJobGroupToLocalState : ({ render }) => (
+      <Mutation mutation={SET_TAGS_FOR_JOB_GROUP}>{render}</Mutation>
   )
 });
 
@@ -74,24 +75,26 @@ const Composed = adopt({
  */
 
 class JOBS extends Component {
+
   render() {
     return (
       <div className="jobsPage">
 
         <Composed>
-          {({ currentProject, localStateJobGroup, localStateJobTag}) => {
+          {({ currentProject, localStateJobGroup, localStateJobTag, setTagsForJobGroupToLocalState }) => {
             const jobGroupFilter = localStateJobGroup.data.jobGroupFilter;
             const jobTagFilter = localStateJobTag.data.jobTagFilter;
             return (
                 <Query query={ALL_TAGS_OF_JOB_GROUP_QUERY}  variables={{jobGroup: jobGroupFilter}}>
                   {({data,loading,error}) => {
-                    const jobGroupTags = data ? data.allTagsOfJobGroup : [];
-                    console.log("jobGroup filter", jobGroupFilter);
-                    console.log("TAGS for a job group", jobGroupTags);
-                    console.log("LOCAL STATE JOB TAG", jobTagFilter);
+                    let jobGroupTags = data ? data.allTagsOfJobGroup: [];
+                     //console.log("jobGroup filter", jobGroupFilter);
+                     console.log("TAGS for a job group", jobGroupTags);
+                    // console.log("LOCAL STATE JOB TAG", jobTagFilter);
+                    jobGroupTags = jobGroupFilter ? jobGroupTags : [];
                     const jsx = [
-                      <SortingFilter key={0} tags={jobGroupTags || []} />,
-                      <Link href="/createJob" key={1}>
+                      <SortingFilter key={0} tags={jobGroupTags}/>,
+                      <Link href="/createJob" key={1} tags={jobGroupTags}>
                         <a>Create one</a>
                       </Link>
                     ];
