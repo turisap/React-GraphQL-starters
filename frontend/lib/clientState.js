@@ -35,20 +35,21 @@ export default {
           }
         });
       },
-      setJobGroupTags(_, { jobGroupTags }, { cache }) {
-        console.log("setting tags to local state to 0", jobGroupTags);
-        cache.writeData({
-          data: {
-            jobGroupTags
-          }
-        });
-      },
+      // setJobGroupTags(_, { jobGroupTags }, { cache }) {
+      //   //console.log("setting tags to local state to 0", jobGroupTags);
+      //   cache.writeData({
+      //     data: {
+      //       jobGroupTags
+      //     }
+      //   });
+      // },
       removeFilters(_, args, { cache }) {
         console.log('removing filters from local state')
         cache.writeData({
           data: {
             jobTagFilter: null,
-            jobGroupFilter: null
+            jobGroupFilter: null,
+            jobGroupTags : null
           }
         });
       }

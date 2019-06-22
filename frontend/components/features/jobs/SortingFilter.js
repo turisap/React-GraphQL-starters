@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import { Mutation, Query } from "react-apollo";
 import { adopt } from "react-adopt";
 import Loading from "../../Loading";
+import {LOCAL_STATE_JOB_GROUP_QUERY, LOCAL_STATE_JOB_TAG_QUERY} from "./JOBS";
 
 const LOCAl_STATE_SET_GROUP_FILTER = gql`
   mutation LOCAL_STATE_SET_GROUP_FILTER($jobGroup: String) {
@@ -31,7 +32,7 @@ const LOCAL_STATE_GET_JOB_GROUP_TAGS = gql`
 
 const Composed = adopt({
   setLocalStateGroupFilter: ({ render }) => (
-    <Mutation mutation={LOCAl_STATE_SET_GROUP_FILTER}>{render}</Mutation>
+    <Mutation mutation={LOCAl_STATE_SET_GROUP_FILTER} refetchQueries={[{query : LOCAL_STATE_JOB_TAG_QUERY}, {query: LOCAL_STATE_JOB_GROUP_QUERY}]}>{render}</Mutation>
   ),
   setLocalStateTagFilter: ({ render }) => (
     <Mutation mutation={LOCAL_STATE_SET_TAG_FILTER}>{render}</Mutation>
@@ -39,39 +40,78 @@ const Composed = adopt({
   removeFiltersFromLocalState: ({ render }) => (
     <Mutation mutation={LOCAL_STATE_REMOVE_FILTERS}>{render}</Mutation>
   ),
-  allJobGroupTags: ({render}) => (
-      <Query query={LOCAL_STATE_GET_JOB_GROUP_TAGS}>{render}</Query>
+  allJobGroupTags: ({ render }) => (
+    <Query query={LOCAL_STATE_GET_JOB_GROUP_TAGS}>{render}</Query>
   )
 });
 
-function useForceUpdate() {
-  const [value, set] = useState(true); //boolean state
-  return () => set(!value); // toggle the state to force render
-}
-
 const SortingFilter = props => {
-  //const [groupFilter, setGroupFilter] = useState(null);
-  const forceUpdate = useForceUpdate();
-  const tags = props.tags || []
+  const tags = props.tags || [];
+  const [tagId, setTagId] = useState(false);
 
   return (
-      <Composed>
-        {({setLocalStateGroupFilter, removeFiltersFromLocalState}) => {
-          console.log("+++++++++",tags)
-          if (!tags.length)
-            return CONFIG.JOB_GROUPS.map(group => <p key={group} onClick={() => {
-              setLocalStateGroupFilter({variables: {jobGroup : group}})
-            }}>{group}</p>);
+    <Composed>
+      {({
+        setLocalStateGroupFilter,
+        setLocalStateTagFilter,
+        removeFiltersFromLocalState
+      }) => {
+        //console.log("+++++++++", tags);
+        if (!tags.length)
+          return CONFIG.JOB_GROUPS.map(group => (
+            <p
+              key={group}
+              onClick={() => {
+                setLocalStateGroupFilter({ variables: { jobGroup: group } });
+              }}
+            >
+              {group}
+            </p>
+          ));
+        const button = (
+          <button
+            onClick={() => {
+              removeFiltersFromLocalState();
+              props.update();
+            }}
+          >
+            back
+          </button>
+        );
 
-          if(tags.length)
-            return (
-                <>
-                  {tags.map(tag => <p key={tag.id}>{tag.title}</p>)}
-                  <button onClick={removeFiltersFromLocalState}>back</button>
-                </>
-            )
-        }}
-      </Composed>
+        if (tags.length && !tagId)
+          return (
+            <>
+              {tags.map(tag => (
+                <p
+                  key={tag.id}
+                  onClick={() => {
+                    setTagId(tag.id);
+                    setLocalStateTagFilter({
+                      variables: { tagFilter: tag.id }
+                    });
+                  }}
+                >
+                  {tag.title}
+                </p>
+              ))}
+              {button}
+            </>
+          );
+
+        if (tagId)
+          return (
+            <>
+              {tags.map(tag => (
+                <p key={tag.id} active={!!tagId}>
+                  {tag.title}
+                </p>
+              ))}
+              {button}
+            </>
+          );
+      }}
+    </Composed>
   );
 };
 

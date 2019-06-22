@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { Component } from "react";
+import React, {Component, useState} from "react";
 import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import Link from "next/link";
@@ -84,16 +84,18 @@ class JOBS extends Component {
           {({ currentProject, localStateJobGroup, localStateJobTag, setTagsForJobGroupToLocalState }) => {
             const jobGroupFilter = localStateJobGroup.data.jobGroupFilter;
             const jobTagFilter = localStateJobTag.data.jobTagFilter;
+            console.log('job group filter to query', jobGroupFilter)
             return (
                 <Query query={ALL_TAGS_OF_JOB_GROUP_QUERY}  variables={{jobGroup: jobGroupFilter}}>
                   {({data,loading,error}) => {
                     let jobGroupTags = data ? data.allTagsOfJobGroup: [];
-                     //console.log("jobGroup filter", jobGroupFilter);
-                     console.log("TAGS for a job group", jobGroupTags);
-                    // console.log("LOCAL STATE JOB TAG", jobTagFilter);
                     jobGroupTags = jobGroupFilter ? jobGroupTags : [];
+                    //  console.log("TAGS for a job group", jobGroupTags);
+                    // console.log("jobGroup filter", jobGroupFilter);
+                    //  console.log("LOCAL STATE JOB TAG", jobTagFilter);
+
                     const jsx = [
-                      <SortingFilter key={0} tags={jobGroupTags}/>,
+                      <SortingFilter key={0} tags={jobGroupTags} update={this.forceUpdate.bind(this)}/>,
                       <Link href="/createJob" key={1} tags={jobGroupTags}>
                         <a>Create one</a>
                       </Link>
@@ -133,4 +135,4 @@ class JOBS extends Component {
 }
 
 export default JOBS;
-export { CURRENT_PROJECTS_JOBS };
+export { CURRENT_PROJECTS_JOBS, LOCAL_STATE_JOB_GROUP_QUERY, LOCAL_STATE_JOB_TAG_QUERY };
