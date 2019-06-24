@@ -58,10 +58,10 @@ const Composed = adopt({
     <Query query={CURRENT_PROJECT}>{render}</Query>
   ),
   localStateJobGroup: ({ render }) => (
-    <Query query={LOCAL_STATE_JOB_GROUP_QUERY}>{render}</Query>
+    <Query query={LOCAL_STATE_JOB_GROUP_QUERY} >{render}</Query>
   ),
   localStateJobTag : ({ render} ) => (
-      <Query query={LOCAL_STATE_JOB_TAG_QUERY}>{render}</Query>
+      <Query query={LOCAL_STATE_JOB_TAG_QUERY} >{render}</Query>
   ),
   setTagsForJobGroupToLocalState : ({ render }) => (
       <Mutation mutation={SET_TAGS_FOR_JOB_GROUP}>{render}</Mutation>
@@ -86,13 +86,13 @@ class JOBS extends Component {
             const jobTagFilter = localStateJobTag.data.jobTagFilter;
             console.log('job group filter to query', jobGroupFilter)
             return (
-                <Query query={ALL_TAGS_OF_JOB_GROUP_QUERY}  variables={{jobGroup: jobGroupFilter}}>
+                <Query query={ALL_TAGS_OF_JOB_GROUP_QUERY} variables={{jobGroup: jobGroupFilter}}>
                   {({data,loading,error}) => {
                     let jobGroupTags = data ? data.allTagsOfJobGroup: [];
                     jobGroupTags = jobGroupFilter ? jobGroupTags : [];
-                    //  console.log("TAGS for a job group", jobGroupTags);
-                    // console.log("jobGroup filter", jobGroupFilter);
-                    //  console.log("LOCAL STATE JOB TAG", jobTagFilter);
+                     console.log("TAGS for a job group", jobGroupTags);
+                     console.log("jobGroup filter", jobGroupFilter);
+                     console.log("LOCAL STATE JOB TAG", jobTagFilter);
 
                     const jsx = [
                       <SortingFilter key={0} tags={jobGroupTags} update={this.forceUpdate.bind(this)}/>,

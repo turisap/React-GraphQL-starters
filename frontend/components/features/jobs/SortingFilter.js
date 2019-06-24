@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 import { Mutation, Query } from "react-apollo";
 import { adopt } from "react-adopt";
 import Loading from "../../Loading";
-import {LOCAL_STATE_JOB_GROUP_QUERY, LOCAL_STATE_JOB_TAG_QUERY} from "./JOBS";
+import { LOCAL_STATE_JOB_GROUP_QUERY, LOCAL_STATE_JOB_TAG_QUERY } from "./JOBS";
 
 const LOCAl_STATE_SET_GROUP_FILTER = gql`
   mutation LOCAL_STATE_SET_GROUP_FILTER($jobGroup: String) {
@@ -24,25 +24,22 @@ const LOCAL_STATE_REMOVE_FILTERS = gql`
   }
 `;
 
-const LOCAL_STATE_GET_JOB_GROUP_TAGS = gql`
-  query {
-    allTagsOfJobGroup @client
-  }
-`;
+
 
 const Composed = adopt({
   setLocalStateGroupFilter: ({ render }) => (
-    <Mutation mutation={LOCAl_STATE_SET_GROUP_FILTER} refetchQueries={[{query : LOCAL_STATE_JOB_TAG_QUERY}, {query: LOCAL_STATE_JOB_GROUP_QUERY}]}>{render}</Mutation>
+    <Mutation mutation={LOCAl_STATE_SET_GROUP_FILTER}>{render}</Mutation>
   ),
   setLocalStateTagFilter: ({ render }) => (
     <Mutation mutation={LOCAL_STATE_SET_TAG_FILTER}>{render}</Mutation>
   ),
   removeFiltersFromLocalState: ({ render }) => (
-    <Mutation mutation={LOCAL_STATE_REMOVE_FILTERS}>{render}</Mutation>
+    <Mutation
+      mutation={LOCAL_STATE_REMOVE_FILTERS}
+    >
+      {render}
+    </Mutation>
   ),
-  allJobGroupTags: ({ render }) => (
-    <Query query={LOCAL_STATE_GET_JOB_GROUP_TAGS}>{render}</Query>
-  )
 });
 
 const SortingFilter = props => {
