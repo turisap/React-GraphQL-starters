@@ -5,8 +5,29 @@
   grid-template-columns: 1fr;
   grid-template-rows:6fr auto auto auto;
   border: 1px solid $border;
+  padding: 3rem;
+  min-width: 30rem;
+  background: $background_3;
+  border-radius: 10px;
+  a {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows:6fr auto auto auto;
+    justify-items: center;
+    text-decoration: none;
+    color: $text_on_white;
+  }
+
+  a > * {
+    margin: 0;
+    padding: 1rem;
+  }
 }
 
 .projectWidget__image {
   width: 100%;
+}
+
+.projectWidget:hover {
+  background: darken($background_3, 1%);
 }

@@ -37,10 +37,13 @@ const ProjectWidget = ({ project }) => {
             }}
           >
             <a>
-              <img src={image} className="projectWidget__image" />
+              {image && <img src={image} className="projectWidget__image" />}
               <h2 className="projectWidget__title">{title}</h2>
               <p className="projectWidget__address">{address}</p>
-              <p className="projectWidget__name">{owner.name}</p>
+              <p className="projectWidget__name">
+                <span className="text--subtle">Supervisor: </span>
+                {owner.name}
+              </p>
             </a>
           </Link>
         </div>

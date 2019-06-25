@@ -1,6 +1,7 @@
 .projects__layout {
+  padding: $page_padding;
   display: grid;
   grid-gap: 2rem;
-  grid-template-columns: repeat(auto-fill, minmax(10rem, 15rem));
+  grid-template-columns: repeat(auto-fill, minmax(30rem, 45rem));
   justify-items: center;
 }

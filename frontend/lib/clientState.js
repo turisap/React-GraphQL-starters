@@ -44,12 +44,12 @@ export default {
       //   });
       // },
       removeFilters(_, args, { cache }) {
-        console.log('removing filters from local state')
+        console.log("removing filters from local state");
         cache.writeData({
           data: {
             jobTagFilter: null,
             jobGroupFilter: null,
-            jobGroupTags : null
+            jobGroupTags: null
           }
         });
       }
