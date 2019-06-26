@@ -1,6 +1,8 @@
 import React from "react";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { CURRENT_USER_QUERY } from "./User";
 import Cookies from "universal-cookie";
 
@@ -27,7 +29,7 @@ const SignOut = () => (
       cookies.remove("token", { path: "/" });
     }}
   >
-    {signOut => <button onClick={signOut}>Sign Out</button>}
+      {signOut => <p className="signout__button" onClick={signOut} ><span>Sign Out</span><FontAwesomeIcon icon={faSignOutAlt}size="2x"/></p>}
   </Mutation>
 );
 

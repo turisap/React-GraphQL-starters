@@ -47,7 +47,11 @@ h6 {
 
 .page__contents {
   grid-area: content;
-  background : $background_1
+  background : $background_1;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  align-items:start;
 }
 
 .service__page {

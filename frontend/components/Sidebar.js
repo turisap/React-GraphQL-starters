@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faProjectDiagram, faList, faUserCheck} from "@fortawesome/free-solid-svg-icons";
 import UserWidget from "./UserWidget";
 import Cookies from "universal-cookie";
 import DisplayError from "./ErrorMessage";
@@ -28,7 +30,9 @@ class SideBar extends Component {
       <div className="sidebar">
         <UserWidget />
         <Link href="/">
-          <a className="sidebar__link">Projects</a>
+          <a className="sidebar__link">
+            <FontAwesomeIcon icon={faProjectDiagram} size="2x" /> <span>Projects</span>
+          </a>
         </Link>
         {projectId && (
           <Query
@@ -43,10 +47,10 @@ class SideBar extends Component {
                 return (
                   <>
                     <Link href="/jobs">
-                      <a className="sidebar__link">TODOs</a>
+                      <a className="sidebar__link"> <FontAwesomeIcon icon={faList} size="2x" /><span>TODOs</span></a>
                     </Link>
                     <Link href="/people">
-                      <a className="sidebar__link">HR</a>
+                      <a className="sidebar__link"><FontAwesomeIcon icon={faUserCheck} size="2x" /> <span>HR</span></a>
                     </Link>
                   </>
                 );
@@ -56,7 +60,7 @@ class SideBar extends Component {
         )}
         {process.env.NODE_ENV === "development" && (
           <Link href="/faker">
-            <a className="sidebar__link">Fake Data</a>
+              <a className="sidebar__linkDev"><span>Fake Data {`{ development only }`}</span></a>
           </Link>
         )}
       </div>

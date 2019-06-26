@@ -9,12 +9,13 @@ class UserWidget extends Component {
           <>
             {me && (
               <div className="user__widget">
-                <img
-                  src={me.image || "https://i.pravatar.cc/300"}
-                  className="user__avatar"
-                />
+                <div className="user__avatarContaier">
+                  <img
+                    src={me.image || "https://i.pravatar.cc/300"}
+                    className="user__avatar"
+                  />
+                </div>
                 <p>{me.name}</p>
-                <span>OFF BTN</span>
               </div>
             )}
           </>

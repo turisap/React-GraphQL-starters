@@ -2,6 +2,8 @@ import React from "react";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import DisplayError from "../../ErrorMessage";
 import Loading from "../../Loading";
 import ProjectWidget from "./ProjectWidget";
@@ -26,26 +28,24 @@ const PROJECTS = () => (
     {({ data, error, loading }) => {
       if (error) return <DisplayError error={error} />;
       if (loading) return <Loading />;
-      if (!data.myProjects.length)
-        return (
-          <div>
-            <p>
-              You don&apos;t have any projects yet. You can
-              <Link href="/createProject">
-                <a>create</a>
-              </Link>
-              one
-            </p>
-          </div>
-        );
+      const jsx = [];
+      const createBtn = (
+        <div className="projects__createButton">
+          <Link href="/createProject">
+            <a href=''><FontAwesomeIcon icon={faPlus} size="5x"/></a>
+          </Link>
+        </div>
+      );
+      if (!data.myProjects.length) return createBtn;
+      jsx.push(
+        data.myProjects.map(project => (
+          <ProjectWidget project={project} key={project.id} />
+        ))
+      );
       return (
         <div className="projects__layout">
-          {data.myProjects.map(project => (
-            <ProjectWidget project={project} key={project.id} />
-          ))}
-          <Link href="/createProject">
-            <a>create</a>
-          </Link>
+          {jsx}
+          {createBtn}
         </div>
       );
     }}

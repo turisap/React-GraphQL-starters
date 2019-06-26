@@ -1,21 +1,45 @@
 @import "../base/settings";
+@import "../base/mixins";
 
 .sidebar {
+  @include shadowBox;
   background: $background_3;
   border-right: 1px solid $border;
   grid-area: sidebar;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 25rem repeat(auto-fit, minmax(3rem, 5rem));
+  grid-template-rows: 25rem repeat(auto-fit, minmax(7rem, 9rem));
+  z-index: 10;
 }
 
-.sidebar__link {
+.sidebar__link, .sidebar__linkDev {
   border-bottom: 0.5px solid $border;
   text-align: left;
   padding-left: 2rem;
   text-transform: uppercase;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  grid-gap: 2rem;
+
+  svg {
+    height: 100%;
+  }
+
+  & > * {
+    display: flex;
+    align-items: center;
+  }
+
 
   &:hover {
     background: darken($background_3, 1%);
   }
+}
+
+
+.sidebar__linkDev {
+  display: grid;
+  grid-template-columns: 1fr;
+  text-decoration: none;
+  color: $text-on_white
 }

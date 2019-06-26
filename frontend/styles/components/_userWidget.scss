@@ -6,6 +6,7 @@
   justify-content: center;
   align-content:center;
   justify-items: center;
+  text-transform:uppercase;
 }
 
 .user__avatar {
@@ -13,5 +14,5 @@
   max-width: 100%;
   width: 15rem;
   height: 15rem;
-  background-size: cover;
+  background-size: contain;
 }

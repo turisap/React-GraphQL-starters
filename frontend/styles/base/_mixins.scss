@@ -29,10 +29,10 @@
 }
 
 // box shadow
-@mixin shadow ($hor-offset, $vert-offset, $blur-rad, $spread-rad, $color){
-  -webkit-box-shadow: $hor-offset $vert-offset $blur-rad $spread-rad $color;
-  -moz-box-shadow:    $hor-offset $vert-offset $blur-rad $spread-rad $color;
-  box-shadow:         $hor-offset $vert-offset $blur-rad $spread-rad $color;
+@mixin shadowBox {
+  -webkit-box-shadow: 0px 2px 5px 1px $shadow;
+  -moz-box-shadow:    0px 2px 5px 1px $shadow;
+  box-shadow:         0px 2px 5px 1px $shadow;
   @content;
 }
 

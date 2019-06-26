@@ -12,9 +12,12 @@
 @import "./components/signin";
 @import "./components/signup";
 
-// features styles
+// projects styles
 @import "./features/projects/project";
 @import "./features/projects/projectsLayout";
+@import "./features/projects/createProject";
+
+//jobs styles
 @import "./features/people/PEOPLE";
 @import "./features/people/participantWidget";
 

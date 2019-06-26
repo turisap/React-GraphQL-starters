@@ -44,7 +44,6 @@ export default {
       //   });
       // },
       removeFilters(_, args, { cache }) {
-        console.log("removing filters from local state");
         cache.writeData({
           data: {
             jobTagFilter: null,
