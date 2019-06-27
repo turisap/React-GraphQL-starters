@@ -30,6 +30,10 @@
   width: 100%;
 }
 
+.projectWidget__title {
+  font-size: 2rem;
+}
+
 .projectWidget:hover {
   background: darken($background_3, 1%);
 }

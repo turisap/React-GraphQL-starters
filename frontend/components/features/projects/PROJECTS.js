@@ -29,6 +29,11 @@ const PROJECTS = () => (
       if (error) return <DisplayError error={error} />;
       if (loading) return <Loading />;
       const jsx = [];
+      jsx.push([
+        <img src="../../../static/projects.png" alt="projects image" className="projects__image"/>,
+          <h2 className="page__heading">You can find all your projects here</h2>,
+          <p className="page__annotation">You need to choose one to work with</p>
+      ])
       const createBtn = (
         <div className="projects__createButton">
           <Link href="/createProject">

@@ -19,7 +19,6 @@ body {
 
 
 h1,
-h2,
 h3,
 h4,
 h5,
@@ -81,4 +80,20 @@ h6 {
   color: #aaaaaa;
   font-style: italic;
   font-weight: 100;
+}
+
+.page__annotation {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.page__heading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 900;
 }

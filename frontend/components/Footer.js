@@ -3,7 +3,7 @@ import React from "react";
 /* eslint-disable react/jsx-no-target-blank */
 const Footer = () => (
   <footer>
-    <h2>
+    <h3>
       <a
         target="_blank"
         href="https://github.com/turisap"
@@ -11,7 +11,7 @@ const Footer = () => (
       >
         Powered by turisap
       </a>
-    </h2>
+    </h3>
   </footer>
 );
 /* eslint-enable react/jsx-no-target-blank */
