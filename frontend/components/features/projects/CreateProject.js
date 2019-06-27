@@ -53,7 +53,16 @@ class CreateProject extends CreateWithFilesUpload {
           if (loading) return <Loading />;
           return (
             <div className="createProject__container">
-              <FontAwesomeIcon icon={faToolbox} size="4x"/>
+              <img
+                src="../../../static/create__project.png"
+                alt="create job image"
+                className="createProject__image"
+              />
+              <h2 className="createProject__heading">Create a new project</h2>
+              <p className="createProject__annotation">
+                Please provide all your new project information to create a
+                basic project
+              </p>
               <form
                 className="createProject__form"
                 method="post"
@@ -67,53 +76,56 @@ class CreateProject extends CreateWithFilesUpload {
                   aria-busy={loading}
                   className="createProject__fieldset"
                 >
-                  <h2>Create Project</h2>
-                  <Error error={error || { message: this.state.uploadError }} />
-                  <label>
-                    Title
-                    <input
-                      required
-                      type="text"
-                      name="title"
-                      placeholder="Title"
-                      value={this.state.title}
-                      onChange={this.saveToState}
+                  <div className="createProject__formgrid">
+                    <Error
+                      error={error || { message: this.state.uploadError }}
                     />
-                  </label>
-                  <label>
-                    Address
-                    <input
-                      required
-                      type="text"
-                      name="address"
-                      placeholder="Address"
-                      value={this.state.address}
-                      onChange={this.saveToState}
-                    />
-                  </label>
-                  <label>
-                    Number of levels
-                    <input
-                      required
-                      type="number"
-                      name="levels_number"
-                      value={this.state.levels_number}
-                      onChange={this.saveToState}
-                    />
-                  </label>
-                  <label>
-                    Project Logo
-                    <input
-                      required
-                      type="file"
-                      name="avatar"
-                      value={this.state.avatar}
-                      onChange={this.uploadFile}
-                    />
-                  </label>
-                  <button type="submit" disabled={loading}>
-                    Create
-                  </button>
+                    <label>
+                      Title
+                      <input
+                        required
+                        type="text"
+                        name="title"
+                        placeholder="Title"
+                        value={this.state.title}
+                        onChange={this.saveToState}
+                      />
+                    </label>
+                    <label>
+                      Address
+                      <input
+                        required
+                        type="text"
+                        name="address"
+                        placeholder="Address"
+                        value={this.state.address}
+                        onChange={this.saveToState}
+                      />
+                    </label>
+                    <label>
+                      Number of levels
+                      <input
+                        required
+                        type="number"
+                        name="levels_number"
+                        value={this.state.levels_number}
+                        onChange={this.saveToState}
+                      />
+                    </label>
+                    <label className="customFile__upload">
+                      Project Logo
+                      <input
+                        required
+                        type="file"
+                        name="avatar"
+                        value={this.state.avatar}
+                        onChange={this.uploadFile}
+                      />
+                    </label>
+                    <button type="submit" disabled={loading}>
+                      Create
+                    </button>
+                  </div>
                 </fieldset>
               </form>
             </div>

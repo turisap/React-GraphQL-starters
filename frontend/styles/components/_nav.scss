@@ -4,13 +4,18 @@
 nav {
   @include shadowBox;
   display: grid;
+  height: 6rem;
   grid-area: nav;
   grid-template-columns: 1fr auto;
   border-bottom: 0.5px solid $border;
   border-top: 0.5px solid $border;
-  padding: 1rem;
+  padding: 0rem;
   background: $background_3;
   z-index: 10;
+}
+
+.nav__left, .nav__right {
+  height: 6rem;
 }
 
 .nav__left {
@@ -60,7 +65,8 @@ nav {
 }
 
 .signout__button {
-  padding: 1rem;
+  padding: 0rem;
+  margin: 0;
   display:flex;
   flex-direction: row;
   align-items: center;
