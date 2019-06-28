@@ -1,0 +1,28 @@
+@import "../../base/settings";
+@import "../../base/mixins";
+
+.sortingFilter__container {
+  @include tabStyle;
+  height: auto;
+  margin: 0;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(min-content, max-content));
+  grid-template-rows: 1fr;
+  grid-gap: 2rem;
+  align-items: center;
+  justify-items: center;
+  justify-content: space-between;
+  align-content:center;
+}
+
+.sortingFilter__jobGroup, .sortingFilter__tag {
+  @include greenTags
+}
+
+.sortingFilter__back {
+  @include greenTags;
+  border: none;
+  outline: none;
+  background: #c0c0c0;
+}

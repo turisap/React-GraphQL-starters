@@ -24,8 +24,6 @@ const LOCAL_STATE_REMOVE_FILTERS = gql`
   }
 `;
 
-
-
 const Composed = adopt({
   setLocalStateGroupFilter: ({ render }) => (
     <Mutation mutation={LOCAl_STATE_SET_GROUP_FILTER}>{render}</Mutation>
@@ -34,12 +32,8 @@ const Composed = adopt({
     <Mutation mutation={LOCAL_STATE_SET_TAG_FILTER}>{render}</Mutation>
   ),
   removeFiltersFromLocalState: ({ render }) => (
-    <Mutation
-      mutation={LOCAL_STATE_REMOVE_FILTERS}
-    >
-      {render}
-    </Mutation>
-  ),
+    <Mutation mutation={LOCAL_STATE_REMOVE_FILTERS}>{render}</Mutation>
+  )
 });
 
 const SortingFilter = props => {
@@ -47,68 +41,73 @@ const SortingFilter = props => {
   const [tagId, setTagId] = useState(false);
 
   return (
-    <Composed>
-      {({
-        setLocalStateGroupFilter,
-        setLocalStateTagFilter,
-        removeFiltersFromLocalState
-      }) => {
-        //console.log("+++++++++", tags);
-        if (!tags.length)
-          return CONFIG.JOB_GROUPS.map(group => (
-            <p
-              key={group}
+    <div className="sortingFilter__container">
+      <Composed>
+        {({
+          setLocalStateGroupFilter,
+          setLocalStateTagFilter,
+          removeFiltersFromLocalState
+        }) => {
+          if (!tags.length)
+            return CONFIG.JOB_GROUPS.map(group => (
+              <p className="sortingFilter__jobGroup"
+                key={group}
+                onClick={() => {
+                  setLocalStateGroupFilter({
+                    variables: { jobGroup: group }
+                  });
+                }}
+              >
+                {group.replace("_", " ")}
+              </p>
+            ));
+          const button = (
+            <button
+                className="sortingFilter__back"
               onClick={() => {
-                setLocalStateGroupFilter({ variables: { jobGroup: group } });
+                removeFiltersFromLocalState();
+                props.update();
               }}
             >
-              {group}
-            </p>
-          ));
-        const button = (
-          <button
-            onClick={() => {
-              removeFiltersFromLocalState();
-              props.update();
-            }}
-          >
-            back
-          </button>
-        );
-
-        if (tags.length && !tagId)
-          return (
-            <>
-              {tags.map(tag => (
-                <p
-                  key={tag.id}
-                  onClick={() => {
-                    setTagId(tag.id);
-                    setLocalStateTagFilter({
-                      variables: { tagFilter: tag.id }
-                    });
-                  }}
-                >
-                  {tag.title}
-                </p>
-              ))}
-              {button}
-            </>
+              back
+            </button>
           );
 
-        if (tagId)
-          return (
-            <>
-              {tags.map(tag => (
-                <p key={tag.id} active={!!tagId}>
-                  {tag.title}
-                </p>
-              ))}
-              {button}
-            </>
-          );
-      }}
-    </Composed>
+          if (tags.length && !tagId)
+            return (
+              <>
+                {tags.map(tag => (
+                  <p
+                      className="sortingFilter__tag"
+                    key={tag.id}
+                    onClick={() => {
+                      setTagId(tag.id);
+                      setLocalStateTagFilter({
+                        variables: { tagFilter: tag.id }
+                      });
+                    }}
+                  >
+                    {tag.title}
+                  </p>
+                ))}
+                {button}
+              </>
+            );
+
+          if (tagId)
+            return (
+              <>
+                {tags.map(tag => (
+                  <p key={tag.id} active={!!tagId}>
+                    {tag.title}
+                  </p>
+                ))}
+                {button}
+              </>
+            );
+        }}
+      </Composed>
+    </div>
   );
 };
 

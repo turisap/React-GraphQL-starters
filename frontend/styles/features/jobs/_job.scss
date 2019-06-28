@@ -1,8 +1,19 @@
 @import "../../base/settings";
+@import "../../base/mixins";
 
 .jobWidget {
+  @include tableStyles;
   display:grid;
-  grid-template-columns: 1fr;
-  justify-items: center;
-  border: $grey-border;
+  grid-template-columns: 5fr 1fr 1fr 1fr;
+}
+
+.jobWidget__title {
+  font-size: 1.7rem;
+  padding-left: 2rem;
+}
+
+.jobWidget__annotation {
+  @include greenTags;
+  font-size: 1rem;
+  border-radius: 3px;
 }

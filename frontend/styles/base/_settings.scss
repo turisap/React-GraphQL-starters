@@ -1,11 +1,13 @@
 // COLORS
 $text_on_black: #cccccc;
 $text_on_white: rgba(0, 0, 0, 0.65);
+$text_on_green: white;
 $subtle_text_on_white: rgba(52, 52, 52, 0.65);
 $background_1: rgba(244, 244, 244, 0.6);
 $background_3: rgba(254, 254, 254, 0.99);
 $border: #d1d1d1;
 $shadow: #bdbdbd;
+$green: rgb(21, 189, 118);
 
 
 //SPACING AND SIZING
@@ -15,6 +17,7 @@ $page_padding: 2rem;
 // BORDERS
 $grey-border: 1px solid #ddd;
 $dark-border: 1px solid darken(#ddd, 3%);
+$table_border: 0.5px solid $border;
 
 // BREAKPOINTS
 $desktop_breakpoint : 1025;

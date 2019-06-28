@@ -16,6 +16,7 @@
 @import "./features/projects/project";
 @import "./features/projects/projectsLayout";
 @import "./features/projects/createProject";
+@import "features/projects/projectInfo";
 
 //jobs styles
 @import "./features/people/PEOPLE";
@@ -24,3 +25,4 @@
 // jobs styles
 @import "features/jobs/JOBS";
 @import "features/jobs/job";
+@import "features/jobs/sortingFilter";

@@ -16,6 +16,7 @@ class UserWidget extends Component {
                   />
                 </div>
                 <p>{me.name}</p>
+                <p className="user__widgetOccupation">{me.occupation.title}</p>
               </div>
             )}
           </>

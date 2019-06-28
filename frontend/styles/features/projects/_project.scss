@@ -37,3 +37,7 @@
 .projectWidget:hover {
   background: darken($background_3, 1%);
 }
+
+.projectWidgetActive {
+  background: darken($background_3, 7%);
+}

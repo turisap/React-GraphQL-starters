@@ -41,7 +41,7 @@ class Page extends Component {
             <Header />
             <SideBar />
             <div className="page__contents">{this.props.children}</div>
-            <Footer />
+            {/*<Footer />*/}
           </Authentication>
         ) : (
           <>

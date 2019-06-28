@@ -12,10 +12,10 @@ import PropTypes from "prop-types";
  */
 const Job = ({ job: { title, level, unit, tag } }) => (
   <div className="jobWidget">
-    <h2>{title}</h2>
+    <h2 className="jobWidget__title">{title}</h2>
     <p>Level: {level}</p>
     <p>Unit: {unit}</p>
-    <p>Tag: {tag.title}</p>
+    <p><span className="jobWidget__annotation">{tag.title}</span></p>
   </div>
 );
 

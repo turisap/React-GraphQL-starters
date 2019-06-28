@@ -9,21 +9,23 @@
   grid-template-columns: repeat(auto-fill, minmax(20rem, 30rem));
   justify-items: center;
   justify-content: center;
+
+  .page__heading, .page__annotation, .projects__image {
+    grid-column: 1/-1;
+    place-self: center;
+  }
+
+  .page__annotation {
+    margin-top: 0;
+    margin-bottom: auto;
+  }
+
+  .projects__image {
+    height: 10rem;
+  }
 }
 
-.page__heading, .page__annotation, .projects__image {
-  grid-column: 1/-1;
-  place-self: center;
-}
 
-.page__annotation {
-  margin-top: 0;
-  margin-bottom: auto;
-}
-
-.projects__image {
-  height: 10rem;
-}
 
 .projects__createButton {
   @include shadowBox;
