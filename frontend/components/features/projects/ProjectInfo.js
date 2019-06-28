@@ -31,7 +31,7 @@ class ProjectInfo extends Component {
   render() {
     // TODO add functionality of adding people to projects
     return (
-      <Query query={PROJECT_QUERY}>
+      <Query query={PROJECT_QUERY} fetchPolicy="network-only">
         {({ data, error, loading }) => {
           if (loading) return <Loading />;
           if (error) return <Error error={error} />;
