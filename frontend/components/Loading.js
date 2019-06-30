@@ -1,13 +1,15 @@
 import React from "react";
-import BounseLoader from "react-spinners/BounceLoader";
+import BounceLoader from "react-spinners/BounceLoader";
 
 const Loading = () => (
-  <BounseLoader
-    sizeUnit={"60px"}
-    size={150}
-    color={"rgb(21, 189, 118)"}
-    loading={true}
-  />
+  <div className="loader">
+    <BounceLoader
+      sizeUnit={"px"}
+      size={75}
+      color={"rgba(87,87,87,0.99)"}
+      loading={true}
+    />
+  </div>
 );
 
 export default Loading;

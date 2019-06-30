@@ -3,7 +3,11 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faProjectDiagram, faList, faUserCheck} from "@fortawesome/free-solid-svg-icons";
+import {
+  faProjectDiagram,
+  faList,
+  faUserCheck
+} from "@fortawesome/free-solid-svg-icons";
 import UserWidget from "./UserWidget";
 import Cookies from "universal-cookie";
 import DisplayError from "./ErrorMessage";
@@ -31,7 +35,8 @@ class SideBar extends Component {
         <UserWidget />
         <Link href="/">
           <a className="sidebar__link">
-            <FontAwesomeIcon icon={faProjectDiagram} size="2x" /> <span>Projects</span>
+            <FontAwesomeIcon icon={faProjectDiagram} size="2x" />{" "}
+            <span>Projects</span>
           </a>
         </Link>
         {projectId && (
@@ -40,17 +45,34 @@ class SideBar extends Component {
             variables={{ projectId }}
           >
             {({ data, loading, error }) => {
-              if (loading) return <Loading />;
+              if (loading)
+                return (
+                  <>
+                    <a href="#" className="sidebar__link">
+                      <div className="sidebar__placeholder"></div>
+                    </a>
+                    <a href="#" className="sidebar__link">
+                      <div className="sidebar__placeholder"></div>
+                    </a>
+                  </>
+                );
               if (error) return <DisplayError error={error} />;
 
               if (data.projectExistsAndBelongsToUser)
                 return (
                   <>
                     <Link href="/jobs">
-                      <a className="sidebar__link"> <FontAwesomeIcon icon={faList} size="2x" /><span>TODOs</span></a>
+                      <a className="sidebar__link">
+                        {" "}
+                        <FontAwesomeIcon icon={faList} size="2x" />
+                        <span>TODOs</span>
+                      </a>
                     </Link>
                     <Link href="/people">
-                      <a className="sidebar__link"><FontAwesomeIcon icon={faUserCheck} size="2x" /> <span>HR</span></a>
+                      <a className="sidebar__link">
+                        <FontAwesomeIcon icon={faUserCheck} size="2x" />{" "}
+                        <span>HR</span>
+                      </a>
                     </Link>
                   </>
                 );
@@ -60,7 +82,9 @@ class SideBar extends Component {
         )}
         {process.env.NODE_ENV === "development" && (
           <Link href="/faker">
-              <a className="sidebar__linkDev"><span>Fake Data {`{ development only }`}</span></a>
+            <a className="sidebar__linkDev">
+              <span>Fake Data {`{ development only }`}</span>
+            </a>
           </Link>
         )}
       </div>
