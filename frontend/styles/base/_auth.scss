@@ -1,0 +1,91 @@
+@import "./settings";
+@import "./mixins";
+
+.auth {
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: 40%;
+  justify-content: center;
+  justify-items:center;
+}
+
+.signin__form, .signup__form {
+  @include tabStyle;
+  fieldset {
+    border:none;
+  }
+
+  input {
+    @include inputStyles;
+  }
+
+  select {
+    -webkit-appearance: button;
+    -webkit-border-radius: 2px;
+    -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    -webkit-padding-end: 20px;
+    -webkit-padding-start: 2px;
+    -webkit-user-select: none;
+    background-position: 97% center;
+    background-repeat: no-repeat;
+    border: 1px solid #AAA;
+    color: #555;
+    font-size: inherit;
+    margin: 20px;
+    overflow: hidden;
+    padding: 5px 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.form__inner {
+  display:grid;
+  grid-template-columns: 1fr;
+  grid-gap: 1rem;
+  grid-auto-rows : 1fr 1fr 1fr 1fr 3rem;
+}
+
+.signinForm__header{
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.signinForm__submit {
+  @include buttonStyles;
+}
+
+.forgotPassword, .signup__button {
+  text-decoration: none;
+  background: $green;
+  padding: 0.5rem;
+  color: white;
+  border-radius: 5px;
+}
+
+.forgotPassword{
+  justify-self: start;
+}
+
+.signup__button {
+  margin-left: 1rem;
+}
+
+
+// signup page
+
+.signup__form {
+  width: 50%;
+}
+
+.signup__inner {
+}
+.label--select {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  grid-template-rows: 1fr;
+  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+}

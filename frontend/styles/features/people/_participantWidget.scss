@@ -1,6 +1,7 @@
 @import "../../base/settings";
 
 .participant__widget {
+  @include tabStyle;
   border: 1px solid $border;
   padding: 1rem;
   display:grid;
@@ -9,6 +10,6 @@
 }
 
 .participant__avatar {
-  max-width: 100%;
+  width: 100%;
   border-radius: 50%;
 }
