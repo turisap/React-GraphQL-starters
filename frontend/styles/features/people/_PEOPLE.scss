@@ -15,7 +15,7 @@
   width: 100%;
   display: grid;
   grid-gap: 2rem;
-  grid-template-columns: repeat(auto-fill, minmax(20rem, 25rem));
+  grid-template-columns: repeat(auto-fill, minmax(25rem, max-content));
   justify-content: center;
 }
 
@@ -25,9 +25,9 @@
 
 .peoplePage__addLink {
   @include greenTags;
-  justify-self: start;
+  place-self: start;
   text-decoration: none;
   text-align: center;
-  color: $text_on_white;
+  color: white;
 }
 

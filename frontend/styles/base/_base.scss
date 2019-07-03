@@ -51,6 +51,7 @@ h6 {
   grid-template-columns: 1fr;
   justify-items: center;
   align-items:start;
+  overflow-y:scroll;
 }
 
 .service__page {

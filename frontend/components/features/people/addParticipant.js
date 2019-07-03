@@ -37,30 +37,34 @@ class AddParticipant extends SaveToState {
 
   render() {
     return (
-      <>
-        <fieldset>
+      <div className="addParticipant">
+        <div className="addParticipant__form">
           <ExistingOccupations changeHandler={this.saveToState} />
           <Search
             itemsTitle="searchInOrganizationByName"
             searchQuery={SEARCH_BY_NAME_QUERY}
             variables={{ occupation: this.state.occupation }}
           />
-        </fieldset>
+        </div>
         <Query query={LOCAL_STATE_SEARCH_ITEMS_QUERY}>
           {({ data, loading }) => {
             if (loading) return <Loading />;
             if (data.searchItems && data.searchItems.length) {
-              return data.searchItems.map(participant => (
-                <ParticipantWidget
-                  key={JSON.parse(participant).id}
-                  participant={JSON.parse(participant)}
-                />
-              ));
+              return (
+                <div className="addParticipant__items">
+                  {data.searchItems.map(participant => (
+                    <ParticipantWidget
+                      key={JSON.parse(participant).id}
+                      participant={JSON.parse(participant)}
+                    />
+                  ))}
+                </div>
+              );
             }
             return <p>Nothing has been found</p>;
           }}
         </Query>
-      </>
+      </div>
     );
   }
 }

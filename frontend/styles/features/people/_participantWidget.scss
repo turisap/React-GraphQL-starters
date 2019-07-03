@@ -9,7 +9,17 @@
   justify-items: center;
 }
 
+.participant__holder {
+  width: 20rem;
+  height: 20rem;
+  overflow: hidden;
+}
+
 .participant__avatar {
-  width: 100%;
+  width: 20rem;
+  height: 20rem;
   border-radius: 50%;
 }
+
+
+
