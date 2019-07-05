@@ -45,22 +45,18 @@
 }
 
 
-@media (max-width: 1200px) {
-  .sidebar {
-    font-size:1rem;
-    grid-template-rows: 20rem repeat(auto-fit, 5rem);
-  }
-
-  .sidebar__link {
-    padding-left: 1rem;
-  }
-}
-
-
-@media (max-width: 1600px) {
+@media (max-width: 2500px) {
 
   .sidebar__toggle {
     font-size: 2rem;
+    height: 2rem;
+    display:grid;
+    justify-items: end;
+    margin-right: -2rem;
+  }
+
+  .sidebar {
+    grid-template-rows: 2rem 30rem repeat(auto-fit, 5rem);
   }
 
   [aria-expanded="false"] .close {
