@@ -1,7 +1,8 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import Link from "next/link";
+import cn from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faProjectDiagram,
@@ -27,69 +28,77 @@ const cookies = new Cookies();
 
 // TODO add an animation for loading buttons as it is done in gitbook dashboard https://app.gitbook.com/
 
-class SideBar extends Component {
-  render() {
-    const projectId = cookies.get("projectId");
-    return (
-      <div className="sidebar">
-        <UserWidget />
-        <Link href="/">
-          <a className="sidebar__link">
-            <FontAwesomeIcon icon={faProjectDiagram} size="2x" />{" "}
-            <span>Projects</span>
+const SideBar = () => {
+  const [flag, setFlag] = useState(false);
+
+  const projectId = cookies.get("projectId");
+  return (
+    <div className="sidebar">
+      <div
+        onClick={() => setFlag(!flag)}
+        aria-expanded={flag}
+        className="sidebar__toggle"
+      >
+        <span className="open">☰</span>
+        <span className="close">×</span>
+      </div>
+      <UserWidget />
+      <Link href="/">
+        <a className="sidebar__link">
+          <FontAwesomeIcon icon={faProjectDiagram} size="2x" />{" "}
+          <span>Projects</span>
+        </a>
+      </Link>
+      {projectId && (
+        <Query
+          query={PROJECT_EXISTS_AND_BELONGS_TO_USER}
+          variables={{ projectId }}
+        >
+          {({ data, loading, error }) => {
+            if (loading)
+              return (
+                <>
+                  <a href="#" className="sidebar__link">
+                    <div className="sidebar__placeholder"></div>
+                  </a>
+                  <a href="#" className="sidebar__link">
+                    <div className="sidebar__placeholder"></div>
+                  </a>
+                </>
+              );
+            if (error) return <DisplayError error={error} />;
+
+            if (data.projectExistsAndBelongsToUser)
+              return (
+                <>
+                  <Link href="/jobs">
+                    <a className="sidebar__link">
+                      {" "}
+                      <FontAwesomeIcon icon={faList} size="2x" />
+                      <span>TODOs</span>
+                    </a>
+                  </Link>
+                  <Link href="/people">
+                    <a className="sidebar__link">
+                      <FontAwesomeIcon icon={faUserCheck} size="2x" />{" "}
+                      <span>HR</span>
+                    </a>
+                  </Link>
+                </>
+              );
+            return null;
+          }}
+        </Query>
+      )}
+      {process.env.NODE_ENV === "development" && (
+        <Link href="/faker">
+          <a className="sidebar__linkDev">
+            <span>Fake Data {`{ development only }`}</span>
           </a>
         </Link>
-        {projectId && (
-          <Query
-            query={PROJECT_EXISTS_AND_BELONGS_TO_USER}
-            variables={{ projectId }}
-          >
-            {({ data, loading, error }) => {
-              if (loading)
-                return (
-                  <>
-                    <a href="#" className="sidebar__link">
-                      <div className="sidebar__placeholder"></div>
-                    </a>
-                    <a href="#" className="sidebar__link">
-                      <div className="sidebar__placeholder"></div>
-                    </a>
-                  </>
-                );
-              if (error) return <DisplayError error={error} />;
-
-              if (data.projectExistsAndBelongsToUser)
-                return (
-                  <>
-                    <Link href="/jobs">
-                      <a className="sidebar__link">
-                        {" "}
-                        <FontAwesomeIcon icon={faList} size="2x" />
-                        <span>TODOs</span>
-                      </a>
-                    </Link>
-                    <Link href="/people">
-                      <a className="sidebar__link">
-                        <FontAwesomeIcon icon={faUserCheck} size="2x" />{" "}
-                        <span>HR</span>
-                      </a>
-                    </Link>
-                  </>
-                );
-              return null;
-            }}
-          </Query>
-        )}
-        {process.env.NODE_ENV === "development" && (
-          <Link href="/faker">
-            <a className="sidebar__linkDev">
-              <span>Fake Data {`{ development only }`}</span>
-            </a>
-          </Link>
-        )}
-      </div>
-    );
-  }
-}
+      )}
+    </div>
+  );
+};
 
 export default SideBar;

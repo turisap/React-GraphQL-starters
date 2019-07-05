@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import User from "./User";
+import SignOut from "./SignOut";
 
 class UserWidget extends Component {
   render() {
@@ -17,6 +18,7 @@ class UserWidget extends Component {
                 </div>
                 <p>{me.name}</p>
                 <p className="user__widgetOccupation">{me.occupation.title}</p>
+                <SignOut />
               </div>
             )}
           </>

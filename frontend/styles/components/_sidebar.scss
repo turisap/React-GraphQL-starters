@@ -43,3 +43,36 @@
   text-decoration: none;
   color: $text-on_white
 }
+
+
+@media (max-width: 1200px) {
+  .sidebar {
+    font-size:1rem;
+    grid-template-rows: 20rem repeat(auto-fit, 5rem);
+  }
+
+  .sidebar__link {
+    padding-left: 1rem;
+  }
+}
+
+
+@media (max-width: 1600px) {
+
+  .sidebar__toggle {
+    font-size: 2rem;
+  }
+
+  [aria-expanded="false"] .close {
+    display: none;
+  }
+
+  [aria-expanded="true"] .close {
+    display: inline-block;
+  }
+
+  [aria-expanded="true"] .open {
+    display: none;
+  }
+
+}

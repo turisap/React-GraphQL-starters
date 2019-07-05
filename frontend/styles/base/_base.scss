@@ -38,8 +38,9 @@ h6 {
   grid-template-columns: 1fr 5fr;
   grid-template-rows: 1fr 12fr 1fr;
   grid-template-areas:
-    "sidebar nav"
     "sidebar content"
+    "sidebar content"
+    "footer footer"
 
 ;
 }
@@ -105,4 +106,12 @@ h6 {
 
 .loader {
   place-self: center;
+}
+
+.signout__button {
+  margin: 1rem;
+  width: 3rem;
+  &:hover {
+    cursor: pointer;
+  }
 }

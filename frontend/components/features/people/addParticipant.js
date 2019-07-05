@@ -61,7 +61,10 @@ class AddParticipant extends SaveToState {
                 </div>
               );
             }
-            return <p>Nothing has been found</p>;
+            return <div className="addParticipant__message">
+              Nothing to show
+              <p className>Please change search terms</p>
+            </div>;
           }}
         </Query>
       </div>

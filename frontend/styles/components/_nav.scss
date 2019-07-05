@@ -64,18 +64,5 @@ nav {
   right: 0;
 }
 
-.signout__button {
-  padding: 0rem;
-  margin: 0;
-  display:flex;
-  flex-direction: row;
-  align-items: center;
-  min-width: 15rem;
-  & > span {
-    margin-right: 1rem;
-  }
-  &:hover {
-    background: darken($background_3, 1%)
-  }
-}
+
 

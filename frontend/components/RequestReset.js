@@ -30,6 +30,7 @@ class RequestReset extends Component {
             <form
               data-test="reset-form"
               method="post"
+              className="passwordReset__form"
               onSubmit={async e => {
                 e.preventDefault();
                 await resetFunction();
@@ -37,22 +38,26 @@ class RequestReset extends Component {
               }}
             >
               <fieldset disabled={loading} aria-busy={loading}>
-                <h2>Request a password reset</h2>
-                <Error error={error} />
-                {!error && !loading && called && (
-                  <p>You reset request has been successful, check your email</p>
-                )}
-                <label>
-                  Email
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={this.state.email}
-                    onChange={this.saveToState}
-                  />
-                </label>
-                <button type="submit">Request reset</button>
+                <div className="passwordReset__container">
+                  <h2>Request a password reset</h2>
+                  <Error error={error} />
+                  {!error && !loading && called && (
+                    <p>
+                      You reset request has been successful, check your email
+                    </p>
+                  )}
+                  <label>
+                    Email
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Email"
+                      value={this.state.email}
+                      onChange={this.saveToState}
+                    />
+                  </label>
+                  <button type="submit">Request reset</button>
+                </div>
               </fieldset>
             </form>
           );
