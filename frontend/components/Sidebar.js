@@ -33,71 +33,73 @@ const SideBar = () => {
 
   const projectId = cookies.get("projectId");
   return (
-    <div className="sidebar">
-      <div
-        onClick={() => setFlag(!flag)}
-        aria-expanded={flag}
-        className="sidebar__toggle"
-      >
-        <span className="open">☰</span>
-        <span className="close">×</span>
-      </div>
-      <UserWidget />
-      <Link href="/">
-        <a className="sidebar__link">
-          <FontAwesomeIcon icon={faProjectDiagram} size="2x" />{" "}
-          <span>Projects</span>
-        </a>
-      </Link>
-      {projectId && (
-        <Query
-          query={PROJECT_EXISTS_AND_BELONGS_TO_USER}
-          variables={{ projectId }}
+    <>
+      <div className={cn("sidebar", { open: flag }, { closed: !flag })}>
+        <div
+          onClick={() => setFlag(!flag)}
+          aria-expanded={flag}
+          className="sidebar__toggle"
         >
-          {({ data, loading, error }) => {
-            if (loading)
-              return (
-                <>
-                  <a href="#" className="sidebar__link">
-                    <div className="sidebar__placeholder"></div>
-                  </a>
-                  <a href="#" className="sidebar__link">
-                    <div className="sidebar__placeholder"></div>
-                  </a>
-                </>
-              );
-            if (error) return <DisplayError error={error} />;
-
-            if (data.projectExistsAndBelongsToUser)
-              return (
-                <>
-                  <Link href="/jobs">
-                    <a className="sidebar__link">
-                      {" "}
-                      <FontAwesomeIcon icon={faList} size="2x" />
-                      <span>TODOs</span>
-                    </a>
-                  </Link>
-                  <Link href="/people">
-                    <a className="sidebar__link">
-                      <FontAwesomeIcon icon={faUserCheck} size="2x" />{" "}
-                      <span>HR</span>
-                    </a>
-                  </Link>
-                </>
-              );
-            return null;
-          }}
-        </Query>
-      )}
-      {process.env.NODE_ENV === "development" && (
-        <Link href="/faker">
-          <a className="sidebar__linkDev">
-            <span>Fake Data {`{ development only }`}</span>
+          <span className="open">☰</span>
+          <span className="close">×</span>
+        </div>
+        <UserWidget />
+        <Link href="/">
+          <a className="sidebar__link">
+            <FontAwesomeIcon icon={faProjectDiagram} size="2x" />{" "}
+            <span>Projects</span>
           </a>
         </Link>
-      )}
-    </div>
+        {projectId && (
+          <Query
+            query={PROJECT_EXISTS_AND_BELONGS_TO_USER}
+            variables={{ projectId }}
+          >
+            {({ data, loading, error }) => {
+              if (loading)
+                return (
+                  <>
+                    <a href="#" className="sidebar__link">
+                      <div className="sidebar__placeholder"></div>
+                    </a>
+                    <a href="#" className="sidebar__link">
+                      <div className="sidebar__placeholder"></div>
+                    </a>
+                  </>
+                );
+              if (error) return <DisplayError error={error} />;
+
+              if (data.projectExistsAndBelongsToUser)
+                return (
+                  <>
+                    <Link href="/jobs">
+                      <a className="sidebar__link">
+                        {" "}
+                        <FontAwesomeIcon icon={faList} size="2x" />
+                        <span>TODOs</span>
+                      </a>
+                    </Link>
+                    <Link href="/people">
+                      <a className="sidebar__link">
+                        <FontAwesomeIcon icon={faUserCheck} size="2x" />{" "}
+                        <span>HR</span>
+                      </a>
+                    </Link>
+                  </>
+                );
+              return null;
+            }}
+          </Query>
+        )}
+        {process.env.NODE_ENV === "development" && (
+          <Link href="/faker">
+            <a className="sidebar__linkDev">
+              <span>Fake Data {`{ development only }`}</span>
+            </a>
+          </Link>
+        )}
+      </div>
+    </>
   );
 };
 
