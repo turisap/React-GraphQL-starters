@@ -42,3 +42,15 @@
     margin: 0.3rem;
   }
 }
+
+@media (max-width: 1000px) {
+  .user__widget {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .user__widget {
+    font-size: 1 rem;
+  }
+}

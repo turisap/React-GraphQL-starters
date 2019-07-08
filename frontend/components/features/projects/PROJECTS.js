@@ -51,7 +51,7 @@ const PROJECTS = () => {
           <div className="projects__createButton">
             <Link href="/createProject">
               <a href="">
-                <FontAwesomeIcon icon={faPlus} size="5x" />
+                <FontAwesomeIcon icon={faPlus} size="2x" color={"white"} />
               </a>
             </Link>
           </div>
