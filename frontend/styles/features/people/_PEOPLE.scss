@@ -31,3 +31,11 @@
   color: white;
 }
 
+@media(max-width: 900px) {
+  .peoplePage {
+    grid-template-rows: 32rem 6rem 6rem 1fr;
+  }
+  .peoplePage__image {
+    margin-bottom: 2rem;
+  }
+}

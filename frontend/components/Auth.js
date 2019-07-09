@@ -12,10 +12,10 @@ const Authentication = props => (
       if (!data.me) {
         return (
           <div className="auth">
-            <h2>We need to recognize you first..</h2>
+            <h2 className="signInForm__heading">We need to recognize you first..</h2>
             <SignIn />
             <p>
-              Or sign up if you are new to us
+              <span>Or sign up if you are new to us</span>
               <Link href={"/signup"}>
                 <a className="signup__button">SIGNUP</a>
               </Link>

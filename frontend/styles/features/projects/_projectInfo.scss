@@ -20,3 +20,12 @@
 .projectInfo__annotation {
   font-weight: 600;
 }
+
+
+@media (max-width: 500px) {
+  .projectInfo__info {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+}

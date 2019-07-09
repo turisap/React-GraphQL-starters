@@ -118,8 +118,11 @@ h6 {
 
 @media (max-width: 500px) {
 
+
+
   .page__annotation {
-    // TODO probably reduce font size
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   .page__heading {
