@@ -15,7 +15,7 @@ const Job = ({ job: { title, level, unit, tag } }) => (
     <h2 className="jobWidget__title">{title}</h2>
     <p>Level: {level}</p>
     <p>Unit: {unit}</p>
-    <p><span className="jobWidget__annotation">{tag.title}</span></p>
+    <p className="jobWidget__annotationContainer"><div className="jobWidget__annotation">{tag.title}</div></p>
   </div>
 );
 

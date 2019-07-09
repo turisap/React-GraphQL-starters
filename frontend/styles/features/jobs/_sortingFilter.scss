@@ -14,10 +14,12 @@
   justify-items: center;
   justify-content: space-between;
   align-content:center;
+  overflow-x: hidden;
 }
 
 .sortingFilter__jobGroup, .sortingFilter__tag {
-  @include greenTags
+  @include greenTags;
+  text-align: center;
 }
 
 .sortingFilter__back {
@@ -25,4 +27,35 @@
   border: none;
   outline: none;
   background: #c0c0c0;
+}
+
+
+@media (max-width: 1100px) {
+  .sortingFilter__container {
+    padding: 1rem;
+    grid-gap: 0.5rem;
+  }
+
+  .sortingFilter__jobGroup {
+    font-size: 1rem;
+  }
+}
+
+
+@media(max-width: 800px) {
+  .sortingFilter__container {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-rows: 4rem;
+    grid-gap: 1rem;
+    place-items: center;
+  }
+
+  .sortingFilter__jobGroup {
+    text-align: center;
+  }
+
+  .jobWidget__title {
+    font-size: 1.3rem;
+  }
+
 }

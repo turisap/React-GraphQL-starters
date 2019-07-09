@@ -10,3 +10,9 @@ footer {
   border-top: 1px solid $border;
   z-index: 50;
 }
+
+@media(max-width : 500px) {
+  .footer__link {
+    font-size: 1rem;
+  }
+}

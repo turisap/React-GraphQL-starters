@@ -115,3 +115,15 @@ h6 {
     cursor: pointer;
   }
 }
+
+@media (max-width: 500px) {
+
+  .page__annotation {
+    // TODO probably reduce font size
+  }
+
+  .page__heading {
+    font-size: 2rem;
+  }
+
+}

@@ -43,3 +43,10 @@
 .projectWidgetActive {
   background: darken($background_3, 7%);
 }
+
+@media (max-width: 500px) {
+  .projectWidget {
+    padding: 0;
+    font-size: 1.5rem;
+  }
+}

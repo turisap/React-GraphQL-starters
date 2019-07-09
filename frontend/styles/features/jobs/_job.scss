@@ -12,8 +12,28 @@
   padding-left: 2rem;
 }
 
+.jobWidget__annotationContainer {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  grid-template-columns : repeat(1, minmax(max-content, max-content));
+
+}
+
 .jobWidget__annotation {
   @include greenTags;
   font-size: 1rem;
   border-radius: 3px;
+}
+
+@media(max-width: 1300px) {
+  .jobWidget {
+    grid-template-columns: 3fr 1fr 1fr minmax(9rem, 12rem);
+  }
+}
+
+@media(max-width: 950px) {
+  .jobWidget {
+    font-size: 1rem;
+  }
 }

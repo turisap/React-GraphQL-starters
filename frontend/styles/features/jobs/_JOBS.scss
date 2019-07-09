@@ -7,7 +7,12 @@
   grid-gap: 2rem;
   grid-template-columns: 1fr;
   grid-template-rows: 3rem repeat(auto-fill, 1fr);
+  justify-content: center;
   width: 100%;
+
+  img, .page__heading, .page__annotation {
+    grid-column: 1/-1;
+  }
 }
 
 .jobsPage__picture {
@@ -36,3 +41,10 @@
   background: $background_3;
 }
 
+
+@media(max-width: 1700px) {
+  .jobWidget__annotation {
+    padding: 0.3rem !important;
+    font-size: 0.8rem !important;
+  }
+}

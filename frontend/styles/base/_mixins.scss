@@ -126,6 +126,7 @@
 @mixin tableStyles {
   background: $background_3;
   border-bottom: $table_border;;
+  border-right: $table_border;
   font-size: 1.5rem;
 
   & > * {

@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import cn from 'classnames';
 
 const PageHeading = ({
   src,
@@ -9,7 +10,7 @@ const PageHeading = ({
   pageAnnotation
 }) => (
   <>
-    <img src={`../../../static/${src}`} alt={alt} className={pictureClassName} />
+    <img src={`../../../static/${src}`} alt={alt} className={cn(pictureClassName, "pageHeading__picture")} />
     <h2 className="page__heading">{pageTitle}</h2>
     <p className="page__annotation">{pageAnnotation}</p>
   </>
