@@ -49,10 +49,6 @@ class AutoComplete extends React.Component {
       <Downshift itemToString={item => (item === null ? "" : item.title)}>
         {({
           getInputProps
-          // getItemProps,
-          // isOpen,
-          // inputValue,
-          // highlightedIndex
         }) => (
           <div>
             <ApolloConsumer>
@@ -71,23 +67,6 @@ class AutoComplete extends React.Component {
                 />
               )}
             </ApolloConsumer>
-            {/*{isOpen && (*/}
-            {/*<div>*/}
-            {/*{this.state.items.map((item, index) => (*/}
-            {/*<div*/}
-            {/*{...getItemProps({ item })}*/}
-            {/*key={item.id}*/}
-            {/*// highlighted={index === highlightedIndex}*/}
-            {/*>*/}
-            {/*<img width="50" src={item.image} alt={item.title || item.name} />*/}
-            {/*{item.title}*/}
-            {/*</div>*/}
-            {/*))}*/}
-            {/*{!this.state.items.length && !this.state.loading && (*/}
-            {/*<div> Nothing Found {inputValue}</div>*/}
-            {/*)}*/}
-            {/*</div>*/}
-            {/*)}*/}
           </div>
         )}
       </Downshift>

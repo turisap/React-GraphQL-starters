@@ -4,6 +4,7 @@ import Link from "next/link";
 import Cookies from "universal-cookie";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
+import cn from 'classnames';
 
 const LOCAL_STATE_PROJECTID_MUTATION = gql`
   mutation setProjectId($projectId: String!) {
@@ -11,7 +12,7 @@ const LOCAL_STATE_PROJECTID_MUTATION = gql`
   }
 `;
 
-const ProjectWidget = ({ project }) => {
+const ProjectWidget = ({ project, active }) => {
   const { title, address, image, owner, id } = project;
   return (
     <Mutation
@@ -20,7 +21,7 @@ const ProjectWidget = ({ project }) => {
     >
       {setProjectId => (
         <div
-          className="projectWidget"
+          className={cn("projectWidget", {projectWidgetActive: active})}
           onClick={() => {
             const cookies = new Cookies();
             cookies.remove("projectId", { path: "/" });
@@ -37,10 +38,13 @@ const ProjectWidget = ({ project }) => {
             }}
           >
             <a>
-              <img src={image} className="projectWidget__image" />
-              <h2 className="projectWidget__title">{title}</h2>
+              {image && <img src={image} className="projectWidget__image" />}
+              <h3 className="projectWidget__title">{title}</h3>
               <p className="projectWidget__address">{address}</p>
-              <p className="projectWidget__name">{owner.name}</p>
+              <p className="projectWidget__name">
+                <span className="text--subtle">Supervisor: </span>
+                {owner.name}
+              </p>
             </a>
           </Link>
         </div>

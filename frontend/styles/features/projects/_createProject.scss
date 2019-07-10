@@ -1,0 +1,109 @@
+@import "../../base/settings";
+@import "../../base/mixins";
+
+
+.createProject__container {
+  height: 100%;
+  background: none;
+  padding-bottom: 2rem;
+  place-self: center;
+  display:grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 0.1fr 0.2fr 0.2fr 1fr;
+  width: 40%;
+  justify-items: center;
+  & > * {
+    border-radius: 10px;
+  }
+
+}
+
+.createProject__form {
+  @include shadowBox;
+  background: $background_3;
+  margin-top: 4rem;
+  border-radius: 10px;
+  border: 1px solid $border;
+  padding: 2rem;
+}
+
+.createProject__fieldset {
+  border: none;
+  height: 100%;
+}
+
+.createProject__formgrid {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: 1fr;
+
+  label {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    align-items:center;
+  }
+
+  input {
+    @include inputStyles;
+  }
+
+  button {
+    @include buttonStyles;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+
+  .customFile__upload {
+    background-color: white;
+  }
+
+  input[type="file"] {
+    &::-webkit-file-upload-button {
+      visibility: hidden;
+    }
+    &::before {
+      content: 'Select some files';
+      display: inline-block;
+      background: #e8eeef;
+      border: 1px solid $border;
+      border-radius: 1px;
+      padding: 5px 8px;
+      outline: none;
+      white-space: nowrap;
+      -webkit-user-select: none;
+      cursor: pointer;
+      text-shadow: 1px 1px #fff;
+      font-weight: 700;
+      font-size: 10pt;
+    }
+    &:hover::before {
+      background: darken(#e8eeef, 5%)
+    }
+  }
+
+  //.customFile__upload {
+  //  border: 1px solid #ccc;
+  //  display: inline-block;
+  //  padding: 6px 12px;
+  //  cursor: pointer;
+  //}
+
+}
+
+.createProject__annotation, .createProject__heading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.createProject__image {
+  width: 10rem;
+  transform: rotate(270deg);
+}
+
+.createProject__heading {
+  font-size: 3rem;
+  font-weight: 900;
+}

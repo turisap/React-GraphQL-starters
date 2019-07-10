@@ -70,7 +70,7 @@ export default {
 
     createJob__description: {
       missing: pleaseProvideField("job description"),
-      rule : {
+      rule: {
         minLength: "Job description should be at least 5 characters long"
       }
     }

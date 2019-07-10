@@ -1,30 +1,30 @@
 import React, { useState } from "react";
 import faker from "faker";
 import { Query, Mutation } from "react-apollo";
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 import { adopt } from "react-adopt";
 import { EXISTING_OCCUPATIONS } from "../components/ExistingOccupations";
 
 const ALL_PROJECTS_QUERY = gql`
   query ALL_PROJECTS_QUERY {
-      projects {
-          title
-          id
-      }
+    projects {
+      title
+      id
+    }
   }
 `;
 
 const ALL_ORGANIZATIONS_QUERY = gql`
   query ALL_ORGANIZATIONS_QUERY {
-      organisations {
-          title
-          id
-      }
+    organisations {
+      title
+      id
+    }
   }
 `;
 
 const FAKE_SIGNUP_MUTATION = gql`
-    mutation SIGNUP_MUTATION(
+  mutation SIGNUP_MUTATION(
     $email: String!
     $name: String!
     $password: String!
@@ -33,23 +33,23 @@ const FAKE_SIGNUP_MUTATION = gql`
     $phone: String!
     $image: String!
     $largeImage: String!
+  ) {
+    fakeSignup(
+      email: $email
+      name: $name
+      password: $password
+      organisation: $organisation
+      occupation: $occupation
+      phone: $phone
+      image: $image
+      largeImage: $largeImage
     ) {
-        fakeSignup(
-            email: $email
-            name: $name
-            password: $password
-            organisation: $organisation
-            occupation: $occupation
-            phone: $phone
-            image: $image
-            largeImage: $largeImage
-        ) {
-            id
-            email
-            name
-            verificationEmailToken
-        }
+      id
+      email
+      name
+      verificationEmailToken
     }
+  }
 `;
 
 const Composed = adopt({
@@ -59,31 +59,27 @@ const Composed = adopt({
   occupations: ({ render }) => (
     <Query query={EXISTING_OCCUPATIONS}>{render}</Query>
   ),
-  projects : ({ render }) => (
-    <Query query={ALL_PROJECTS_QUERY}>{render}</Query>
-  ),
-  organisations : ({ render }) => (
+  projects: ({ render }) => <Query query={ALL_PROJECTS_QUERY}>{render}</Query>,
+  organisations: ({ render }) => (
     <Query query={ALL_ORGANIZATIONS_QUERY}>{render}</Query>
-  ),
+  )
 });
 
 const CreateFakeUsers = () => {
   const [usersNumber, setUsersNumber] = useState(0);
 
-  const fakeUser = (occupations, projects, organisations) => (
-    {
-      name : `${faker.name.firstName()} ${faker.name.lastName()}`,
-      email: faker.internet.email(),
-      password : "123456", // faker.internet.password(),
-      occupation : _getRandom(occupations).id,
-      image: "https://i.pravatar.cc/300",
-      largeImage : "https://i.pravatar.cc/800",
-      organisation : _getRandom(organisations).id,
-      phone: faker.phone.phoneNumber(),
-      emailVerified: true,
-      projects : _getRandom(projects).id
-    }
-  );
+  const fakeUser = (occupations, projects, organisations) => ({
+    name: `${faker.name.firstName()} ${faker.name.lastName()}`,
+    email: faker.internet.email(),
+    password: "123456", // faker.internet.password(),
+    occupation: _getRandom(occupations).id,
+    image: "https://i.pravatar.cc/300",
+    largeImage: "https://i.pravatar.cc/800",
+    organisation: _getRandom(organisations).id,
+    phone: faker.phone.phoneNumber(),
+    emailVerified: true,
+    projects: _getRandom(projects).id
+  });
 
   return (
     <Composed>
@@ -97,15 +93,20 @@ const CreateFakeUsers = () => {
           <button
             onClick={e => {
               e.preventDefault();
-              const iterate =  [... Array(5)].fill(1);
-              console.log(projects)
+              const iterate = [...Array(5)].fill(1);
               iterate.forEach(() => {
                 setTimeout(async () => {
-                  await signUp({ variables: {
-                      ...fakeUser(occupations.data.occupations, projects.data.projects, organisations.data.organisations)
-                    } })
-                }, 500)
-              })
+                  await signUp({
+                    variables: {
+                      ...fakeUser(
+                        occupations.data.occupations,
+                        projects.data.projects,
+                        organisations.data.organisations
+                      )
+                    }
+                  });
+                }, 500);
+              });
             }}
           >
             CREATE {usersNumber} user{usersNumber === 1 ? "" : "s"}

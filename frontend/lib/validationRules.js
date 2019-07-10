@@ -43,9 +43,9 @@ const validationRules = {
       isRequired: ({ value }) => value.length > 0
     },
 
-    createJob__description : {
+    createJob__description: {
       isRequired: ({ value }) => value.length > 0,
-      minLength : ({ value }) => value.length > 5
+      minLength: ({ value }) => value.length > 5
     }
   }
 };

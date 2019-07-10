@@ -26,11 +26,12 @@ type Query {
     project : Project
     projects : [Project]!
     projectExistsAndBelongsToUser(projectId : ID!) : Boolean
-    projectJobs : [Job]!
+    projectJobs(jobGroup : String, jobTag: ID) : [Job]!
     projectParticipants: [User]!
     occupations : [Occupation]!
     organisations : [Organisation]!
-    allTagsOfJobGroup (jobGroup : String!) : [Tag]!
+    allTagsOfJobGroup (jobGroup : String) : [Tag]!
+    #testJobs (projectId : ID!, jobTag:  ID!) : [Job]!
 }
 
 

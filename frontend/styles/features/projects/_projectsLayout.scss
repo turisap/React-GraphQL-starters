@@ -1,6 +1,46 @@
+@import "../../base/settings";
+
 .projects__layout {
+  width: 100%;
+  padding: $page_padding;
   display: grid;
-  grid-gap: 2rem;
-  grid-template-columns: repeat(auto-fill, minmax(10rem, 15rem));
+  grid-gap: 1rem;
+  grid-template-rows: 0.05fr 0.2fr 0.2fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 30rem));
   justify-items: center;
+  justify-content: space-between;
+
+  .page__heading, .page__annotation, .projects__image {
+    grid-column: 1/-1;
+    place-self: center;
+  }
+
+  .page__annotation {
+    margin-top: 0;
+    margin-bottom: auto;
+  }
+
+  .projects__image {
+    height: 10rem;
+  }
+}
+
+
+
+.projects__createButton {
+  @include greenTags;
+  color: white;
+  justify-self: start;
+  align-self: start;
+  margin-left: 2rem;
+  margin-top: 2rem;
+}
+
+
+@media (max-width: 1177px) {
+  .projects__layout {
+    justify-content: center;
+  }
+
+
 }

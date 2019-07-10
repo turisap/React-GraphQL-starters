@@ -22,7 +22,7 @@ class ExistingOccupations extends SaveToState {
     return (
       <Query query={EXISTING_OCCUPATIONS}>
         {({ data }) => (
-          <label>
+          <label className="label--select">
             Occupation
             <select
               required

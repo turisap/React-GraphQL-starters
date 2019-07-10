@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import PropTypes from "prop-types";
 import Loading from "../../Loading";
 import Error from "../../ErrorMessage";
+import PageHeading from "../../PageHeading";
 
 const PROJECT_QUERY = gql`
   query PROJECT_QUERY {
@@ -30,18 +31,37 @@ class ProjectInfo extends Component {
   render() {
     // TODO add functionality of adding people to projects
     return (
-      <Query query={PROJECT_QUERY}>
+      <Query query={PROJECT_QUERY} fetchPolicy="network-only">
         {({ data, error, loading }) => {
           if (loading) return <Loading />;
           if (error) return <Error error={error} />;
           const { title, address, levels_number, owner } = data.project;
           return (
-            <>
-              <h2>Project name: {title}</h2>
-              <p>Address: {address}</p>
-              <p>Level numbers: {levels_number}</p>
-              <p>Supervisor: {owner.name}</p>
-            </>
+            <div className="projectsInfo__layout">
+              <PageHeading
+                src={"project__info.png"}
+                pageTitle={`${title} project information`}
+                alt={"project info"}
+                pageAnnotation={
+                  "All the other tabs work with this project until your switch it"
+                }
+                pictureClassName={"projectInfo__image"}
+              />
+              <div className="projectInfo__info">
+                <h2>
+                  <span className="projectInfo__annotation">Project name:</span> {title}
+                </h2>
+                <p>
+                  <span className="projectInfo__annotation">Address:</span> {address}
+                </p>
+                <p>
+                  <span className="projectInfo__annotation">Level numbers:</span> {levels_number}
+                </p>
+                <p>
+                  <span className="projectInfo__annotation">Supervisor:</span> {owner.name}
+                </p>
+              </div>
+            </div>
           );
         }}
       </Query>

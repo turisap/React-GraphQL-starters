@@ -1,0 +1,31 @@
+@import "../../base/settings";
+@import "../../base/mixins";
+
+.projectsInfo__layout {
+  display:grid;
+  grid-template-rows: 0.05fr 0.2fr 0.2fr 1fr;
+  justify-items: center;
+
+  .projectInfo__image {
+    height: 20rem;
+    margin-top: 2rem;
+  }
+}
+
+.projectInfo__info {
+  @include tabStyle;
+  margin-top: 4rem;
+}
+
+.projectInfo__annotation {
+  font-weight: 600;
+}
+
+
+@media (max-width: 500px) {
+  .projectInfo__info {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+}

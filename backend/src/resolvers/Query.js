@@ -109,16 +109,65 @@ const Query = {
    * @param info
    * @returns {Promise<*>}
    */
+
+    // async testJobs (parent, args, ctx, info) {
+    //   return await ctx.db.query.jobs({
+    //     where: {
+    //       AND: [{ project: { id: args.projectId } }, { tag: { id: args.jobTag } }]
+    //     }
+    //   }, `{id
+    //     title
+    //     level
+    //     unit
+    //     tag {
+    //       id
+    //       jobGroup
+    //       title
+    //     }}`)
+    // },
+
+
+
     async projectJobs(parent, args, ctx, info) {
         const { userId, projectId } = ctx.request;
+        const { jobGroup, jobTag } = args;
         if (!userId) throw new Error("You must be logged in..");
         if (!projectId) throw new Error("Please specify a project to work on");
+
+        // console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ JBGORUP");
+        // console.log({jobGroup, jobTag});
+        if (jobGroup && jobTag) {
+
+            const res = await ctx.db.query.jobs({
+                where: {
+                    AND: [{ project: { id: projectId } }, { tag: { id: args.jobTag } }]
+                }
+            }, `{id
+      title
+      level
+      unit
+      tag {
+        id
+        jobGroup
+        title
+      }}`);
+            // console.log("REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS+++++++", res);
+            return res;
+        }
 
         return await ctx.db.query.jobs(
             {
                 where: { project: { id: projectId } }
             },
-            info
+            `{id
+      title
+      level
+      unit
+      tag {
+        id
+        jobGroup
+        title
+      }}`
         );
     },
 

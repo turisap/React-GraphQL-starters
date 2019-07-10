@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import User from "./User";
+import SignOut from "./SignOut";
 
 class UserWidget extends Component {
   render() {
@@ -9,12 +10,15 @@ class UserWidget extends Component {
           <>
             {me && (
               <div className="user__widget">
-                <img
-                  src={me.image || "https://i.pravatar.cc/300"}
-                  className="user__avatar"
-                />
+                <div className="user__avatarContaier">
+                  <img
+                    src={me.image || "https://i.pravatar.cc/300"}
+                    className="user__avatar"
+                  />
+                </div>
                 <p>{me.name}</p>
-                <span>OFF BTN</span>
+                <p className="user__widgetOccupation">{me.occupation.title}</p>
+                <SignOut />
               </div>
             )}
           </>

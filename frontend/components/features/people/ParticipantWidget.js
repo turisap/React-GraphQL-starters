@@ -5,7 +5,9 @@ const ParticipantWidget = ({ participant }) => {
   const { name, image, occupation, email } = participant;
   return (
     <div className="participant__widget">
-      <img src={image} className="participant__avatar" />
+        <div className="participant__holder">
+            <img src={image} className="participant__avatar" />
+        </div>
       <p>{name}</p>
       <p>{occupation.title}</p>
       <p>{email}</p>
