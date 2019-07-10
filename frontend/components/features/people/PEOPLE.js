@@ -5,6 +5,7 @@ import gql from "graphql-tag";
 import Loading from "../../Loading";
 import DisplayError from "../../ErrorMessage";
 import ParticipantWidget from "./ParticipantWidget";
+import PageHeading from "../../PageHeading";
 
 const PROJECT_PARTICIPANTS_QUERY = gql`
   query PROJECT_PARTICIPANTS_QUERY {
@@ -30,7 +31,7 @@ class PEOPLE extends Component {
           const addParticipantLink = (
             <>
               <Link href="/addParticipant">
-                <a>Add one</a>
+                <a className="peoplePage__addLink">ADD</a>
               </Link>
             </>
           );
@@ -43,13 +44,22 @@ class PEOPLE extends Component {
             );
           return (
             <div className="peoplePage">
-              {data.projectParticipants.map(participant => (
-                <ParticipantWidget
-                  key={participant.id}
-                  participant={participant}
-                />
-              ))}
-              {addParticipantLink}
+              <PageHeading
+                src={"people.png"}
+                pageTitle={"You can find employees for the current project "}
+                alt={"ladder"}
+                pictureClassName={"peoplePage__image"}
+                pageAnnotation={"You can add other participants"}
+              />
+              <div className={"peoplePage__people"}>
+                {data.projectParticipants.map(participant => (
+                  <ParticipantWidget
+                    key={participant.id}
+                    participant={participant}
+                  />
+                ))}
+                {addParticipantLink}
+              </div>
             </div>
           );
         }}

@@ -29,11 +29,117 @@
 }
 
 // box shadow
-@mixin shadow ($hor-offset, $vert-offset, $blur-rad, $spread-rad, $color){
-  -webkit-box-shadow: $hor-offset $vert-offset $blur-rad $spread-rad $color;
-  -moz-box-shadow:    $hor-offset $vert-offset $blur-rad $spread-rad $color;
-  box-shadow:         $hor-offset $vert-offset $blur-rad $spread-rad $color;
+@mixin shadowBox {
+  -webkit-box-shadow: 0px 2px 5px 1px $shadow;
+  -moz-box-shadow:    0px 2px 5px 1px $shadow;
+  box-shadow:         0px 2px 5px 1px $shadow;
   @content;
+}
+
+@mixin inputStyles {
+  background: rgba(255,255,255,.1);
+  border: none;
+  border-radius: 4px;
+  font-size: 15px;
+  margin: 0;
+  margin-top: 0.3rem;
+  outline: 0;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  background-color: #e8eeef;
+  color:#8a97a0;
+  -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+
+  &:focus  {
+    background: #d2d9dd;
+  }
+}
+
+
+@mixin selectStyles {
+  -webkit-appearance: button;
+  -webkit-border-radius: 2px;
+  -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  -webkit-padding-end: 20px;
+  -webkit-padding-start: 2px;
+  -webkit-user-select: none;
+  background-position: 97% center;
+  background-repeat: no-repeat;
+  border: 1px solid #AAA;
+  color: #555;
+  font-size: inherit;
+  margin: 2rem;
+  margin-right: 0;
+  overflow: hidden;
+  padding: 5px 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin buttonStyles {
+  display: block;
+  padding: 19px 39px 18px 39px;
+  color: $text_on_white;
+  background: #e8eeef;
+  font-size: 18px;
+  text-align: center;
+  font-style: normal;
+  width: 100%;
+  border: 1px solid $border;
+  border-radius: 3px;
+  outline: 0;
+
+  &:hover {
+    background: darken(#e8eeef, 5%)
+  }
+}
+
+@mixin tabStyle {
+  @include shadowBox;
+  display: grid;
+  border: 1px solid $border;
+  padding: 3rem;
+  background: $background_3;
+  border-radius: 10px;
+}
+
+@mixin greenTags {
+  background: $green;
+  color: $text_on_green;
+  padding: 1rem;
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border-radius: 5px;
+  text-transform: uppercase;
+
+  &:hover {
+    background: darken($green, 5%);
+    cursor: pointer;
+  }
+}
+
+@mixin tableStyles {
+  background: $background_3;
+  border-bottom: $table_border;;
+  border-right: $table_border;
+  font-size: 1.5rem;
+
+  & > * {
+    padding: 0.5rem;
+    margin: 0;
+    display: flex;
+    align-items:center;
+    font-weight: 400;
+    border-left: $table_border;;
+  }
+  &:first-child {
+    border-top: $table_border;
+  }
 }
 
 @mixin display-flex($justify-content:flex-start, $flex-wrap:true, $flex-direction:row){

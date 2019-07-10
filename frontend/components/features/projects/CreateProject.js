@@ -2,6 +2,8 @@ import React from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import Router from "next/router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faToolbox } from "@fortawesome/free-solid-svg-icons";
 import { CreateWithFilesUpload } from "../../abstractions/CreateWithFilesUpload";
 import Error from "../../ErrorMessage";
 import Loading from "../../Loading";
@@ -50,67 +52,83 @@ class CreateProject extends CreateWithFilesUpload {
         {(createProject, { error, loading }) => {
           if (loading) return <Loading />;
           return (
-            <form
-              method="post"
-              onSubmit={async e => {
-                e.preventDefault();
-                await createProject();
-              }}
-            >
-              <fieldset
-                disabled={loading}
-                aria-busy={loading}
-                className="createProject__fieldset"
+            <div className="createProject__container">
+              <img
+                src="../../../static/create__project.png"
+                alt="create job image"
+                className="createProject__image"
+              />
+              <h2 className="createProject__heading">Create a new project</h2>
+              <p className="createProject__annotation">
+                Please provide all your new project information to create a
+                basic project
+              </p>
+              <form
+                className="createProject__form"
+                method="post"
+                onSubmit={async e => {
+                  e.preventDefault();
+                  await createProject();
+                }}
               >
-                <h2>Create Project</h2>
-                <Error error={error || { message: this.state.uploadError }} />
-                <label>
-                  Title
-                  <input
-                    required
-                    type="text"
-                    name="title"
-                    placeholder="Title"
-                    value={this.state.title}
-                    onChange={this.saveToState}
-                  />
-                </label>
-                <label>
-                  Address
-                  <input
-                    required
-                    type="text"
-                    name="address"
-                    placeholder="Address"
-                    value={this.state.address}
-                    onChange={this.saveToState}
-                  />
-                </label>
-                <label>
-                  Number of levels
-                  <input
-                    required
-                    type="number"
-                    name="levels_number"
-                    value={this.state.levels_number}
-                    onChange={this.saveToState}
-                  />
-                </label>
-                <label>
-                  Project Logo
-                  <input
-                    required
-                    type="file"
-                    name="avatar"
-                    value={this.state.avatar}
-                    onChange={this.uploadFile}
-                  />
-                </label>
-                <button type="submit" disabled={loading}>
-                  Create
-                </button>
-              </fieldset>
-            </form>
+                <fieldset
+                  disabled={loading}
+                  aria-busy={loading}
+                  className="createProject__fieldset"
+                >
+                  <div className="createProject__formgrid">
+                    <Error
+                      error={error || { message: this.state.uploadError }}
+                    />
+                    <label>
+                      Title
+                      <input
+                        required
+                        type="text"
+                        name="title"
+                        placeholder="Title"
+                        value={this.state.title}
+                        onChange={this.saveToState}
+                      />
+                    </label>
+                    <label>
+                      Address
+                      <input
+                        required
+                        type="text"
+                        name="address"
+                        placeholder="Address"
+                        value={this.state.address}
+                        onChange={this.saveToState}
+                      />
+                    </label>
+                    <label>
+                      Number of levels
+                      <input
+                        required
+                        type="number"
+                        name="levels_number"
+                        value={this.state.levels_number}
+                        onChange={this.saveToState}
+                      />
+                    </label>
+                    <label className="customFile__upload">
+                      Project Logo
+                      <input
+                        required
+                        type="file"
+                        name="avatar"
+                        value={this.state.avatar}
+                        onChange={this.uploadFile}
+                      />
+                    </label>
+                    <button type="submit" disabled={loading}>
+                      Create
+                    </button>
+                  </div>
+                </fieldset>
+              </form>
+            </div>
           );
         }}
       </Mutation>

@@ -127,104 +127,107 @@ class SignUp extends CreateWithFilesUpload {
                 await signUpFunction();
                 this.setState({ name: "", email: "", password: "" });
               }}
+              className="signup__form"
             >
               <fieldset
                 disabled={loading}
                 aria-busy={loading}
                 className="signup__fieldset"
               >
-                <h2>Sign up for an account</h2>
-                <Error error={error || { message: this.state.uploadError }} />
-                <label>
-                  Name
-                  <input
-                    required
-                    type="text"
-                    name="name"
-                    placeholder="Name"
-                    value={this.state.name}
-                    onChange={this.saveToState}
-                  />
-                </label>
-                <label>
-                  Email
-                  <input
-                    required
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={this.state.email}
-                    onChange={this.saveToState}
-                  />
-                </label>
-                <label>
-                  Password
-                  <input
-                    required
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={this.state.password}
-                    onBlur={this.validatePassword}
-                    onChange={this.saveToState}
-                  />
-                  {!this.state.validPassword && this.state.touchedPassword
-                    ? "Password should contain at least one letter, digit, uppercase, lowercase and to be at least 8 characters long"
-                    : ""}
-                </label>
-                <ExistingOccupations changeHandler={this.saveToState} />
-                {/*TODO organizations should be fetched from DB as predefined*/}
-                <Query query={ALL_ORGANIZATIONS_QUERY}>
-                  {({ data, loading }) => {
-                    if (loading) return <Loading />;
-                    if (data.organisations && data.organisations.length)
-                      return (
-                        <label>
-                          Organisation
-                          <select
-                            required
-                            name="organisation"
-                            placeholder="Organisation"
-                            value={this.state.organisation}
-                            onChange={this.saveToState}
-                          >
-                            <option value="" disabled selected>
-                              Select your organization
-                            </option>
-                            {data.organisations.map(org => (
-                              <option key={org.id} value={org.id}>
-                                {org.title}
+                <div className="signup__inner">
+                  <h2>Sign up for an account</h2>
+                  <Error error={error || { message: this.state.uploadError }} />
+                  <label>
+                    Name
+                    <input
+                      required
+                      type="text"
+                      name="name"
+                      placeholder="Name"
+                      value={this.state.name}
+                      onChange={this.saveToState}
+                    />
+                  </label>
+                  <label>
+                    Email
+                    <input
+                      required
+                      type="email"
+                      name="email"
+                      placeholder="Email"
+                      value={this.state.email}
+                      onChange={this.saveToState}
+                    />
+                  </label>
+                  <label>
+                    Password
+                    <input
+                      required
+                      type="password"
+                      name="password"
+                      placeholder="Password"
+                      value={this.state.password}
+                      onBlur={this.validatePassword}
+                      onChange={this.saveToState}
+                    />
+                    {!this.state.validPassword && this.state.touchedPassword
+                      ? "Password should contain at least one letter, digit, uppercase, lowercase and to be at least 8 characters long"
+                      : ""}
+                  </label>
+                  <ExistingOccupations changeHandler={this.saveToState} />
+                  {/*TODO organizations should be fetched from DB as predefined*/}
+                  <Query query={ALL_ORGANIZATIONS_QUERY}>
+                    {({ data, loading }) => {
+                      if (loading) return <Loading />;
+                      if (data.organisations && data.organisations.length)
+                        return (
+                          <label className="label--select">
+                            Organisation
+                            <select
+                              required
+                              name="organisation"
+                              placeholder="Organisation"
+                              value={this.state.organisation}
+                              onChange={this.saveToState}
+                            >
+                              <option value="" disabled selected>
+                                Select your organization
                               </option>
-                            ))}
-                          </select>
-                        </label>
-                      );
-                    return "";
-                  }}
-                </Query>
-                <label>
-                  Phone Number
-                  <input
-                    required
-                    type="text"
-                    name="phone"
-                    placeholder="Phone"
-                    value={this.state.phone}
-                    onChange={this.saveToState}
-                  />
-                </label>
-                <label>
-                  Avatar Picture
-                  <input
-                    required
-                    type="file"
-                    name="avatar"
-                    onChange={this.uploadFile}
-                  />
-                </label>
-                <button type="submit" disabled={!this.state.readyToSubmit}>
-                  Sign Up
-                </button>
+                              {data.organisations.map(org => (
+                                <option key={org.id} value={org.id}>
+                                  {org.title}
+                                </option>
+                              ))}
+                            </select>
+                          </label>
+                        );
+                      return "";
+                    }}
+                  </Query>
+                  <label>
+                    Phone Number
+                    <input
+                      required
+                      type="text"
+                      name="phone"
+                      placeholder="Phone"
+                      value={this.state.phone}
+                      onChange={this.saveToState}
+                    />
+                  </label>
+                  <label>
+                    Avatar Picture
+                    <input
+                      required
+                      type="file"
+                      name="avatar"
+                      onChange={this.uploadFile}
+                    />
+                  </label>
+                  <button type="submit" disabled={!this.state.readyToSubmit}>
+                    Sign Up
+                  </button>
+                </div>
               </fieldset>
             </form>
           );

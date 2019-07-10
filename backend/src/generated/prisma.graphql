@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/kirill-shakirov-5f22b4/boilerplate/dev
-# timestamp: Wed Jun 12 2019 03:05:04 GMT-0400 (EDT)
+# timestamp: Fri Jun 14 2019 04:01:46 GMT-0400 (EDT)
 
 type AggregateJob {
   count: Int!
@@ -45,6 +45,7 @@ type Job implements Node {
   largeImage: String
   assignee: User
   description: String
+  completed: Boolean
 }
 
 """A connection to a list of items."""
@@ -65,6 +66,7 @@ input JobCreateInput {
   image: String
   largeImage: String
   description: String
+  completed: Boolean
   project: ProjectCreateOneInput!
   tag: TagCreateOneInput!
   assignee: UserCreateOneInput
@@ -105,6 +107,8 @@ enum JobOrderByInput {
   largeImage_DESC
   description_ASC
   description_DESC
+  completed_ASC
+  completed_DESC
 }
 
 type JobPreviousValues {
@@ -115,6 +119,7 @@ type JobPreviousValues {
   image: String
   largeImage: String
   description: String
+  completed: Boolean
 }
 
 type JobSubscriptionPayload {
@@ -163,6 +168,7 @@ input JobUpdateInput {
   image: String
   largeImage: String
   description: String
+  completed: Boolean
   project: ProjectUpdateOneRequiredInput
   tag: TagUpdateOneRequiredInput
   assignee: UserUpdateOneInput
@@ -175,6 +181,7 @@ input JobUpdateManyMutationInput {
   image: String
   largeImage: String
   description: String
+  completed: Boolean
 }
 
 input JobWhereInput {
@@ -448,6 +455,10 @@ input JobWhereInput {
 
   """All values not ending with the given string."""
   description_not_ends_with: String
+  completed: Boolean
+
+  """All values that are not equal to given value."""
+  completed_not: Boolean
   project: ProjectWhereInput
   tag: TagWhereInput
   assignee: UserWhereInput

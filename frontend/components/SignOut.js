@@ -27,7 +27,7 @@ const SignOut = () => (
       cookies.remove("token", { path: "/" });
     }}
   >
-    {signOut => <button onClick={signOut}>Sign Out</button>}
+      {signOut => <img className="signout__button" src="../static/signout.png" onClick={signOut} />}
   </Mutation>
 );
 

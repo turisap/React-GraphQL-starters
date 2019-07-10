@@ -12,6 +12,7 @@ const CURRENT_USER_QUERY = gql`
       permissions
       emailVerified
       image
+      occupation {title}
     }
   }
 `;

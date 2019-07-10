@@ -1,7 +1,14 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import Link from "next/link";
+import cn from "classnames";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faProjectDiagram,
+  faList,
+  faUserCheck
+} from "@fortawesome/free-solid-svg-icons";
 import UserWidget from "./UserWidget";
 import Cookies from "universal-cookie";
 import DisplayError from "./ErrorMessage";
@@ -21,14 +28,27 @@ const cookies = new Cookies();
 
 // TODO add an animation for loading buttons as it is done in gitbook dashboard https://app.gitbook.com/
 
-class SideBar extends Component {
-  render() {
-    const projectId = cookies.get("projectId");
-    return (
-      <div className="sidebar">
+const SideBar = () => {
+  const [flag, setFlag] = useState(false);
+
+  const projectId = cookies.get("projectId");
+  return (
+    <>
+      <div className={cn("sidebar", { open: flag }, { closed: !flag })}>
+        <div
+          onClick={() => setFlag(!flag)}
+          aria-expanded={flag}
+          className="sidebar__toggle"
+        >
+          <span className="open">☰</span>
+          <span className="close">×</span>
+        </div>
         <UserWidget />
         <Link href="/">
-          <a className="sidebar__link">Projects</a>
+          <a className="sidebar__link">
+            <FontAwesomeIcon icon={faProjectDiagram} size="2x" />{" "}
+            <span>Projects</span>
+          </a>
         </Link>
         {projectId && (
           <Query
@@ -36,17 +56,34 @@ class SideBar extends Component {
             variables={{ projectId }}
           >
             {({ data, loading, error }) => {
-              if (loading) return <Loading />;
+              if (loading)
+                return (
+                  <>
+                    <a href="#" className="sidebar__link">
+                      <div className="sidebar__placeholder"></div>
+                    </a>
+                    <a href="#" className="sidebar__link">
+                      <div className="sidebar__placeholder"></div>
+                    </a>
+                  </>
+                );
               if (error) return <DisplayError error={error} />;
 
               if (data.projectExistsAndBelongsToUser)
                 return (
                   <>
                     <Link href="/jobs">
-                      <a className="sidebar__link">TODOs</a>
+                      <a className="sidebar__link">
+                        {" "}
+                        <FontAwesomeIcon icon={faList} size="2x" />
+                        <span>TODOs</span>
+                      </a>
                     </Link>
                     <Link href="/people">
-                      <a className="sidebar__link">HR</a>
+                      <a className="sidebar__link">
+                        <FontAwesomeIcon icon={faUserCheck} size="2x" />{" "}
+                        <span>HR</span>
+                      </a>
                     </Link>
                   </>
                 );
@@ -56,12 +93,14 @@ class SideBar extends Component {
         )}
         {process.env.NODE_ENV === "development" && (
           <Link href="/faker">
-            <a className="sidebar__link">Fake Data</a>
+            <a className="sidebar__linkDev">
+              <span>Fake Data {`{ development only }`}</span>
+            </a>
           </Link>
         )}
       </div>
-    );
-  }
-}
+    </>
+  );
+};
 
 export default SideBar;

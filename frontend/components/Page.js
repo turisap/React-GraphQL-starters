@@ -38,7 +38,6 @@ class Page extends Component {
         {this.requiresAuth() ? (
           <Authentication>
             <Meta />
-            <Header />
             <SideBar />
             <div className="page__contents">{this.props.children}</div>
             <Footer />
@@ -46,7 +45,8 @@ class Page extends Component {
         ) : (
           <>
             <Meta />
-            <div className="service__page">{this.props.children}</div>
+            {this.props.children}
+            {/*<div className="service__page"></div>*/}
           </>
         )}
       </>

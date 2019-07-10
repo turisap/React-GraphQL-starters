@@ -1,21 +1,105 @@
 @import "../base/settings";
+@import "../base/mixins";
 
 .sidebar {
+  @include shadowBox;
   background: $background_3;
   border-right: 1px solid $border;
   grid-area: sidebar;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 25rem repeat(auto-fit, minmax(3rem, 5rem));
+  grid-template-rows: 25rem repeat(auto-fit, minmax(7rem, 9rem));
+  z-index: 10;
 }
 
-.sidebar__link {
+.sidebar__link, .sidebar__linkDev {
   border-bottom: 0.5px solid $border;
   text-align: left;
   padding-left: 2rem;
   text-transform: uppercase;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  grid-gap: 2rem;
+
+  svg {
+    height: 100%;
+  }
+
+  & > * {
+    display: flex;
+    align-items: center;
+  }
+
 
   &:hover {
     background: darken($background_3, 1%);
   }
+}
+
+
+.sidebar__linkDev {
+  display: grid;
+  grid-template-columns: 1fr;
+  text-decoration: none;
+  color: $text-on_white
+}
+
+.sidebar__toggle {
+  display:none;
+}
+
+
+@media (max-width: 1000px) {
+
+  .sidebar__linkDev, .sidebar__link {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 500px) {
+
+  .sidebar__toggle {
+    font-size: 2rem;
+    height: 2rem;
+    display:grid;
+    justify-items: end;
+    margin-right: -2rem;
+    cursor: pointer;
+  }
+
+
+  .sidebar__linkDev, .sidebar__link {
+    font-size: 1rem;
+  }
+
+  .sidebar.open {
+    grid-template-rows: 2rem 20rem repeat(auto-fit, 4rem);
+    position: relative;
+    top: 0;
+    transform: translateX(0%);
+    transition: transform 0.4s;
+  }
+
+  .sidebar.closed {
+    grid-template-rows: 2rem 20rem repeat(auto-fit, minmax(7rem, 9rem));
+    transform: translateX(-100%);
+    transition: transform 0.4s;
+  }
+
+  .page__contents {
+    grid-column: 1 / span 2;
+  }
+
+  [aria-expanded="false"] .close {
+    display: none;
+  }
+
+  [aria-expanded="true"] .close {
+    display: inline-block;
+  }
+
+  [aria-expanded="true"] .open {
+    display: none;
+  }
+
 }
