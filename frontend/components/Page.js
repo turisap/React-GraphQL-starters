@@ -45,7 +45,8 @@ class Page extends Component {
         ) : (
           <>
             <Meta />
-            <div className="service__page">{this.props.children}</div>
+            {this.props.children}
+            {/*<div className="service__page"></div>*/}
           </>
         )}
       </>

@@ -62,6 +62,7 @@ h6 {
   align-content: center;
   justify-content: center;
   justify-items:center;
+  overflow: scroll;
 }
 
 *,
@@ -118,8 +119,6 @@ h6 {
 
 @media (max-width: 500px) {
 
-
-
   .page__annotation {
     padding-left: 1rem;
     padding-right: 1rem;
@@ -127,6 +126,14 @@ h6 {
 
   .page__heading {
     font-size: 2rem;
+  }
+
+}
+
+
+@media (max-width: 700px) {
+  .service__page {
+    padding: 3rem 2rem;
   }
 
 }
