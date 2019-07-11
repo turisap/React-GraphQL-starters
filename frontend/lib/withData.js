@@ -11,9 +11,9 @@ function createClient({ headers }) {
         : CONFIG.END_POINT_PROD,
     request: operation => {
       operation.setContext({
-        fetchOptions: {
-          credentials: "include"
-        },
+        // fetchOptions: {
+        //   credentials: "include"
+        // },
         headers
       });
     },
