@@ -11,7 +11,7 @@
     "globals": "npm i -g cross-env",
     "dev": "npm run server",
     "server": "next -p 7777",
-    "build": "cross-env NODE_ENV=production next build",
+    "build": "next build",
     "start": "next start -p $PORT",
     "test": "cross-env NODE_ENV=test jest --watch",
     "test-win": "SET NODE_ENV=test & jest --watch",
