@@ -1,52 +1,50 @@
 // This is client side config only - don't put anything in here that shouldn't be public!
 const CONFIG = {
-    DEVELOPMENT_MODE : true,
+  DEVELOPMENT_MODE: true,
 
-    APP_NAME : 'Dashboard',
+  APP_NAME: "Dashboard",
 
-    /**
-     * Value for pagination
+  /**
+   * Value for pagination
    */
-    ITEMS_PER_PAGE : 4,
+  ITEMS_PER_PAGE: 4,
 
-    /**
-    * End point for GraphQl server for development (look at backend/.env
-    */
-    END_POINT_DEV : 'http://localhost:4444',
-
-    /**
-     * End point for GraphQl server for production
-    */
-    END_POINT_PROD : 'PRODUCTION ENDPOINT',
-
-    /**
-     * Preset at cloudinary project (pictures uploading)
+  /**
+   * End point for GraphQl server for development (look at backend/.env
    */
-    CLOUDINARY_PRESET : 'toolbox',
+  END_POINT_DEV: "http://localhost:4444",
 
-   /**
-    * End point for cloudinary application
+  /**
+   * End point for GraphQl server for production
    */
-    CLOUDINARY_ENDPOINT : 'https://api.cloudinary.com/v1_1/dyqwnbgpw/image/upload',
+  END_POINT_PROD: "https://site-app-prod.herokuapp.com/",
 
-    /**
-     * Stripe key for charging credit cards
+  /**
+   * Preset at cloudinary project (pictures uploading)
    */
-    STRIPE_PUBLISHABLE_KEY : 'YOUR KEY',
+  CLOUDINARY_PRESET: "toolbox",
 
-    CURRENCY : 'NZD',
+  /**
+   * End point for cloudinary application
+   */
+  CLOUDINARY_ENDPOINT: "https://api.cloudinary.com/v1_1/dyqwnbgpw/image/upload",
 
-    JOB_GROUPS : [
-        "SURVEY",
-        "FOUNDATION",
-        "STRUCTURAL_STEEL",
-        "FITIN",
-        "PLUMBING",
-        "ELECTRICAL",
-        "HANDOVER"
-    ]
+  /**
+   * Stripe key for charging credit cards
+   */
+  STRIPE_PUBLISHABLE_KEY: "YOUR KEY",
 
+  CURRENCY: "NZD",
+
+  JOB_GROUPS: [
+    "SURVEY",
+    "FOUNDATION",
+    "STRUCTURAL_STEEL",
+    "FITIN",
+    "PLUMBING",
+    "ELECTRICAL",
+    "HANDOVER"
+  ]
 };
 
 export { CONFIG };
-
