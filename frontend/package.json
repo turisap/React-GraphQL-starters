@@ -15,7 +15,7 @@
     "start": "next start -p $PORT",
     "test": "cross-env NODE_ENV=test jest --watch",
     "test-win": "SET NODE_ENV=test & jest --watch",
-    "heroku-postbuild": "cross-env NODE_ENV=production  next build",
+    "heroku-postbuild": "next build",
     "lint": "esw --fix components/**/*.js lib/**/*.js pages/**/*js"
   },
   "author": "turisap",
