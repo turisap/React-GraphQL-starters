@@ -9,7 +9,7 @@ const Authentication = props => (
   <Query query={CURRENT_USER_QUERY}>
     {({ data, loading }) => {
       if (loading) return <p>Loading...</p>;
-      if (!data.me) {
+      if (!data) {
         return (
           <div className="auth">
             <h2 className="signInForm__heading">We need to recognize you first..</h2>
