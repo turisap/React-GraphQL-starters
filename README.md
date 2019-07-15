@@ -1,7 +1,20 @@
 # React-GraphQL-siteapp
-Nextjs/Prisma dashboard for construction site managers
 
 ![alt text](https://res.cloudinary.com/dyqwnbgpw/image/upload/v1562838467/toolbox/Screenshot_from_2019-07-11_05-46-32.png)
+
+
+## Nextjs/Prisma dashboard for construction site managers
+This is a simple dashboard for monitoring projects and task at each one. Basically its a TODO app 
+adjasted to a site manager's needs. However, far not all planned features have been implemented due 
+to challenges appeared while using stack, namely complexity and failure-prone of code when making complex 
+nested queries to the server.
+
+## Stack
+- Frontend: `Nextjs` and `React-Apollo`
+- Backend: `graphql-yoga` wih a `prisma` demo server.
+- Styling: SCSS, CSS grid and flexbox for layout
+- Form validation: [react-advanced-form](https://github.com/kettanaito/react-advanced-form)
+
 ## Setting up
 - clone the repository on you machine
 - to install all dependencies you need to run `npm install` in the root directory, then in
@@ -27,6 +40,7 @@ Nextjs/Prisma dashboard for construction site managers
     why I share those env vars, so feel free to make any changes. 
 - run `npm run app` in the root directory. If everything has been set up well you will be able to 
 see login page at `localhost:7777`
+- you also might need to install some global dependencies
 - use credentials `example@gmail.com` and `Turisap1` as email and password to login. Sign up and change password 
 features aren't enabled as it requires email verification and emailing service wasn't set up. You can 
 use yours if you want, just set respective environmental vars in `./backend/.env`
