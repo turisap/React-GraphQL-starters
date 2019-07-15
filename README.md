@@ -4,7 +4,7 @@
 
 
 ## Nextjs/Prisma dashboard for construction site managers
-This is a simple dashboard for monitoring projects and task at each one. Basically its a TODO app 
+This is a simple dashboard for monitoring projects and task at each one. Basically, it is a TODO app 
 adjasted to a site manager's needs. However, far not all planned features have been implemented due 
 to challenges appeared while using stack, namely complexity and failure-prone of code when making complex 
 nested queries to the server.
