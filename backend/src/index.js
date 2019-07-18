@@ -33,6 +33,7 @@ server.express.use((req, res, next) => {
  */
 server.express.use((req, res, next) => {
     const { projectId } = req.cookies;
+    console.log("TROLOLOLOLOL++++++++++++++++++++++ ", projectId)
     if (projectId) {
         req.projectId = projectId;
     }
