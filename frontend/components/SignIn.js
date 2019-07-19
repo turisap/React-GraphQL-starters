@@ -48,8 +48,10 @@ class SignIn extends Component {
             >
               <fieldset disabled={loading} aria-busy={loading}>
                 <div className="form__inner">
-                  <h3 className="signinForm__header">Sign into your account</h3>
-                  <Error error={error} />
+                  <div>
+                    <h3 className="signinForm__header">Sign into your account</h3>
+                    <Error error={error} />
+                  </div>
                   <label>
                     Email
                     <input

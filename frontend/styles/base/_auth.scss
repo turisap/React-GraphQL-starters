@@ -28,10 +28,11 @@
 }
 
 .form__inner {
+  height: 100%;
   display:grid;
   grid-template-columns: 1fr;
   grid-gap: 1rem;
-  grid-auto-rows : 1fr 1fr 1fr 1fr 3rem;
+  grid-template-rows-rows : repeat(5, 3rem)
 }
 
 .signinForm__header{
