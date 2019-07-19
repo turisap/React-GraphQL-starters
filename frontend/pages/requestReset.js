@@ -3,8 +3,8 @@ import Router from "next/router";
 import RequestReset from "../components/RequestReset";
 
 const RequestResetPage = () => {
-    Router.push("/signin")
-    return <RequestReset />
+  Router.push("/signin");
+  return <RequestReset />;
 };
 
 export default RequestResetPage;
