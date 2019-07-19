@@ -196,7 +196,7 @@ const Mutations = {
 
     async setProjectId(parent, args, ctx, info) {
         const { projectId } = args;
-        console.log("QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ", projectId)
+        console.log("QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ", projectId);
         ctx.response.cookie("projectId", projectId, {
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 24 * 100
@@ -215,7 +215,7 @@ const Mutations = {
 const _signInWithToken = (ctx, user, days) => {
     const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
     ctx.response.cookie("token", token, {
-        httpOnly: true,
+        httpOnly: false,
         maxAge: 1000 * 60 * 60 * 24 * days
     });
 };

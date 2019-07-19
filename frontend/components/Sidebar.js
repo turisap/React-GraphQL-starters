@@ -26,12 +26,12 @@ const PROJECT_EXISTS_AND_BELONGS_TO_USER = gql`
 
 const cookies = new Cookies();
 
-// TODO add an animation for loading buttons as it is done in gitbook dashboard https://app.gitbook.com/
 
 const SideBar = () => {
   const [flag, setFlag] = useState(false);
 
-  const projectId = cookies.get("projectId");
+  const projectId = cookies.get("currentProject");
+  console.log("PROJECT ID SIDEBAR", projectId)
   return (
     <>
       <div className={cn("sidebar", { open: flag }, { closed: !flag })}>
