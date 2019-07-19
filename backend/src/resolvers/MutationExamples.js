@@ -14,7 +14,6 @@ const Mutations = {
     async createItem(parent, args, ctx, info) {
         // TODO check if user is logged in
         if(!ctx.request.userId) throw new Error("You must be logged in to do this");
-        //console.log(ctx.request);
         const item = await ctx.db.mutation.createItem({
             data: {
                 // this is the relationships between user and item
@@ -168,7 +167,6 @@ const Mutations = {
             }
         }, info);
 
-        //console.log("USER", user);
         if (user) {
             hasPermission(user, [PERMISSIONS.ADMIN, PERMISSIONS.PERMISSIONUPDATE]);
 
@@ -198,13 +196,9 @@ const Mutations = {
                 item : { id : args.id}
             }
         }, info);
-        // console.log(existingCartItem);
-        // return;
 
         // check if this item is already in the cart and update it if it is
         if(existingCartItem) {
-            //console.log("EXISTING ITEM", existingCartItem);
-            //console.log("This item is already in the cart");
             return ctx.db.mutation.updateCartItem({
                 where : { id : existingCartItem.id },
                 data  : { quantity : existingCartItem.quantity + 1 }
@@ -256,11 +250,8 @@ const Mutations = {
             }
             }`
         );
-        // console.log('++++++++++++++++++++++++++++++++')
-        // console.log(user.cart[0].item)
         // recalculate amount
         const amount = user.cart.reduce((tally, cartItem) => tally + cartItem.item.price + cartItem.quantity, 0);
-        //console.log(`Going to charge ${amount}`);
 
         // create a stripe charge (turn the token into money)
         const charge = await stripe.charges.create({

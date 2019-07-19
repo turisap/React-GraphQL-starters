@@ -31,7 +31,6 @@ const SideBar = () => {
   const [flag, setFlag] = useState(false);
 
   const projectId = cookies.get("currentProject");
-  console.log("PROJECT ID SIDEBAR", projectId)
   return (
     <>
       <div className={cn("sidebar", { open: flag }, { closed: !flag })}>

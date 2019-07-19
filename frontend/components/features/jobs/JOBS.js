@@ -89,7 +89,6 @@ class JOBS extends Component {
           }) => {
             const jobGroupFilter = localStateJobGroup.data.jobGroupFilter;
             const jobTagFilter = localStateJobTag.data.jobTagFilter;
-            // console.log('job group filter to query', jobGroupFilter)
             return (
               <>
                 <PageHeading
@@ -106,9 +105,6 @@ class JOBS extends Component {
                   {({ data, loading, error }) => {
                     let jobGroupTags = data ? data.allTagsOfJobGroup : [];
                     jobGroupTags = jobGroupFilter ? jobGroupTags : [];
-                    console.log("TAGS for a job group", jobGroupTags);
-                    console.log("jobGroup filter", jobGroupFilter);
-                    console.log("LOCAL STATE JOB TAG", jobTagFilter);
 
                     const jsx = [
                       <SortingFilter

@@ -12,7 +12,6 @@ export default {
 
       // job sorting filter bar in /features/jobs/JOBS.js
       setJobGroupFilter(_, { jobGroupFilter }, { cache }) {
-        //console.log('setting group filter to local state')
         cache.writeData({
           data: {
             jobGroupFilter
@@ -27,14 +26,6 @@ export default {
           }
         });
       },
-      // setJobGroupTags(_, { jobGroupTags }, { cache }) {
-      //   //console.log("setting tags to local state to 0", jobGroupTags);
-      //   cache.writeData({
-      //     data: {
-      //       jobGroupTags
-      //     }
-      //   });
-      // },
       removeFilters(_, args, { cache }) {
         cache.writeData({
           data: {

@@ -196,7 +196,6 @@ const Mutations = {
 
     async setProjectId(parent, args, ctx, info) {
         const { projectId } = args;
-        console.log("QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ", projectId);
         ctx.response.cookie("projectId", projectId, {
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 24 * 100

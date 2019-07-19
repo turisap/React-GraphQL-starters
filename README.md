@@ -7,7 +7,8 @@
 This is a simple dashboard for monitoring projects and task at each one. Basically, it is a TODO app 
 adjasted to a site manager's needs. However, far not all planned features have been implemented due 
 to challenges appeared while using stack, namely complexity and failure-prone of code when making complex 
-nested queries to the server.
+nested queries to the server. Additionally, it was too ambitious to build such a complex application only on
+my own, therefore most of features hasn't been implemented.
 
 ## Stack
 - Frontend: `Nextjs` and `React-Apollo`

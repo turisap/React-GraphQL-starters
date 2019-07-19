@@ -23,7 +23,6 @@ const CreateFakeJobs = () => {
   return (
     <Query query={ALL_TAGS_OF_JOB_GROUP_QUERY} variables={{ jobGroup }}>
       {({ data }) => {
-        console.log(data);
         fakeJob.tag = _getRandomElement(data.allTagsOfJobGroup).id;
         return (
           <Query query={ALL_PROJECT_PARTICIPANTS_QUERY}>

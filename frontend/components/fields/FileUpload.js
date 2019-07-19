@@ -19,7 +19,6 @@ class FieldInput extends React.Component {
 
   render() {
     const { fieldState, fieldProps, label } = this.props;
-    // console.log("INPUT STATE", fieldState)
     return (
       <div className="form-group">
         {label && (
