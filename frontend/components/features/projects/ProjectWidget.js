@@ -24,8 +24,8 @@ const ProjectWidget = ({ project, active }) => {
           className={cn("projectWidget", {projectWidgetActive: active})}
           onClick={() => {
             const cookies = new Cookies();
-            cookies.remove("projectId", { path: "/" });
-            cookies.set("projectId", id, { path: "/" });
+            cookies.remove("projectId");
+            cookies.set("projectId", id);
             setProjectId();
           }}
         >
