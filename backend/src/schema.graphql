@@ -14,6 +14,7 @@ type Mutation {
     image : String!, largeImage : String!) : Project!
     createJob(tag: ID!, assignee: ID, title: String!, level: Float!, unit: String!, image: String,
     largeImage: String, description: String) : Job!
+    setProjectId (projectId : ID!): Boolean
 }
 
 

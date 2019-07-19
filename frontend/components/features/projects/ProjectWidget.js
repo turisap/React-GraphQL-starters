@@ -8,7 +8,7 @@ import cn from 'classnames';
 
 const LOCAL_STATE_PROJECTID_MUTATION = gql`
   mutation setProjectId($projectId: String!) {
-    setProjectId(projectId: $projectId) @client
+    setProjectId(projectId: $projectId)
   }
 `;
 
@@ -23,9 +23,9 @@ const ProjectWidget = ({ project, active }) => {
         <div
           className={cn("projectWidget", {projectWidgetActive: active})}
           onClick={() => {
-            const cookies = new Cookies();
-            cookies.remove("projectId");
-            cookies.set("projectId", id);
+            // const cookies = new Cookies();
+            // cookies.remove("projectId");
+            // cookies.set("projectId", id);
             setProjectId();
           }}
         >
