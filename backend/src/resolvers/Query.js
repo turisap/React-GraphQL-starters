@@ -36,7 +36,7 @@ const Query = {
    */
     project(parent, arg, ctx, info) {
         const projectId = ctx.request.projectId;
-        if (!projectId) throw new Error("You must specify a project to work with");
+        //if (!projectId) throw new Error("You must specify a project to work with");
         return ctx.db.query.project(
             {
                 where: { id: projectId }
